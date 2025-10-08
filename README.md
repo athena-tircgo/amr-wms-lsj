@@ -40,7 +40,7 @@ getTranslationList.php?STATE=0
 
 **回應範例**：依據getTranslationList所請求的參數回應,如無帶參數(空白),請回覆全部的任務。
 
-無任務
+無任務回應範例:
 
 ```json
 {
@@ -48,7 +48,7 @@ getTranslationList.php?STATE=0
   "message":"no_task"
 }
 ```
-有任務(若有多個任務，請依序回應)
+有任務回應範例(若有多個任務，請依序回應):
 
 ```json
 {
@@ -97,10 +97,10 @@ sequenceDiagram
     loop 每 10 問秒一次
         AMR->>WMS: getTranslationList
         alt No task
-            WMS-->>AMR: Response : message: no_task
+            WMS-->>AMR: Response no_task
             AMR-->>AMR: Wait 10 seconds for next polling
         else Task available
-            WMS-->>AMR: Response: Task data (date,translation....)
+            WMS-->>AMR: Response Task data (date,translation....)
             AMR->>AMR: Parse task and start executing
         end
     end
@@ -110,7 +110,7 @@ sequenceDiagram
 ### 3.2 AMR回報位置、電量、狀態及異常
 **API 端點**：  
 ```
-postVehicleStatus.aspx?VEHICLE=1&POSITION=1003&POWER=75&STATUS=1& ERROR=0
+postVehicleStatus.php?VEHICLE=1&POSITION=1003&POWER=75&STATUS=1& ERROR=0
 ```
 
 **請求參數**：
@@ -118,7 +118,7 @@ postVehicleStatus.aspx?VEHICLE=1&POSITION=1003&POWER=75&STATUS=1& ERROR=0
 {
   "VEHCILE":"搬運車編號",
   "POSITION":"現在位置",
-  "POWER":"電量：1 - 100",
+  "POWER":"電量 1 - 100",
   "STATUS":"搬運車狀態",
   "ERROR":"異常代碼",
 }
@@ -139,9 +139,21 @@ postVehicleStatus.aspx?VEHICLE=1&POSITION=1003&POWER=75&STATUS=1& ERROR=0
 **回應範例**：
 ```json
 {
- "ret": "true",
+  "ret": "true",
   "message": "完成登錄作業", 
 }
+```
+**時序圖postVehicleStatus**：
+
+```mermaid
+sequenceDiagram
+    participant AMR
+    participant WMS
+
+    loop 每10秒回報一次
+        AMR->>WMS: POST /postVehicleStatus (AMR 狀態)
+        WMS-->>AMR: Response 完成登錄作業
+    end
 ```
 
 ---
@@ -149,7 +161,7 @@ postVehicleStatus.aspx?VEHICLE=1&POSITION=1003&POWER=75&STATUS=1& ERROR=0
 ### 3.3 回報執行中和已完成的派遣任務
 **API 端點**：  
 ```
-postTranslationState.aspx?VEHCILE=1&TRANSLATION=2&STATE=1
+postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=1
 ```
 
 **請求參數**：
