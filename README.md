@@ -198,11 +198,19 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=1
 **請求參數**：會將每一個執行中和已完成的派遣任務同時POST 出去
 
 ```json
-{
-  "VEHCILE": "搬運車編號",
-  "TRANSLATION": "任務流水號",
-  "STATE": "任務狀態"
-}
+[
+  {
+      "VEHCILE": "1(搬運車編號)",
+      "TRANSLATION": "2(任務流水號)",
+      "STATE": "2(任務狀態)"
+  },
+  {
+      "VEHCILE": "2",
+      "TRANSLATION": "1",
+      "STATE": "1"
+  }
+]
+
 ```
 - **任務狀態定義：**  
   - STATE=1（執行中)
