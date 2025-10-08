@@ -113,15 +113,24 @@ sequenceDiagram
 postVehicleStatus.php?VEHICLE=1&POSITION=1003&POWER=75&STATUS=1& ERROR=0
 ```
 
-**請求參數**：
+**請求參數**：會將每一台AMR 的狀態同時POST 出去
 ```json
-{
-  "VEHCILE":"搬運車編號",
-  "POSITION":"現在位置",
-  "POWER":"電量 1 - 100",
-  "STATUS":"搬運車狀態",
-  "ERROR":"異常代碼",
-}
+[
+  {
+    "VEHCILE":"1(搬運車編號)",
+    "POSITION":"2001(現在位置)",
+    "POWER":"70(電量 1 - 100)",
+    "STATUS":"2(搬運車狀態)",
+    "ERROR":"1(異常代碼)",
+  },
+  {
+    "VEHCILE":"2",
+    "POSITION":"1005",
+    "POWER":"95",
+    "STATUS":"1",
+    "ERROR":"0",
+  }
+]
 ```
 - **搬運車狀態定義：**
   - STATUS=0（待命中）
