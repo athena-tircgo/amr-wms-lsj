@@ -89,7 +89,26 @@ getTranslationList.php?STATE=0
 **取消任務** : 只能取消任務狀態**未執行**的任務，執行中的任務無法取消。
   請直接把State 狀態為0 的任務，改成 State = 3 即可取消任務。
 
+```json
+{
+  "ret": "true",
+  "data":
+    [
+        {
+            "date":"12:31:05",
+            "translation":"1",
+            "Start":"1001",
+            "Stop1":"1005",
+            "Stop2":"1007",
+            "End":"1001",
+            "vehicle":"1",
+            "priority":"1"
+            "state":"3",
+        }
+    ]
+}
 
+```
 
 **時序圖getTranslationList**：
 
