@@ -110,7 +110,7 @@ getTranslationList.php?STATE=0
 
 ```
 
-**時序圖getTranslationList**：
+**getTranslationList時序圖**：
 
 ```mermaid
 sequenceDiagram
@@ -174,7 +174,7 @@ postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
   "message": "完成登錄作業", 
 }
 ```
-**時序圖postVehicleStatus**：
+**postVehicleStatus時序圖**：
 
 ```mermaid
 sequenceDiagram
@@ -225,7 +225,7 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2
 }
 ```
 
-**時序圖postVehicleStatus**：
+**postVehicleStatus時序圖**：
 
 ```mermaid
 sequenceDiagram
@@ -241,7 +241,92 @@ sequenceDiagram
 ---
 
 
-## 4. 版本管理
+
+## 4. JSON 傳輸格式說明
+
+JSON (JavaScript Object Notation) 是一種輕量級的資料交換格式，常用於伺服器與客戶端之間的資料傳輸。
+其格式以純文字構成，易於人類閱讀與撰寫，也方便機器解析與生成。
+
+一、基本結構
+
+JSON 的資料由兩種基本結構組成：
+
+物件（Object）
+使用 {} 括號包起來的鍵值對集合。
+
+範例：
+
+{
+  "name": "AMR-01",
+  "status": "idle",
+  "battery": 87
+}
+
+
+陣列（Array）
+使用 [] 括號包起來的有序資料集合。
+
+範例：
+
+[
+  {"task_id": 1, "destination": "A1"},
+  {"task_id": 2, "destination": "B3"}
+]
+
+二、資料型態
+
+JSON 支援以下基本型態：
+
+型態名稱	範例	說明
+字串 (String)	"AMR-01"	以雙引號包圍的文字
+整數 (Number)	100	可為整數或小數
+布林 (Boolean)	true / false	表示邏輯值
+陣列 (Array)	[1, 2, 3]	有序的值集合
+物件 (Object)	{"a":1, "b":2}	鍵值對集合
+Null	null	表示空值或未知資料
+三、語法規則
+
+鍵名（Key）必須使用雙引號 "key"。
+
+值（Value）可為上述任一型態。
+
+鍵值對以冒號 : 分隔。
+
+各鍵值對以逗號 , 分隔。
+
+最外層可以是物件 {} 或陣列 []。
+
+四、範例：AMR 狀態上報格式
+
+以下為 AMR 透過 API 回傳狀態給 WMS 的 JSON 範例：
+
+{
+  "vehicleId": "AMR-01",
+  "timestamp": "2025-10-08T07:30:00Z",
+  "position": {
+    "x": 12.5,
+    "y": 8.3,
+    "theta": 90
+  },
+  "battery": 87,
+  "status": "idle"
+}
+
+五、傳輸特性
+
+編碼格式：UTF-8
+
+MIME Type：application/json
+
+傳輸方向：AMR ↔ WMS
+
+優點：結構清晰、解析效率高、跨平台相容性佳
+
+備註：
+JSON 為目前最常用的資料交換格式之一，廣泛應用於 RESTful API、物聯網設備、資料庫通信及前後端資料傳遞中。
+
+
+## 5. 版本管理
 - **版本**：v1.0.0　新建
 - **最後更新**：2025-10-07
 - **編制者**：Athena  
