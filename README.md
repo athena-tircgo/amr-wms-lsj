@@ -247,7 +247,7 @@ sequenceDiagram
 JSON (JavaScript Object Notation) 是一種輕量級的資料交換格式，常用於伺服器與客戶端之間的資料傳輸。
 其格式以純文字構成，易於人類閱讀與撰寫，也方便機器解析與生成。
 
-一、基本結構
+**一、基本結構**
 
 JSON 的資料由兩種基本結構組成：
 
@@ -256,31 +256,47 @@ JSON 的資料由兩種基本結構組成：
 
 範例：
 
+```json
 {
-  "name": "AMR-01",
-  "status": "idle",
-  "battery": 87
+  "VEHCILE": "2",
+  "TRANSLATION": "1",
+  "STATE": "1"
 }
-
+```
 
 陣列（Array）
 使用 [] 括號包起來的有序資料集合。
 
 範例：
 
+```json
 [
-  {"task_id": 1, "destination": "A1"},
-  {"task_id": 2, "destination": "B3"}
+  {
+      "VEHCILE": "1",
+      "TRANSLATION": "2",
+      "STATE": "2)"
+  },
+  {
+      "VEHCILE": "2",
+      "TRANSLATION": "1",
+      "STATE": "1"
+  }
 ]
 
-二、資料型態
+```
+
+
+**二、資料型態**
 
 JSON 支援以下基本型態：
 
 型態名稱	範例	說明
-字串 (String)	"AMR-01"	以雙引號包圍的文字
+字串 (String)	"VEHCILE"	以雙引號包圍的文字
+---
 整數 (Number)	100	可為整數或小數
+---
 布林 (Boolean)	true / false	表示邏輯值
+---
 陣列 (Array)	[1, 2, 3]	有序的值集合
 物件 (Object)	{"a":1, "b":2}	鍵值對集合
 Null	null	表示空值或未知資料
@@ -322,8 +338,8 @@ MIME Type：application/json
 
 優點：結構清晰、解析效率高、跨平台相容性佳
 
-備註：
-JSON 為目前最常用的資料交換格式之一，廣泛應用於 RESTful API、物聯網設備、資料庫通信及前後端資料傳遞中。
+
+---
 
 
 ## 5. 版本管理
