@@ -132,7 +132,7 @@ sequenceDiagram
 ### 3.2 AMR回報位置、電量、狀態及異常
 **API 端點**：  
 ```
-postVehicleStatus.php?VEHICLE=1&POSITION=1003&POWER=75&STATUS=1& ERROR=0
+postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
 ```
 
 **請求參數**：會將每一台AMR 的狀態同時POST 出去
@@ -192,7 +192,7 @@ sequenceDiagram
 ### 3.3 回報執行中和已完成的派遣任務
 **API 端點**：  
 ```
-postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=1
+postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2
 ```
 
 **請求參數**：會將每一個執行中和已完成的派遣任務同時POST 出去
