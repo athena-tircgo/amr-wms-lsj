@@ -90,9 +90,21 @@ getTranslationList.php?STATE=0
 
 **時序圖getTranslationList**：
 
-[![get-Translation-List.png](https://i.postimg.cc/YqwN1dG1/get-Translation-List.png)](https://postimg.cc/0rcJvdCQ)
-
-
+```mermaid
+sequenceDiagram
+    participant AMR as AMR (無人搬運車)
+    participant WMS as WMS (倉儲管理系統)
+    loop 每 10 問秒一次
+        AMR->>WMS: getTranslationList
+        alt No task
+            WMS-->>AMR: Response : message: no_task
+            AMR-->>AMR: Wait 10 seconds for next polling
+        else Task available
+            WMS-->>AMR: Response: Task data (date,translation....)
+            AMR->>AMR: Parse task and start executing
+        end
+    end
+```
 ---
 
 ### 3.2 AMR回報位置、電量、狀態及異常
