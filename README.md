@@ -289,9 +289,9 @@ JSON 的資料由兩種基本結構組成：
 JSON 支援以下基本型態：
 
 型態名稱	       範例	       說明
-
+-
 字串 (String)	"VEHCILE"	以雙引號包圍的文字
-
+-
 整數 (Number)	100	可為整數或小數
 
 布林 (Boolean)	true / false	表示邏輯值
