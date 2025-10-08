@@ -163,7 +163,7 @@ sequenceDiagram
     participant WMS
 
     loop 每10秒回報一次
-        AMR->>WMS: POST /postVehicleStatus (AMR 狀態)
+        AMR->>WMS: postVehicleStatus (AMR 狀態)
         WMS-->>AMR: Response 完成登錄作業
     end
 ```
@@ -176,7 +176,7 @@ sequenceDiagram
 postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=1
 ```
 
-**請求參數**：
+**請求參數**：會將每一個執行中和已完成的派遣任務同時POST 出去
 
 ```json
 {
@@ -196,6 +196,19 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=1
   "ret": "true",
   "message": "完成登錄作業", 
 }
+```
+
+**時序圖postVehicleStatus**：
+
+```mermaid
+sequenceDiagram
+    participant AMR
+    participant WMS
+
+    loop 每10秒回報一次
+        AMR->>WMS: postTranslationState (派遣任務狀態)
+        WMS-->>AMR: Response 完成登錄作業
+    end
 ```
 
 ---
