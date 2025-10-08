@@ -87,6 +87,9 @@ getTranslationList.php?STATE=0
   - 普通：1（依照任務的時間順序處理)  
 
 **取消任務** : 只能取消任務狀態**未執行**的任務，執行中的任務無法取消。
+  請直接把State 狀態為0 的任務，改成 State = 3 即可取消任務。
+
+
 
 **時序圖getTranslationList**：
 
