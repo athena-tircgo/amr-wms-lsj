@@ -56,9 +56,9 @@ getTranslationList.php?STATE=0
   "data":
     [
         {
-            "date":"12:31:05", (登記時間)
-            "translation":"1",(任務流水號)
-            "Start":"1001",(起始點)
+            "date":"12:31:05(登記時間)",
+            "translation":"1(任務流水號)",
+            "Start":"1001(起始點)",
             "Stop1":"1005",(停靠點1)
             "Stop2":"1007",（停靠點2)
             "End":"1001",(到達點)
