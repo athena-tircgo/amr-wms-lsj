@@ -1,6 +1,4 @@
-# PTS派車系統 和 WMS倉儲管理系統
-# HTTPS 通訊規格書
-[pagebreak]
+# PTS派車系統 和 WMS倉儲管理系統<br>HTTPS 通訊規格書[pagebreak]
 
 
 ## 0. 版本管理
