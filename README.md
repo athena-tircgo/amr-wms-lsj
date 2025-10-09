@@ -1,8 +1,9 @@
 # PTS派車系統 和 WMS倉儲管理系統<br>HTTPS 通訊規格書
 <div style="page-break-after: always;"></div>
-## 0. 版本管理 
 
+## 0. 版本管理
 <div style="page-break-after: always;"></div>
+
 
 
 |版本 | 更新| 編制者 |
