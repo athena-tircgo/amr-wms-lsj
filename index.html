@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
-  <title>AMR ⇄ WMS 通訊規格書</title>
+  <title>PTS ⇄ WMS 通訊規格書</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
@@ -30,12 +30,6 @@
 
     h1, h2, h3 {
       color: #004b8d;
-    }
-
-    /* H1 標題置中 + 換行 + 列印時間距 */
-    h1:first-of-type {
-      text-align: center;
-      margin-top: 50px; /* 列印時往下移間距 */
     }
 
     /* GitHub 風格表格 */
@@ -84,7 +78,12 @@
         print-color-adjust: exact;
       }
 
-      /* H2 分頁 */
+      /* H1 列印時往下移 */
+      h1:first-of-type {
+        margin-top: 200px; /* 調整間距 */
+      }
+
+      /* 自訂分頁 class */
       .page-break {
         page-break-before: always;
         break-before: page;
@@ -133,6 +132,3 @@
   </script>
 </body>
 </html>
-
-
-
