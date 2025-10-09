@@ -315,9 +315,9 @@ sequenceDiagram
 <div style="page-break-after: always;"></div>
 
 
-### 3.1 情境1 每一台AMR皆已開啟電源
+### 3.1 Alive 
 WMS 要下任務前，須先確認PTS系統已經啟用，PTS啟用後每隔10秒就會回報每台搬運車的狀況，請確認每台AMR 電源皆已開啟。<BR>
-若搬運車已經開啟電源，Status=0 ，若未開啟電源Status=4，請確認每台搬運車都變成 Status=0，再開使派遣任務。
+若搬運車已經就緒，Status=0 ，若未開啟電源，Status=4，請確認每台搬運車的狀態都變成 Status=0，再開始派遣任務。
 
 
 ```mermaid
@@ -337,7 +337,7 @@ sequenceDiagram
         WMS-->>PTS: Response 完成登錄作業
     
 
-    note over PTS,WMS: AMR_1 已經完成開機，AMR_2 剛開啟電源
+    note over PTS,WMS: AMR_1 已經完成開機、AMR_2 剛開啟電源
         PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
         WMS-->>PTS: Response 完成登錄作業
         PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=4)
