@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
@@ -68,7 +69,6 @@
       th { background-color: #e0e0e0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       tr:nth-child(even) { background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       h1:first-of-type { text-align: center; margin-top: 200px; }
-
       .page-break { page-break-before: always; break-before: page; }
       tr { page-break-inside: avoid; }
       table { page-break-inside: auto; }
@@ -82,7 +82,15 @@
     .mermaid .note text {
       fill: #000 !important;
     }
+
+    /* 顯式 page-break 樣式 */
+    .page-break {
+      display: block;
+      page-break-before: always;
+      break-before: page;
+    }
   </style>
+
 </head>
 
 <body>
@@ -96,11 +104,11 @@
         const html = marked.parse(text);
         document.getElementById("content").innerHTML = html;
 
-        // H2 和 H3 前插入分頁 div
+        // H2 和 H3 前插入分頁 div（確保換頁生效）
         document.querySelectorAll("#content h2, #content h3").forEach(header => {
-          const div = document.createElement("div");
-          div.className = "page-break";
-          header.parentNode.insertBefore(div, header);
+          const breaker = document.createElement("div");
+          breaker.className = "page-break";
+          header.before(breaker);
         });
 
         // Mermaid 代碼區塊轉 <div class="mermaid">
@@ -119,5 +127,6 @@
         document.getElementById("content").innerHTML = "❌ 載入失敗：" + err;
       });
   </script>
+
 </body>
 </html>
