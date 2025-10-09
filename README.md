@@ -300,7 +300,7 @@ sequenceDiagram
 ## 3. 操作情境
 
 ### 3.1 情境1 每一台AMR皆已開啟電源
-WMS 要下任務前須確認每台AMR 電源是否開啟，並確認PTS系統已經啟用
+WMS 要下任務前，須先確認PTS系統已經啟用，並確認每台AMR 電源皆已開啟。
 
 ```mermaid
 sequenceDiagram
@@ -308,8 +308,7 @@ sequenceDiagram
     participant WMS
 
     loop 每10秒回報一次
-    xxx
-        PTS->>WMS:postVehicleStatus (AMR_1 開啟電源, Status=0 待命中)
+        PTS->>WMS: AMR_1 開啟電源，postVehicleStatus<BR> (Status=0 待命中)
         WMS-->>PTS: Response 完成登錄作業
     end
 
