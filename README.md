@@ -22,7 +22,7 @@
 ```mermaid
 flowchart TD
     %% 節點設定
-    style WMS fill:#fffaf0,stroke:#333,stroke-width:2px,rx:10,ry:10
+    style WMS fill:#f5f5dc,stroke:#333,stroke-width:2px,rx:10,ry:10
     style PTS fill:#9f9,stroke:#333,stroke-width:2px,rx:10,ry:10
     style AMR1 fill:#9cf,stroke:#333,stroke-width:2px,rx:10,ry:10
     style AMR2 fill:#9cf,stroke:#333,stroke-width:2px,rx:10,ry:10
