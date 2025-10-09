@@ -320,7 +320,7 @@ sequenceDiagram
         PTS->>WMS: postVehicleStatus<BR> (VEHCILE:4、Status=4)
         WMS-->>PTS: Response 完成登錄作業
     end
-    note over PTS,WMS:
+    note over PTS,WMS: &#8203;
     loop 每10秒回報一次
         PTS->>WMS: postVehicleStatus<BR> (VEHCILE:1、Status=0)
         WMS-->>PTS: Response 完成登錄作業
