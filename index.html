@@ -1,104 +1,107 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8" />
-  <title>PTS ⇄ WMS 通訊規格書</title>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-  <style>
-    body {
-      font-family: "Noto Sans TC", sans-serif;
-      max-width: 960px;
-      margin: 40px auto;
-      line-height: 1.6;
-      color: #222;
-      background-color: #fdfdfd;
-      padding: 0 24px;
-    }
+<meta charset="UTF-8">
+<title>PTS ⇄ WMS 通訊規格書</title>
 
-    pre {
-      background: #f5f5f5;
-      padding: 8px 12px;
-      border-radius: 6px;
-      overflow-x: auto;
-    }
+<!-- Markdown 解析 -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    h1 {
-      color: #004b8d;
-      text-align: center;
-      margin-top: 80px; /* 離頁面上方距離 */
-    }
-    h2, h3 { color: #004b8d; }
+<!-- Mermaid -->
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: false });
+  window.renderMermaid = () => mermaid.init();
+</script>
 
-    /* 表格格線 */
-    table {
-      border-collapse: collapse !important;
-      width: 100%;
-      margin: 1.5em 0;
-      font-size: 15px;
-    }
-    th, td {
-      border: 1px solid #000 !important;
-      padding: 10px 14px;
-      text-align: left;
-    }
-    th { background-color: #e0e0e0; font-weight: 600; }
-    tr:nth-child(even) { background-color: #f8f8f8; }
-    tr:hover { background-color: #f0f6ff; }
+<style>
+body {
+  font-family: "Noto Sans TC", sans-serif;
+  max-width: 960px;
+  margin: 40px auto;
+  line-height: 1.6;
+  color: #222;
+  background-color: #fdfdfd;
+  padding: 0 24px;
+}
 
-    /* 列印時換頁 */
-    @media print {
-      .page-break { page-break-before: always; break-before: page; }
-      tr { page-break-inside: avoid; }
-      table { page-break-inside: auto; }
-    }
+/* 表格 */
+table {
+  border-collapse: collapse !important;
+  width: 100%;
+  margin: 1.5em 0;
+  font-size: 15px;
+  border: 1px solid #000 !important;
+}
+th, td {
+  border: 1px solid #000 !important;
+  padding: 10px 14px;
+  text-align: left;
+}
+th {
+  background-color: #e0e0e0;
+  font-weight: 600;
+}
+tr:nth-child(even) { background-color: #f8f8f8; }
+tr:hover { background-color: #f0f6ff; }
 
-    /* Mermaid note 透明化 */
-    .mermaid .note rect { fill: transparent !important; stroke: none !important; }
-    .mermaid .note text { fill: #000 !important; }
-  </style>
+/* 標題顏色 */
+h1 { 
+  color: #004b8d; 
+  text-align: center; 
+  margin-top: 150px;
+}
+h2, h3 { color: #004b8d; }
+
+/* Mermaid note 透明化 */
+.mermaid .note rect {
+  fill: transparent !important;
+  stroke: none !important;
+}
+.mermaid .note text { fill: #000 !important; }
+
+/* 列印 PDF */
+@media print {
+  h2, h3 {
+    page-break-before: always;
+  }
+  table, th, td { border: 1px solid #000 !important; }
+  th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  tr:nth-child(even) { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  tr { page-break-inside: avoid; }
+  table { page-break-inside: auto; }
+}
+</style>
 </head>
 
 <body>
-  <div id="content">🚀 正在載入 README.md...</div>
+<div id="content">🚀 正在載入 README.md...</div>
 
-  <script>
-    // 設定哪些 h2/h3 標題要換頁
-    const pageBreakTitles = ["0. 版本管理", "1. 總覽", "2. API 定義"];
+<script>
+fetch("README.md")
+  .then(res => res.text())
+  .then(text => {
+    // 將 Markdown 轉 HTML
+    const html = marked.parse(text);
+    const container = document.getElementById("content");
+    container.innerHTML = html;
 
-    fetch("README.md")
-      .then(res => res.text())
-      .then(text => {
-        // Markdown 轉 HTML
-        const html = marked.parse(text);
-        const container = document.getElementById("content");
-        container.innerHTML = html;
+    // 將 ```mermaid``` 代碼區塊轉為 Mermaid div
+    document.querySelectorAll("pre code.language-mermaid").forEach(block => {
+      const parent = block.parentElement;
+      const div = document.createElement("div");
+      div.className = "mermaid";
+      div.innerHTML = block.textContent.trim();
+      parent.replaceWith(div);
+    });
 
-        // h2/h3 指定標題換頁
-        document.querySelectorAll("#content h2, #content h3").forEach(header => {
-          if (pageBreakTitles.includes(header.textContent.trim())) {
-            const breaker = document.createElement("div");
-            breaker.className = "page-break";
-            header.before(breaker);
-          }
-        });
+    // 渲染 Mermaid
+    if (window.renderMermaid) window.renderMermaid();
+  })
+  .catch(err => {
+    document.getElementById("content").innerHTML = "❌ 載入失敗：" + err;
+  });
+</script>
 
-        // 將 mermaid 代碼區塊轉成 div.mermaid
-        document.querySelectorAll("pre code.language-mermaid").forEach(block => {
-          const parent = block.parentElement;
-          const div = document.createElement("div");
-          div.className = "mermaid";
-          div.innerHTML = block.textContent.trim();
-          parent.replaceWith(div);
-        });
-
-        // 初始化 Mermaid
-        mermaid.initialize({ startOnLoad: true });
-        mermaid.init(undefined, document.querySelectorAll('.mermaid'));
-      })
-      .catch(err => {
-        document.getElementById("content").innerHTML = "❌ 載入失敗：" + err;
-      });
-  </script>
 </body>
 </html>
