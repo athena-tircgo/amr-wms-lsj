@@ -10,7 +10,9 @@
     window.renderMermaid = () => mermaid.init();
   </script>
 
-</head><style>
+</head>
+<body>
+  <div id="content">🚀 正在載入 README.md...</div><style>
   body {
     font-family: "Noto Sans TC", sans-serif;
     max-width: 960px;
@@ -20,35 +22,57 @@
     background-color: #fdfdfd;
     padding: 0 24px;
   }
+
   pre {
     background: #f5f5f5;
     padding: 8px 12px;
     border-radius: 6px;
     overflow-x: auto;
   }
+
   h1, h2, h3 {
     color: #004b8d;
   }
 
-  /* ✅ 表格樣式 - 顯示邊框 + 強制列印顯示線條 */
+  /* ✅ 表格樣式：GitHub 風格 */
   table {
     border-collapse: collapse !important;
     width: 100%;
-    margin: 1em 0;
+    margin: 1.5em 0;
     font-size: 15px;
-    border: 1px solid #999 !important;
+    border: 1px solid #d0d7de !important;
   }
+
   th, td {
-    border: 1px solid #999 !important;
-    padding: 8px 12px;
+    border: 1px solid #d0d7de !important;
+    padding: 10px 14px;
     text-align: left;
   }
+
   th {
-    background-color: #f0f0f0;
+    background-color: #f6f8fa;
     font-weight: 600;
   }
 
-  /* ✅ 讓列印或 PDF 也保留線條與顏色 */
+  /* ✅ 交錯底色 */
+  tr:nth-child(even) {
+    background-color: #fafbfc;
+  }
+
+  /* ✅ 滑鼠移入效果 */
+  tr:hover {
+    background-color: #f0f6ff;
+    box-shadow: inset 0 0 4px rgba(0, 123, 255, 0.2);
+    transition: background-color 0.2s ease;
+  }
+
+  /* ✅ 調整欄位寬度（可自行修改百分比）*/
+  th:nth-child(1), td:nth-child(1) { width: 10%; }
+  th:nth-child(2), td:nth-child(2) { width: 40%; }
+  th:nth-child(3), td:nth-child(3) { width: 30%; }
+  th:nth-child(4), td:nth-child(4) { width: 20%; }
+
+  /* ✅ 列印與 PDF 模式保留線條與底色 */
   @media print {
     table, th, td {
       border: 1px solid #000 !important;
@@ -58,10 +82,13 @@
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
+    tr:nth-child(even) {
+      background-color: #f8f8f8 !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
   }
 </style>
-<body>
-  <div id="content">🚀 正在載入 README.md...</div>
 
   <script>
     fetch("README.md")
