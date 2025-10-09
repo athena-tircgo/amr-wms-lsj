@@ -78,7 +78,7 @@
         mermaid.init();
 
         // 3️⃣ 再插入分頁（只針對指定標題）
-        const pageBreakTitles = ["0. 版本管理", "1. 總覽", "2. API 定義"];
+        const pageBreakTitles = ["0. 版本管理", "1. 總覽", "2. API 定義", "2.1 取得任務清單"];
         document.querySelectorAll("#content h2, #content h3").forEach(header => {
           if (!header.closest(".mermaid")) {
             const headerText = header.textContent.trim();
