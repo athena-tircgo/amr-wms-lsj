@@ -1,12 +1,10 @@
 # PTS派車系統 和 WMS倉儲管理系統<br>HTTPS 通訊規格書
-<div style="page-break-after: always;"></div>
+
 
 ## 0. 版本管理
 |版本 | 更新| 編制者 |
 |:------|:------|:------|
 | v1.0.0　新建| 2025-10-07 |Athena |
-
-<div style="page-break-after: always;"></div>
 
 
 ## 1. 總覽
@@ -46,7 +44,6 @@ flowchart TD
     PTS -->AMR3
     PTS -->AMR4
 ```
-<div style="page-break-after: always;"></div>
 
 ## 2. API 定義規格
 
@@ -65,7 +62,6 @@ http://[WMS系統IP]:[端口]/api/
 
 
 ### 2.1 取得任務清單
-<div style="page-break-after: always;"></div>
 
 
 每隔10秒，PTS會主動詢問WMS取得任務清單，若任務清單資訊無異常，將會執行任務。若取得的任務清單解析後有異常，會透過postTranslationState將任務清單的異常資訊回傳給WMS，並且不會執行該項任務。
@@ -179,7 +175,6 @@ sequenceDiagram
 ---
 
 ### 2.2 回報位置、電量、狀態及異常
-<div style="page-break-after: always;"></div>
 
 
 每隔10秒，PTS會回報WMS每一台搬運車的狀態資訊以及是否有異常。
@@ -244,7 +239,6 @@ sequenceDiagram
 ---
 
 ### 2.3 回報派遣任務狀態
-<div style="page-break-after: always;"></div>
 
 
 每隔10秒，PTS會回報WMS執行中和已完成的任務清單，若有收到的派遣任務清單格式有異常無法處理，也會透過此方式回報讓WMS掌握。
@@ -309,7 +303,6 @@ sequenceDiagram
 ```
 
 ## 3. 操作情境
-<div style="page-break-after: always;"></div>
 
 
 ### 3.1 Alive 
@@ -348,7 +341,6 @@ sequenceDiagram
 
 
 ### 3.1 情境2 派遣任務
-<div style="page-break-after: always;"></div>
 
 確認每台搬運車都變成 Status=0，即可開始派遣任務。
 
@@ -357,7 +349,6 @@ sequenceDiagram
 
 
 ## 4. JSON 傳輸格式說明
-<div style="page-break-after: always;"></div>
 
 
 JSON (JavaScript Object Notation) 是一種輕量級的資料交換格式，常用於伺服器與客戶端之間的資料傳輸。
@@ -442,7 +433,6 @@ JSON 支援以下基本型態：
 
 
 ## 5. HTTPS 傳輸規範說明
-<div style="page-break-after: always;"></div>
 
 
 **一、傳輸協定**
