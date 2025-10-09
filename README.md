@@ -13,11 +13,10 @@
 - **通訊協定**：HTTPS
 - **傳輸格式**：JSON
 - **系統架構**：
-  - **WMS Server**：倉儲管理系統伺服器，提供WebAPI服務。
-  - **PTS Client**：派車系統端，主動呼叫WMS系統API。
+  - **WMS Server：** 倉儲管理系統伺服器，提供WebAPI服務。
+  - **PTS Client：** 派車系統端，主動呼叫WMS系統API。
 
-
-**系統架構圖：**
+  - **系統架構圖：**
 
 ```mermaid
 flowchart TD
