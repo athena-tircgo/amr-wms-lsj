@@ -311,41 +311,43 @@ sequenceDiagram
     participant WMS
 
     loop 每10秒回報一次
-        PTS->>WMS: postVehicleStatus(VEHCILE:1、Status=0)
+        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus(VEHCILE:2、Status=4)
+        PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=4)
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus(VEHCILE:3、Status=0)
+        PTS->>WMS: postVehicleStatus (VEHCILE:3、Status=0)
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus(VEHCILE:4、Status=4)
-        WMS-->>PTS: Response 完成登錄作業
-    end
-
-    loop 每10秒回報一次
-        PTS->>WMS: postVehicleStatus(VEHCILE:1、Status=0)
-        WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus(VEHCILE:2、Status=0)
-        WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus(VEHCILE:3、Status=0)
-        WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus(VEHCILE:4、Status=4)
+        PTS->>WMS: postVehicleStatus (VEHCILE:4、Status=4)
         WMS-->>PTS: Response 完成登錄作業
     end
 
     loop 每10秒回報一次
-        PTS->>WMS: postVehicleStatus(VEHCILE:1、Status=0)
+        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus(VEHCILE:2、Status=0)
+        PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=0)
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus(VEHCILE:3、Status=0)
+        PTS->>WMS: postVehicleStatus (VEHCILE:3、Status=0)
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus(VEHCILE:4、Status=0)
+        PTS->>WMS: postVehicleStatus (VEHCILE:4、Status=4)
+        WMS-->>PTS: Response 完成登錄作業
+    end
+
+    loop 每10秒回報一次
+        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
+        WMS-->>PTS: Response 完成登錄作業
+        PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=0)
+        WMS-->>PTS: Response 完成登錄作業
+        PTS->>WMS: postVehicleStatus (VEHCILE:3、Status=0)
+        WMS-->>PTS: Response 完成登錄作業
+        PTS->>WMS: postVehicleStatus (VEHCILE:4、Status=0)
         WMS-->>PTS: Response 完成登錄作業
     end
 ```
+---
 
-### 3.1 情境2
 
+### 3.1 情境2 派遣任務
+認每台搬運車都變成 Status=0，即可開始派遣任務
 
 
 
