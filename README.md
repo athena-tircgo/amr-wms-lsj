@@ -301,7 +301,7 @@ sequenceDiagram
 
 ### 3.1 情境1 每一台AMR皆已開啟電源
 WMS 要下任務前，須先確認PTS系統已經啟用，PTS啟用後每隔10秒就會回報每台搬運車的狀況，請確認每台AMR 電源皆已開啟。<BR>
-若搬運車已經開啟電源，Status=0 ，若未開啟電源Status=4。
+若搬運車已經開啟電源，Status=0 ，若未開啟電源Status=4，請確認每台搬運車都變成 Status=0，再開使派遣任務。
 
 
 ```mermaid
@@ -320,7 +320,7 @@ sequenceDiagram
         PTS->>WMS: postVehicleStatus<BR> (VEHCILE:4、Status=4)
         WMS-->>PTS: Response 完成登錄作業
     end
-    <BR>
+
     loop 每10秒回報一次
         PTS->>WMS: postVehicleStatus<BR> (VEHCILE:1、Status=0)
         WMS-->>PTS: Response 完成登錄作業
