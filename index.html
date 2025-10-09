@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>PTS ⇄ WMS 通訊規格書</title>
 
-  <!-- Marked 解析 Markdown -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-  <!-- Mermaid -->
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
     mermaid.initialize({ startOnLoad: false });
@@ -25,47 +22,33 @@
       padding: 0 24px;
     }
 
-    pre {
-      background: #f5f5f5;
-      padding: 8px 12px;
-      border-radius: 6px;
-      overflow-x: auto;
-    }
+    h1, h2, h3 { color: #004b8d; }
+    h1 { text-align: center; margin-top: 200px; }
 
-    h1, h2, h3 {
-      color: #004b8d;
-    }
+    pre { background: #f5f5f5; padding: 8px 12px; border-radius: 6px; overflow-x: auto; }
 
-    /* 表格 */
     table {
-      border-collapse: collapse !important;
+      border-collapse: collapse;
       width: 100%;
       margin: 1.5em 0;
       font-size: 15px;
     }
     th, td {
-      border: 1px solid #000 !important;
+      border: 1px solid #000;
       padding: 10px 14px;
       text-align: left;
     }
-    th {
-      background-color: #f6f8fa;
-      font-weight: 600;
-    }
+    th { background-color: #f6f8fa; font-weight: 600; }
     tr:nth-child(even) { background-color: #fafbfc; }
     tr:hover { background-color: #f0f6ff; }
 
-    /* 列印 PDF */
+    /* 列印時換頁 */
     @media print {
-      .page-break { page-break-before: always; break-before: page; }
+      h1 { text-align: center; margin-top: 100px; }
+      h2, h3 { page-break-before: always; }
+      #content h2:first-of-type { page-break-before: auto; }
       tr { page-break-inside: avoid; }
       table { page-break-inside: auto; }
-    }
-
-    .page-break {
-      display: block;
-      page-break-before: always;
-      break-before: page;
     }
 
     /* Mermaid note 透明化 */
@@ -81,21 +64,10 @@
     fetch("README.md")
       .then(res => res.text())
       .then(text => {
-        // Markdown 轉 HTML
         const html = marked.parse(text);
-        const container = document.getElementById("content");
-        container.innerHTML = html;
+        document.getElementById("content").innerHTML = html;
 
-        // h2 / h3 自動換頁（非 Mermaid 區塊）
-        document.querySelectorAll("#content h2, #content h3").forEach(header => {
-          if (!header.closest(".mermaid")) {
-            const breaker = document.createElement("div");
-            breaker.className = "page-break";
-            header.before(breaker);
-          }
-        });
-
-        // 將 ```mermaid``` 代碼區塊轉為可渲染的 div
+        // Mermaid 區塊轉換
         document.querySelectorAll("pre code.language-mermaid").forEach(block => {
           const parent = block.parentElement;
           const div = document.createElement("div");
