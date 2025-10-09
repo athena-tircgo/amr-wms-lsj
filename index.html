@@ -68,16 +68,19 @@
       th { background-color: #e0e0e0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       tr:nth-child(even) { background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       h1:first-of-type { text-align: center; margin-top: 200px; }
+
       .page-break { page-break-before: always; break-before: page; }
       tr { page-break-inside: avoid; }
       table { page-break-inside: auto; }
     }
 
     /* Mermaid note 透明化 */
-    .mermaid .note {
-      fill: transparent !important;   /* 背景透明 */
-      stroke: none !important;        /* 取消邊框 */
-      color: #000 !important;         /* 文字顏色可保留黑色 */
+    .mermaid .note rect {
+      fill: transparent !important;
+      stroke: none !important;
+    }
+    .mermaid .note text {
+      fill: #000 !important;
     }
   </style>
 </head>
@@ -93,11 +96,11 @@
         const html = marked.parse(text);
         document.getElementById("content").innerHTML = html;
 
-        // H2 前插入分頁 div
-        document.querySelectorAll("#content h2").forEach(h2 => {
+        // H2 和 H3 前插入分頁 div
+        document.querySelectorAll("#content h2, #content h3").forEach(header => {
           const div = document.createElement("div");
           div.className = "page-break";
-          h2.parentNode.insertBefore(div, h2);
+          header.parentNode.insertBefore(div, header);
         });
 
         // Mermaid 代碼區塊轉 <div class="mermaid">
@@ -118,4 +121,3 @@
   </script>
 </body>
 </html>
-
