@@ -211,7 +211,7 @@ sequenceDiagram
 postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
 ```
 
-**請求參數：**：
+**請求參數：**
 
 ```json
 [
