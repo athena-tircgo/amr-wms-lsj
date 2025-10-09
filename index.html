@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
@@ -100,23 +101,18 @@
     fetch("README.md")
       .then(res => res.text())
       .then(text => {
-        // 將 Markdown 轉成 HTML
+        // 1️⃣ 先將 Markdown 轉成 HTML
         let html = marked.parse(text);
+
+        // 2️⃣ 在 HTML 中尋找含有 [pagebreak] 的標題
+        html = html.replace(/<h([23])([^>]*)>\s*([^<]*?)\s*\[pagebreak\]\s*<\/h\1>/gi,
+          '<div class="page-break"></div><h$1$2>$3</h$1>');
+
+        // 3️⃣ 放入頁面
         const container = document.getElementById("content");
         container.innerHTML = html;
 
-        // 插入換頁：只有帶 [pagebreak] 標記的標題才換頁
-        document.querySelectorAll("#content h2, #content h3").forEach(header => {
-          if (header.textContent.includes("[pagebreak]")) {
-            const breaker = document.createElement("div");
-            breaker.className = "page-break";
-            header.before(breaker);
-            // 移除 [pagebreak] 字樣
-            header.textContent = header.textContent.replace("[pagebreak]", "").trim();
-          }
-        });
-
-        // 將 ```mermaid``` 區塊轉為 <div class="mermaid">
+        // 4️⃣ 將 ```mermaid``` 代碼區塊轉為 <div class="mermaid">
         document.querySelectorAll("pre code.language-mermaid").forEach(block => {
           const parent = block.parentElement;
           const div = document.createElement("div");
@@ -125,7 +121,7 @@
           parent.replaceWith(div);
         });
 
-        // 渲染 Mermaid
+        // 5️⃣ 渲染 Mermaid
         if (window.renderMermaid) window.renderMermaid();
       })
       .catch(err => {
@@ -135,5 +131,3 @@
 
 </body>
 </html>
-
- 
