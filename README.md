@@ -2,17 +2,14 @@
 <div style="page-break-after: always;"></div>
 
 ## 0. 版本管理
-<div style="page-break-after: always;"></div>
-
-
-
 |版本 | 更新| 編制者 |
 |:------|:------|:------|
 | v1.0.0　新建| 2025-10-07 |Athena |
 
+<div style="page-break-after: always;"></div>
+
 
 ## 1. 總覽
-<div style="page-break-after: always;"></div>
 
 本規格書定義了派車系統（PTS）與倉儲管理系統(WMS)之間的 HTTP 通訊協定。倉儲管理系統(WMS)作為伺服器端，派車系統（PTS）作為客戶端，透過WebAPI進行通訊，使用HTTP協議傳輸JSON格式資料。
 
@@ -50,9 +47,9 @@ flowchart TD
     PTS -->AMR4
 ```
 
-
-## 2. API 定義規格
 <div style="page-break-after: always;"></div>
+## 2. API 定義規格
+
 
 
 基礎URL
