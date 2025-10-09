@@ -369,28 +369,19 @@ JSON 支援以下基本型態：
 
 **二、安全機制**
 
-- 1.TLS 加密傳輸
+1.TLS 加密傳輸
   - 所有通訊內容經 TLS 加密，防止攔截與竄改。
   - 不允許使用明碼 HTTP 傳輸。
 
 2.伺服器憑證驗證
-
-AMR 在連線時須驗證 WMS 伺服器的 SSL 憑證是否有效（由受信任 CA 簽發）。
-
-憑證若過期、無效或域名不符，應拒絕連線。
+  - AMR 在連線時須驗證 WMS 伺服器的 SSL 憑證是否有效（由受信任 CA 簽發）。
+  - 憑證若過期、無效或域名不符，應拒絕連線。
 
 3.身份驗證（Authentication）
-
-若系統需求，HTTP Header 中可加入 API Token 或 Bearer Token 作為身分驗證機制。
-
-例如：
-
-Authorization: Bearer <access_token>
-
+  - 若系統需求，HTTP Header 中可加入 API Token 或 Bearer Token 作為身分驗證機制。
 
 4.資料完整性（Integrity）
-
-所有請求及回應應透過 HTTPS 保證資料未被竄改。
+  - 所有請求及回應應透過 HTTPS 保證資料未被竄改。
 
 
 **三、HTTP通用狀態碼**
