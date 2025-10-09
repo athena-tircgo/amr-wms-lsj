@@ -4,31 +4,16 @@
 <meta charset="UTF-8">
 <title>PTS ⇄ WMS 通訊規格書</title>
 
-<!-- Mermaid UMD 版本 -->
+<!-- Mermaid UMD -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <style>
-body {
-  font-family: "Noto Sans TC", sans-serif;
-  max-width: 960px;
-  margin: 40px auto;
-  line-height: 1.6;
-  color: #222;
-  background-color: #fdfdfd;
-  padding: 0 24px;
-}
-pre {
-  background: #f5f5f5;
-  padding: 8px 12px;
-  border-radius: 6px;
-  overflow-x: auto;
-}
-h1, h2, h3 { color: #004b8d; }
-.page-break { display: block; page-break-before: always; break-before: page; }
-@media print {
-  .page-break { page-break-before: always; break-before: page; }
-}
+body { font-family: "Noto Sans TC", sans-serif; max-width: 960px; margin: 40px auto; line-height: 1.6; color: #222; padding: 0 24px; }
+h1,h2,h3 { color:#004b8d; }
+pre { background:#f5f5f5; padding:8px 12px; border-radius:6px; overflow-x:auto; }
+.page-break { display:block; page-break-before:always; break-before:page; }
+@media print { .page-break { page-break-before:always; break-before:page; } }
 </style>
 </head>
 <body>
@@ -41,27 +26,27 @@ fetch("README.md")
   .then(res => res.text())
   .then(mdText => {
     const container = document.getElementById("content");
+
+    // 轉 Markdown → HTML
     container.innerHTML = marked.parse(mdText);
 
-    // 將 Mermaid code 區塊轉成 div
-    document.querySelectorAll("pre code.language-mermaid").forEach(block => {
-      const parent = block.parentElement;
+    // 轉換 Mermaid 區塊
+    document.querySelectorAll("pre code.language-mermaid").forEach(codeBlock => {
       const div = document.createElement("div");
       div.className = "mermaid";
-      div.textContent = block.textContent.trim();
-      parent.replaceWith(div);
+      div.textContent = codeBlock.textContent.trim();
+      codeBlock.parentElement.replaceWith(div);
     });
 
     // 初始化 Mermaid
     if (window.mermaid) {
-      mermaid.initialize({ startOnLoad: false });
+      mermaid.initialize({ startOnLoad:false });
       mermaid.init(undefined, document.querySelectorAll(".mermaid"));
     }
 
-    // 指定標題換頁，注意要在 Mermaid 初始化後，避免破壞圖表
+    // 插入換頁
     document.querySelectorAll("#content h2, #content h3").forEach(header => {
-      const title = header.textContent.trim();
-      if (pageBreakTitles.includes(title)) {
+      if (pageBreakTitles.includes(header.textContent.trim())) {
         const breaker = document.createElement("div");
         breaker.className = "page-break";
         header.before(breaker);
