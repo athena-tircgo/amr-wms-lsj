@@ -23,7 +23,7 @@ http://[WMS系統IP]:[端口]/api/
 |項目 | 說明| 類別 | 方法 |
 |:------|:------|:------|:-----|
 | 1| AMR取得任務清單 | getTranslationList | GET |
-| 2| AMR回報位置、電量、狀態及異常| postVehicleStatus | POST |
+| 2| AMR回報位置、電量、狀態及異常 | postVehicleStatus | POST |
 | 3| AMR回報派遣任務狀態 |postTranslationState | POST |
 
 
