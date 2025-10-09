@@ -31,7 +31,7 @@ http://[WMS系統IP]:[端口]/api/
 
 每隔10秒，AMR 會主動詢問WMS取得任務清單，若任務清單資訊無異常，將會執行任務。若取得的任務清單解析後有異常，會透過postTranslationState將任務清單的異常資訊回傳給WMS，並且不會執行該項任務。
 
-**API 端點**：
+**API 端點：**
 ```
 getTranslationList.php?STATE=0
 ```
@@ -49,7 +49,7 @@ getTranslationList.php?STATE=0
   - STATE=4（任務清單有異常）
   - STATE=空白（全部）
 
-**回應範例**：依據getTranslationList所請求的參數回應,如無帶參數(空白),請回覆全部的任務。
+**回應範例：** 依據getTranslationList所請求的參數回應,如無帶參數(空白),請回覆全部的任務。
 
 無任務回應範例:
 
@@ -97,7 +97,7 @@ getTranslationList.php?STATE=0
   - 緊急：0 (若會優先會插入任務)
   - 普通：1（依照任務的時間順序處理)  
 
-**取消任務** : 只能取消任務狀態**未執行**的任務，**執行中**的任務無法取消。取消任務的方式不需要重新新增任務，直接把State 狀態為0 的任務，改成 State = 3 即可取消任務。
+**取消任務：** 只能取消任務狀態**未執行**的任務，**執行中**的任務無法取消。取消任務的方式不需要重新新增任務，直接把State 狀態為0 的任務，改成 State = 3 即可取消任務。
 
 ```json
 {
@@ -120,7 +120,7 @@ getTranslationList.php?STATE=0
 
 ```
 
-**getTranslationList時序圖**：
+**getTranslationList時序圖：**
 
 ```mermaid
 sequenceDiagram
@@ -140,12 +140,15 @@ sequenceDiagram
 ---
 
 ### 3.2 AMR回報位置、電量、狀態及異常
-**API 端點**：  
+
+每隔10秒，AMR 會回報WMS每一台搬運車的狀態資訊以及是否有異常。
+
+**API 端點：**  
 ```
 postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
 ```
 
-**請求參數**：會將每一台AMR 的狀態同時POST 出去
+**請求參數：**
 ```json
 [
   {
@@ -177,14 +180,14 @@ postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
   - ERROR=2（圖資須更新）
   - ERROR=3（有障礙物）
 
-**回應範例**：
+**回應範例：**
 ```json
 {
   "ret": "true",
   "message": "完成登錄作業", 
 }
 ```
-**postVehicleStatus時序圖**：
+**postVehicleStatus時序圖：**
 
 ```mermaid
 sequenceDiagram
@@ -200,12 +203,15 @@ sequenceDiagram
 ---
 
 ### 3.3 AMR回報派遣任務狀態
-**API 端點**：  
+
+每隔10秒，AMR 會回報WMS執行中和已完成的任務清單，若有收到的派遣任務清單格式有異常無法處理，也會透過此方式回報讓WMS掌握。
+
+**API 端點：**
 ```
 postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
 ```
 
-**請求參數**：會將每一個執行中和已完成的派遣任務同時POST 出去
+**請求參數：**：
 
 ```json
 [
@@ -227,7 +233,7 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
 - **任務狀態定義：**  
   - STATE=1（執行中)
   - STATE=2（已完成）
-  - STATE=4（異常）
+  - STATE=4（任務清單有異常）
 
 - **任務異常定義：**
   - ERROR=0（任務資訊無異常)
@@ -238,7 +244,7 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
   - ERROR=5（指定的車號未開機）
 
 
-**回應範例**：
+**回應範例：**
 ```json
 {
   "ret": "true",
@@ -246,7 +252,7 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
 }
 ```
 
-**postVehicleStatus時序圖**：
+**postVehicleStatus時序圖：**
 
 ```mermaid
 sequenceDiagram
