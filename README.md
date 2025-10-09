@@ -202,7 +202,7 @@ sequenceDiagram
 ### 3.3 AMR回報派遣任務狀態
 **API 端點**：  
 ```
-postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2
+postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
 ```
 
 **請求參數**：會將每一個執行中和已完成的派遣任務同時POST 出去
