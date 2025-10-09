@@ -348,13 +348,12 @@ sequenceDiagram
         WMS-->>PTS: Response 完成登錄作業
 
 ```
----
 
 
 ### 3.1 情境2 派遣任務
 <div style="page-break-after: always;"></div>
 
-認每台搬運車都變成 Status=0，即可開始派遣任務
+確認每台搬運車都變成 Status=0，即可開始派遣任務。
 
 
 
