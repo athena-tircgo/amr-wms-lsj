@@ -32,6 +32,12 @@
       color: #004b8d;
     }
 
+    /* H1 標題置中 + 換行 + 列印時間距 */
+    h1:first-of-type {
+      text-align: center;
+      margin-top: 50px; /* 列印時往下移間距 */
+    }
+
     /* GitHub 風格表格 */
     table {
       border-collapse: collapse !important;
@@ -78,12 +84,7 @@
         print-color-adjust: exact;
       }
 
-      /* H1 列印時往下移 */
-      h1:first-of-type {
-        margin-top: 50px; /* 調整間距 */
-      }
-
-      /* 自訂分頁 class */
+      /* H2 分頁 */
       .page-break {
         page-break-before: always;
         break-before: page;
@@ -119,19 +120,8 @@
           const parent = block.parentElement;
           const div = document.createElement("div");
           div.className = "mermaid";
-          div.innerHTML = block.textContent;
-          parent.replaceWith(div);
-        });
+          div
 
-        // 渲染 Mermaid 圖
-        if (window.renderMermaid) window.renderMermaid();
-      })
-      .catch(err => {
-        document.getElementById("content").innerHTML = "❌ 載入失敗：" + err;
-      });
-  </script>
-</body>
-</html
 
 
 
