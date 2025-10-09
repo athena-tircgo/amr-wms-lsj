@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>PTS ⇄ WMS 通訊規格書</title>
-
-  <!-- Marked.js -->
+  
+  <!-- Marked 解析 Markdown -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <!-- Mermaid.js -->
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  
+  <!-- Mermaid -->
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: false });
+    window.renderMermaid = () => mermaid.init();
+  </script>
 
   <style>
     body {
@@ -20,37 +25,63 @@
       padding: 0 24px;
     }
 
-    h1, h2, h3 { color: #004b8d; }
-    pre { background: #f5f5f5; padding: 8px 12px; border-radius: 6px; overflow-x: auto; }
+    pre {
+      background: #f5f5f5;
+      padding: 8px 12px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
 
-    /* 表格格線 */
+    h1, h2, h3 {
+      color: #004b8d;
+    }
+
+    /* 表格 */
     table {
       border-collapse: collapse !important;
       width: 100%;
       margin: 1.5em 0;
+      font-size: 15px;
     }
     th, td {
       border: 1px solid #000 !important;
       padding: 10px 14px;
       text-align: left;
     }
-    th { background-color: #f0f0f0 !important; font-weight: 600; }
+    th {
+      background-color: #f6f8fa;
+      font-weight: 600;
+    }
+    tr:nth-child(even) { background-color: #fafbfc; }
+    tr:hover {
+      background-color: #f0f6ff;
+    }
 
-    /* 列印時換頁 */
+    /* 列印 PDF */
     @media print {
-      .page-break { page-break-before: always; break-before: page; height:1px; }
-      table, th, td { border: 1px solid #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page-break { page-break-before: always; break-before: page; }
       tr { page-break-inside: avoid; }
       table { page-break-inside: auto; }
     }
 
-    .page-break { display: block; page-break-before: always; break-before: page; height: 1px; }
+    /* page-break 元素 */
+    .page-break {
+      display: block;
+      page-break-before: always;
+      break-before: page;
+    }
 
     /* Mermaid note 透明化 */
-    .mermaid .note rect { fill: transparent !important; stroke: none !important; }
-    .mermaid .note text { fill: #000 !important; }
+    .mermaid .note rect {
+      fill: transparent !important;
+      stroke: none !important;
+    }
+    .mermaid .note text {
+      fill: #000 !important;
+    }
   </style>
 </head>
+
 <body>
   <div id="content">🚀 正在載入 README.md...</div>
 
@@ -58,15 +89,17 @@
     fetch("README.md")
       .then(res => res.text())
       .then(text => {
-        // 將 Markdown 中的 [pagebreak] 替換成 div.page-break
+        // STEP1：先把 [pagebreak] 換成 div
         text = text.replace(/\[pagebreak\]/gi, '<div class="page-break"></div>');
 
-        // 轉 Markdown -> HTML
+        // STEP2：Markdown 轉 HTML
         const html = marked.parse(text);
+
+        // STEP3：放入 container
         const container = document.getElementById("content");
         container.innerHTML = html;
 
-        // Mermaid 代碼塊轉 div.mermaid
+        // STEP4：將 mermaid 代碼區塊轉為可渲染 div
         document.querySelectorAll("pre code.language-mermaid").forEach(block => {
           const parent = block.parentElement;
           const div = document.createElement("div");
@@ -75,11 +108,8 @@
           parent.replaceWith(div);
         });
 
-        // 初始化 Mermaid
-        if (window.mermaid) {
-          mermaid.initialize({ startOnLoad: false });
-          mermaid.init(undefined, document.querySelectorAll(".mermaid"));
-        }
+        // STEP5：渲染 Mermaid
+        if (window.renderMermaid) window.renderMermaid();
       })
       .catch(err => {
         document.getElementById("content").innerHTML = "❌ 載入失敗：" + err;
