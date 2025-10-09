@@ -32,7 +32,7 @@
       color: #004b8d;
     }
 
-    /* ✅ GitHub 風格表格 */
+    /* GitHub 風格表格 */
     table {
       border-collapse: collapse !important;
       width: 100%;
@@ -49,22 +49,20 @@
       background-color: #f6f8fa;
       font-weight: 600;
     }
-    tr:nth-child(even) {
-      background-color: #fafbfc;
-    }
+    tr:nth-child(even) { background-color: #fafbfc; }
     tr:hover {
       background-color: #f0f6ff;
       box-shadow: inset 0 0 4px rgba(0, 123, 255, 0.2);
       transition: background-color 0.2s ease;
     }
 
-    /* ✅ 欄寬可調整 */
+    /* 欄寬可調整 */
     th:nth-child(1), td:nth-child(1) { width: 10%; }
     th:nth-child(2), td:nth-child(2) { width: 40%; }
     th:nth-child(3), td:nth-child(3) { width: 30%; }
     th:nth-child(4), td:nth-child(4) { width: 20%; }
 
-    /* ✅ 分頁與列印設定 */
+    /* 列印與 PDF 設定 */
     @media print {
       table, th, td {
         border: 1px solid #000 !important;
@@ -72,59 +70,8 @@
       th {
         background-color: #e0e0e0 !important;
         -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-      tr:nth-child(even) {
-        background-color: #f8f8f8 !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
+        print-co
 
-      /* H1 不換頁 */
-      h1 { page-break-before: auto; }
-
-      /* ✅ H2 自動換頁 */
-      h2 {
-        page-break-before: always;
-      }
-
-      /* 自訂分頁 class */
-      .page-break {
-        page-break-after: always;
-        break-after: page;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <div id="content">🚀 正在載入 README.md...</div>
-
-  <script>
-    fetch("README.md")
-      .then(res => res.text())
-      .then(text => {
-        const html = marked.parse(text);
-        document.getElementById("content").innerHTML = html;
-
-        // 將 mermaid 代碼區塊轉成 <div class="mermaid">
-        document.querySelectorAll("pre code.language-mermaid").forEach(block => {
-          const parent = block.parentElement;
-          const div = document.createElement("div");
-          div.className = "mermaid";
-          div.innerHTML = block.textContent;
-          parent.replaceWith(div);
-        });
-
-        // 渲染 Mermaid 圖
-        if (window.renderMermaid) window.renderMermaid();
-      })
-      .catch(err => {
-        document.getElementById("content").innerHTML = "❌ 載入失敗：" + err;
-      });
-  </script>
-</body>
-</html>
 
 
 
