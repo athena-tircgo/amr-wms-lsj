@@ -326,7 +326,7 @@ sequenceDiagram
     participant PTS
     participant WMS
 
-     AMR_1 開啟電源
+    AMR_1 開啟電源
         PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=4)
         WMS-->>PTS: Response 完成登錄作業
         PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=4)
@@ -335,7 +335,7 @@ sequenceDiagram
         WMS-->>PTS: Response 完成登錄作業
         PTS->>WMS: postVehicleStatus (VEHCILE:4、Status=4)
         WMS-->>PTS: Response 完成登錄作業
-    end
+    
 
     loop 每10秒回報一次
         PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
