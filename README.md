@@ -36,6 +36,7 @@ getTranslationList.php?STATE=0
   - STATE=1（執行中）
   - STATE=2（已完成）
   - STATE=3（取消）
+  - STATE=4（異常）
   - STATE=空白（全部）
 
 **回應範例**：依據getTranslationList所請求的參數回應,如無帶參數(空白),請回覆全部的任務。
@@ -202,12 +203,14 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2
   {
       "VEHCILE": "1(搬運車編號)",
       "TRANSLATION": "2(任務流水號)",
-      "STATE": "2(任務狀態)"
+      "STATE": "2(任務狀態)",
+      "ERROR":"0(無異常)"
   },
   {
       "VEHCILE": "2",
       "TRANSLATION": "1",
-      "STATE": "1"
+      "STATE": "4",
+      "ERROR":"2(站點不存在)"
   }
 ]
 
@@ -215,6 +218,15 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2
 - **任務狀態定義：**  
   - STATE=1（執行中)
   - STATE=2（已完成）
+  - STATE=4（異常）
+
+- **任務異常定義：**
+  - ERROR=0（任務資訊無異常)
+  - ERROR=1（站點重複)
+  - ERROR=2（不存在的站點）
+  - ERROR=3（指定的車號不存在）
+  - ERROR=4（任務重複）
+  - ERROR=5（指定的車號未開機）
 
 
 **回應範例**：
