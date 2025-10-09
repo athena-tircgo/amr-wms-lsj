@@ -17,6 +17,7 @@
   - **PTS Client**：派車系統端，主動呼叫WMS系統API。
 
 
+**系統架構圖：**
 
 ```mermaid
 flowchart TD
@@ -35,10 +36,10 @@ flowchart TD
     AMR3["AMR_3"]
 
     %% 連線
-    WMS -->|傳送任務| PTS
-    PTS -->|指令| AMR1
-    PTS -->|指令| AMR2
-    PTS -->|指令| AMR3
+    WMS <-->PTS
+    PTS -->AMR1
+    PTS -->AMR2
+    PTS -->AMR3
 ```
 
 
