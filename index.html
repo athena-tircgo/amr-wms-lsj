@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -9,24 +10,55 @@
     mermaid.initialize({ startOnLoad: false });
     window.renderMermaid = () => mermaid.init();
   </script>
+
   <style>
     body {
-      font-family: "Noto Sans TC", sans-serif;
+      font-family: "Noto Sans TC", "Segoe UI", Arial, sans-serif;
       max-width: 960px;
       margin: 40px auto;
-      line-height: 1.6;
+      line-height: 1.7;
       color: #222;
       background-color: #fdfdfd;
       padding: 0 24px;
     }
+
+    h1, h2, h3 {
+      color: #004b8d;
+    }
+
     pre {
       background: #f5f5f5;
-      padding: 8px 12px;
+      padding: 10px 14px;
       border-radius: 6px;
       overflow-x: auto;
     }
-    h1, h2, h3 {
-      color: #004b8d;
+
+    code {
+      background: #f0f0f0;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 16px 0;
+      font-size: 15px;
+    }
+
+    th, td {
+      border: 1px solid #aaa;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #e8f0fe;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
     }
   </style>
 </head>
@@ -37,11 +69,11 @@
     fetch("README.md")
       .then((res) => res.text())
       .then((text) => {
-        // 使用 marked 將 markdown 轉為 HTML
+        // 轉換 Markdown → HTML
         const html = marked.parse(text);
         document.getElementById("content").innerHTML = html;
 
-        // 將 mermaid 區塊轉成 <div class="mermaid">
+        // 找出 mermaid 代碼區塊
         document.querySelectorAll("pre code.language-mermaid").forEach((block) => {
           const parent = block.parentElement;
           const div = document.createElement("div");
@@ -50,7 +82,7 @@
           parent.replaceWith(div);
         });
 
-        // 渲染 mermaid
+        // 渲染 Mermaid 圖
         if (window.renderMermaid) window.renderMermaid();
       })
       .catch((err) => {
