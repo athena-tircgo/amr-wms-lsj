@@ -80,12 +80,15 @@
         print-color-adjust: exact;
       }
 
-      /* 第一個 h1 不換頁，其餘自動換頁 */
-      h1:not(:first-child) {
+      /* H1 不換頁 */
+      h1 { page-break-before: auto; }
+
+      /* ✅ H2 自動換頁 */
+      h2 {
         page-break-before: always;
       }
 
-      /* 自訂分頁用 class */
+      /* 自訂分頁 class */
       .page-break {
         page-break-after: always;
         break-after: page;
@@ -104,7 +107,7 @@
         const html = marked.parse(text);
         document.getElementById("content").innerHTML = html;
 
-        // 將 mermaid 區塊轉成 <div class="mermaid">
+        // 將 mermaid 代碼區塊轉成 <div class="mermaid">
         document.querySelectorAll("pre code.language-mermaid").forEach(block => {
           const parent = block.parentElement;
           const div = document.createElement("div");
@@ -113,7 +116,7 @@
           parent.replaceWith(div);
         });
 
-        // 渲染 mermaid
+        // 渲染 Mermaid 圖
         if (window.renderMermaid) window.renderMermaid();
       })
       .catch(err => {
@@ -122,5 +125,6 @@
   </script>
 </body>
 </html>
+
 
 
