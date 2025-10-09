@@ -1,7 +1,7 @@
 # AMR 派車系統規格書（HTTPS 通訊版）
 ---
 ## 1. 總覽
-本規格書定義了自動搬運車（AMR）與WMS系統之間的 HTTPS 通訊協定。
+本規格書定義了自動搬運車（AMR）與倉儲管理系統(WMS)之間的 HTTP 通訊協定。倉儲管理系統(WMS)作為伺服器端，自動搬運車（AMR）作為客戶端，透過WebAPI進行通訊，使用HTTP協議傳輸JSON格式資料。
 
 - **通訊協定**：HTTPS
 - **傳輸格式**：JSON
@@ -19,6 +19,13 @@ http://[WMS系統IP]:[端口]/api/
 ```
 ---
 ## 3. API 規格
+
+|項目 | 說明| 類別 | 方法 |
+|:------|:------|:------|:-----|
+| AMR取得任務清單 | getTranslationList | POST |
+| AMR回報位置、電量、狀態及異常| postVehicleStatus | POST |
+| AMR回報派遣任務狀態 |postTranslationState | POST |
+
 
 ### 3.1 AMR取得任務清單
 **API 端點**：
@@ -190,7 +197,7 @@ sequenceDiagram
 
 ---
 
-### 3.3 回報執行中和已完成的派遣任務
+### 3.3 AMR回報派遣任務狀態
 **API 端點**：  
 ```
 postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2
