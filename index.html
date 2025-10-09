@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
-  <title>AMR ⇄ WMS HTTPS 通訊規格書</title>
+  <title>AMR ⇄ WMS 通訊規格書</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
@@ -10,96 +10,102 @@
     window.renderMermaid = () => mermaid.init();
   </script>
 
-</head>
-<body>
-  <div id="content">🚀 正在載入 README.md...</div><style>
-  body {
-    font-family: "Noto Sans TC", sans-serif;
-    max-width: 960px;
-    margin: 40px auto;
-    line-height: 1.6;
-    color: #222;
-    background-color: #fdfdfd;
-    padding: 0 24px;
-  }
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      max-width: 960px;
+      margin: 40px auto;
+      line-height: 1.6;
+      color: #222;
+      background-color: #fdfdfd;
+      padding: 0 24px;
+    }
 
-  pre {
-    background: #f5f5f5;
-    padding: 8px 12px;
-    border-radius: 6px;
-    overflow-x: auto;
-  }
+    pre {
+      background: #f5f5f5;
+      padding: 8px 12px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
 
-  h1, h2, h3 {
-    color: #004b8d;
-  }
+    h1, h2, h3 {
+      color: #004b8d;
+    }
 
-  /* ✅ 表格樣式：GitHub 風格 */
-  table {
-    border-collapse: collapse !important;
-    width: 100%;
-    margin: 1.5em 0;
-    font-size: 15px;
-    border: 1px solid #d0d7de !important;
-  }
-
-  th, td {
-    border: 1px solid #d0d7de !important;
-    padding: 10px 14px;
-    text-align: left;
-  }
-
-  th {
-    background-color: #f6f8fa;
-    font-weight: 600;
-  }
-
-  /* ✅ 交錯底色 */
-  tr:nth-child(even) {
-    background-color: #fafbfc;
-  }
-
-  /* ✅ 滑鼠移入效果 */
-  tr:hover {
-    background-color: #f0f6ff;
-    box-shadow: inset 0 0 4px rgba(0, 123, 255, 0.2);
-    transition: background-color 0.2s ease;
-  }
-
-  /* ✅ 調整欄位寬度（可自行修改百分比）*/
-  th:nth-child(1), td:nth-child(1) { width: 10%; }
-  th:nth-child(2), td:nth-child(2) { width: 40%; }
-  th:nth-child(3), td:nth-child(3) { width: 30%; }
-  th:nth-child(4), td:nth-child(4) { width: 20%; }
-
-  /* ✅ 列印與 PDF 模式保留線條與底色 */
-  @media print {
-    table, th, td {
-      border: 1px solid #000 !important;
+    /* ✅ GitHub 風格表格 */
+    table {
+      border-collapse: collapse !important;
+      width: 100%;
+      margin: 1.5em 0;
+      font-size: 15px;
+      border: 1px solid #d0d7de !important;
+    }
+    th, td {
+      border: 1px solid #d0d7de !important;
+      padding: 10px 14px;
+      text-align: left;
     }
     th {
-      background-color: #e0e0e0 !important;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
+      background-color: #f6f8fa;
+      font-weight: 600;
     }
     tr:nth-child(even) {
-      background-color: #f8f8f8 !important;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
+      background-color: #fafbfc;
     }
-  }
-</style>
+    tr:hover {
+      background-color: #f0f6ff;
+      box-shadow: inset 0 0 4px rgba(0, 123, 255, 0.2);
+      transition: background-color 0.2s ease;
+    }
+
+    /* ✅ 欄寬可調整 */
+    th:nth-child(1), td:nth-child(1) { width: 10%; }
+    th:nth-child(2), td:nth-child(2) { width: 40%; }
+    th:nth-child(3), td:nth-child(3) { width: 30%; }
+    th:nth-child(4), td:nth-child(4) { width: 20%; }
+
+    /* ✅ 分頁與列印設定 */
+    @media print {
+      table, th, td {
+        border: 1px solid #000 !important;
+      }
+      th {
+        background-color: #e0e0e0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      tr:nth-child(even) {
+        background-color: #f8f8f8 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* 第一個 h1 不換頁，其餘自動換頁 */
+      h1:not(:first-child) {
+        page-break-before: always;
+      }
+
+      /* 自訂分頁用 class */
+      .page-break {
+        page-break-after: always;
+        break-after: page;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="content">🚀 正在載入 README.md...</div>
 
   <script>
     fetch("README.md")
-      .then((res) => res.text())
-      .then((text) => {
-        // 使用 marked 將 markdown 轉為 HTML
+      .then(res => res.text())
+      .then(text => {
         const html = marked.parse(text);
         document.getElementById("content").innerHTML = html;
 
         // 將 mermaid 區塊轉成 <div class="mermaid">
-        document.querySelectorAll("pre code.language-mermaid").forEach((block) => {
+        document.querySelectorAll("pre code.language-mermaid").forEach(block => {
           const parent = block.parentElement;
           const div = document.createElement("div");
           div.className = "mermaid";
@@ -110,10 +116,11 @@
         // 渲染 mermaid
         if (window.renderMermaid) window.renderMermaid();
       })
-      .catch((err) => {
+      .catch(err => {
         document.getElementById("content").innerHTML = "❌ 載入失敗：" + err;
       });
   </script>
 </body>
 </html>
+
 
