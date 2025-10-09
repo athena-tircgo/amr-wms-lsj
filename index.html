@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <title>PTS ⇄ WMS 通訊規格書</title>
-  
+
   <!-- Marked 解析 Markdown -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  
+
   <!-- Mermaid -->
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
@@ -81,20 +81,20 @@
     fetch("README.md")
       .then(res => res.text())
       .then(text => {
-        // STEP1：Markdown 中 [pagebreak] 手動換頁
+        // 1. Markdown [pagebreak] 手動換頁
         text = text.replace(/\[pagebreak\]/gi, '<div class="page-break"></div>');
 
-        // STEP2：Markdown 轉 HTML
+        // 2. Markdown 轉 HTML
         const html = marked.parse(text);
         const container = document.getElementById("content");
         container.innerHTML = html;
 
-        // STEP3：指定哪些 h2 / h3 要自動換頁
-        const pageBreakHeaders = ["0. 版本管理", "1. 總覽", "2. API 定義"]; // 只針對這些標題換頁
+        // 3. 自動換頁設定：只對指定標題換頁
+        const pageBreakHeaders = ["0. 版本管理", "1. 總覽", "2. API 定義"];
         container.querySelectorAll("h2, h3").forEach(header => {
           if (!header.closest(".mermaid")) {
-            const titleText = header.textContent.trim();
-            if (pageBreakHeaders.includes(titleText)) {
+            const title = header.textContent.trim();
+            if (pageBreakHeaders.includes(title)) {
               const div = document.createElement("div");
               div.className = "page-break";
               header.before(div);
@@ -102,7 +102,7 @@
           }
         });
 
-        // STEP4：將 mermaid 代碼區塊轉為可渲染 div
+        // 4. 將 mermaid 代碼區塊轉為可渲染 div
         container.querySelectorAll("pre code.language-mermaid").forEach(block => {
           const parent = block.parentElement;
           const div = document.createElement("div");
@@ -111,7 +111,7 @@
           parent.replaceWith(div);
         });
 
-        // STEP5：渲染 Mermaid
+        // 5. 渲染 Mermaid
         if (window.renderMermaid) window.renderMermaid();
       })
       .catch(err => {
