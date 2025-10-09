@@ -34,12 +34,14 @@ flowchart TD
     AMR1["AMR_1"]
     AMR2["AMR_2"]
     AMR3["AMR_3"]
+    AMR4["AMR_4"]
 
     %% 連線
     WMS <-->PTS
     PTS -->AMR1
     PTS -->AMR2
     PTS -->AMR3
+    PTS -->AMR4
 ```
 
 
