@@ -18,6 +18,30 @@
 
 
 
+```mermaid
+flowchart TD
+    %% 節點設定
+    style WMS fill:#f9f,stroke:#333,stroke-width:2px,rx:10,ry:10
+    style PTS fill:#9f9,stroke:#333,stroke-width:2px,rx:10,ry:10
+    style AMR1 fill:#9cf,stroke:#333,stroke-width:2px,rx:10,ry:10
+    style AMR2 fill:#9cf,stroke:#333,stroke-width:2px,rx:10,ry:10
+    style AMR3 fill:#9cf,stroke:#333,stroke-width:2px,rx:10,ry:10
+
+    %% 節點文字
+    WMS["WMS 系統"]
+    PTS["PTS 系統"]
+    AMR1["AMR_1"]
+    AMR2["AMR_2"]
+    AMR3["AMR_3"]
+
+    %% 連線
+    WMS -->|傳送任務| PTS
+    PTS -->|指令| AMR1
+    PTS -->|指令| AMR2
+    PTS -->|指令| AMR3
+```
+
+
 ## 2. API 定義規格
 
 基礎URL
@@ -281,14 +305,14 @@ sequenceDiagram
     participant WMS
 
     loop 每10秒回報一次
-        PTS->>WMS:postVehicleStatus (AMR_1 開啟電源,, Status=0 待命中)
+        PTS->>WMS:postVehicleStatus (AMR_1 開啟電源, Status=0 待命中)
         WMS-->>PTS: Response 完成登錄作業
     end
 
     loop 每10秒回報一次
         PTS->>WMS:postVehicleStatus (AMR_1 開啟電源, Status=0 待命中 )
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS:postVehicleStatus (AMR_2 開啟電源,, Status=0 待命中)
+        PTS->>WMS:postVehicleStatus (AMR_2 開啟電源, Status=0 待命中)
         WMS-->>PTS: Response 完成登錄作業
     end
 ```
