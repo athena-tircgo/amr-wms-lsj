@@ -22,12 +22,12 @@
 ```mermaid
 flowchart TD
     %% 節點設定
-    style WMS fill:#f5f5dc,stroke:#333,stroke-width:2px,rx:7,ry:7
-    style PTS fill:#4f8f4f,stroke:#333,stroke-width:2px,rx:7,ry:7
-    style AMR1 fill:#a3d4f5,stroke:#333,stroke-width:2px,rx:7,ry:7
-    style AMR2 fill:#a3d4f5,stroke:#333,stroke-width:2px,rx:7,ry:7
-    style AMR3 fill:#a3d4f5,stroke:#333,stroke-width:2px,rx:7,ry:7
-    style AMR4 fill:#a3d4f5,stroke:#333,stroke-width:2px,rx:7,ry:7
+    style WMS fill:#f5f5dc,stroke:#333,stroke-width:5px,rx:7,ry:7
+    style PTS fill:#7fbf7f,stroke:#333,stroke-width:5px,rx:7,ry:7
+    style AMR1 fill:#a3d4f5,stroke:#333,stroke-width:5px,rx:7,ry:7
+    style AMR2 fill:#a3d4f5,stroke:#333,stroke-width:5px,rx:7,ry:7
+    style AMR3 fill:#a3d4f5,stroke:#333,stroke-width:5px,rx:7,ry:7
+    style AMR4 fill:#a3d4f5,stroke:#333,stroke-width:5px,rx:7,ry:7
 
     %% 節點文字
     WMS["WMS 系統"]
@@ -39,10 +39,10 @@ flowchart TD
 
     %% 連線
     WMS <-->PTS
-    PTS -->AMR1
-    PTS -->AMR2
-    PTS -->AMR3
-    PTS -->AMR4
+    PTS -.->AMR1
+    PTS -.->AMR2
+    PTS -.->AMR3
+    PTS -.->AMR4
 ```
 
 
