@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>PTS ⇄ WMS 通訊規格書</title>
 
-  <!-- Mermaid 9 UMD 版本 -->
+  <!-- Mermaid UMD 版本，確保在 window 上可用 -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.0/dist/mermaid.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
@@ -55,66 +54,51 @@
       transition: background-color 0.2s ease;
     }
 
-    /* 欄寬可調整 */
     th:nth-child(1), td:nth-child(1) { width: 10%; }
     th:nth-child(2), td:nth-child(2) { width: 40%; }
     th:nth-child(3), td:nth-child(3) { width: 30%; }
     th:nth-child(4), td:nth-child(4) { width: 20%; }
 
-    /* 列印與 PDF 設定 */
     @media print {
       table, th, td { border: 1px solid #000 !important; }
       th { background-color: #e0e0e0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       tr:nth-child(even) { background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       h1:first-of-type { text-align: center; margin-top: 200px; }
-
       .page-break { page-break-before: always; break-before: page; }
       tr { page-break-inside: avoid; }
       table { page-break-inside: auto; }
     }
 
-    /* Mermaid note 透明化 */
-    .mermaid .note rect {
-      fill: transparent !important;
-      stroke: none !important;
-    }
-    .mermaid .note text {
-      fill: #000 !important;
-    }
+    .mermaid .note rect { fill: transparent !important; stroke: none !important; }
+    .mermaid .note text { fill: #000 !important; }
 
-    /* 顯式 page-break 樣式 */
-    .page-break {
-      display: block;
-      page-break-before: always;
-      break-before: page;
-    }
+    .page-break { display: block; page-break-before: always; break-before: page; }
   </style>
 </head>
-
 <body>
   <div id="content">🚀 正在載入 README.md...</div>
 
   <script>
-    const pageBreakTitles = ["0. 版本管理", "1. 總覽", "2. API 定義"]; // 指定要換頁的標題
+    // 指定要換頁的標題
+    const pageBreakTitles = ["0. 版本管理", "1. 總覽", "2. API 定義"];
 
     fetch("README.md")
       .then(res => res.text())
       .then(text => {
         const container = document.getElementById("content");
-        const html = marked.parse(text);
-        container.innerHTML = html;
+        container.innerHTML = marked.parse(text);
 
-        // 只在指定標題前插入分頁
+        // 指定標題換頁
         document.querySelectorAll("#content h2, #content h3").forEach(header => {
-          const titleText = header.textContent.trim();
-          if (!header.closest(".mermaid") && pageBreakTitles.includes(titleText)) {
+          const title = header.textContent.trim();
+          if (!header.closest(".mermaid") && pageBreakTitles.includes(title)) {
             const breaker = document.createElement("div");
             breaker.className = "page-break";
             header.before(breaker);
           }
         });
 
-        // 將 ```mermaid``` 代碼區塊轉為可渲染 div
+        // 將 mermaid 代碼區塊轉為 div
         document.querySelectorAll("pre code.language-mermaid").forEach(block => {
           const parent = block.parentElement;
           const div = document.createElement("div");
@@ -123,13 +107,7 @@
           parent.replaceWith(div);
         });
 
-        // 渲染 Mermaid
-        mermaid.initialize({ startOnLoad: false });
-        mermaid.init(undefined, document.querySelectorAll(".mermaid"));
-      })
-      .catch(err => {
-        document.getElementById("content").innerHTML = "❌ 載入失敗：" + err;
-      });
-  </script>
-</body>
-</html>
+        // Mermaid 初始化
+        if (window.mermaid) {
+          mermaid.initialize({ startOnLoad: false });
+          mermaid.init(undefined, document.querySelectorAll(
