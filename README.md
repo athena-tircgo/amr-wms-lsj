@@ -129,7 +129,7 @@ getTranslationList.php?STATE=0
   - 緊急：0 (若會優先會插入任務)
   - 普通：1（依照任務的時間順序處理)  
 
-**取消任務：** 只能取消任務狀態**未執行**的任務，**執行中**的任務無法取消。取消任務的方式不需要重新新增任務，直接把State 狀態為0 的任務，改成 State = 3 即可取消任務。
+**取消任務：** 只能取消任務狀態**未執行**的任務，**執行中**的任務無法取消。<br>取消任務的方式不需要重新新增任務，直接把State 狀態為0 的任務，改成 State = 3 即可取消任務。
 
 ```json
 {
@@ -306,7 +306,7 @@ WMS 要下任務前，須先確認PTS系統已經啟用，PTS啟用後每隔10�
 
 ```mermaid
 sequenceDiagram
-    participant PTS系統啟用
+    participant PTS系統已啟用
     participant PTS
     participant WMS
 
@@ -316,6 +316,19 @@ sequenceDiagram
         PTS->>WMS: postVehicleStatus<BR> (VEHCILE:2、Status=4)
         WMS-->>PTS: Response 完成登錄作業
         PTS->>WMS: postVehicleStatus<BR> (VEHCILE:3、Status=0)
+        WMS-->>PTS: Response 完成登錄作業
+        PTS->>WMS: postVehicleStatus<BR> (VEHCILE:4、Status=4)
+        WMS-->>PTS: Response 完成登錄作業
+    end
+    <BR>
+    loop 每10秒回報一次
+        PTS->>WMS: postVehicleStatus<BR> (VEHCILE:1、Status=0)
+        WMS-->>PTS: Response 完成登錄作業
+        PTS->>WMS: postVehicleStatus<BR> (VEHCILE:2、Status=0)
+        WMS-->>PTS: Response 完成登錄作業
+        PTS->>WMS: postVehicleStatus<BR> (VEHCILE:3、Status=0)
+        WMS-->>PTS: Response 完成登錄作業
+        PTS->>WMS: postVehicleStatus<BR> (VEHCILE:4、Status=4)
         WMS-->>PTS: Response 完成登錄作業
     end
 ```
