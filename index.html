@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>PTS ⇄ WMS 通訊規格書</title>
 
-  <!-- Marked.js 用於 Markdown 轉 HTML -->
+  <!-- Marked.js -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <!-- Mermaid.js -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
@@ -20,56 +20,35 @@
       padding: 0 24px;
     }
 
-    h1, h2, h3 {
-      color: #004b8d;
-    }
+    h1, h2, h3 { color: #004b8d; }
+    pre { background: #f5f5f5; padding: 8px 12px; border-radius: 6px; overflow-x: auto; }
 
-    pre {
-      background: #f5f5f5;
-      padding: 8px 12px;
-      border-radius: 6px;
-      overflow-x: auto;
-    }
-
-    /* 表格邊框 */
+    /* 表格格線 */
     table {
-      border-collapse: collapse;
+      border-collapse: collapse !important;
       width: 100%;
       margin: 1.5em 0;
     }
     th, td {
-      border: 1px solid #000;
+      border: 1px solid #000 !important;
       padding: 10px 14px;
       text-align: left;
     }
-    th {
-      background-color: #f0f0f0;
-      font-weight: 600;
-    }
+    th { background-color: #f0f0f0 !important; font-weight: 600; }
 
-    /* 列印換頁 */
+    /* 列印時換頁 */
     @media print {
-      .page-break { page-break-before: always; break-before: page; }
+      .page-break { page-break-before: always; break-before: page; height:1px; }
+      table, th, td { border: 1px solid #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       tr { page-break-inside: avoid; }
       table { page-break-inside: auto; }
     }
 
-    /* page-break 樣式 */
-    .page-break {
-      display: block;
-      page-break-before: always;
-      break-before: page;
-      height: 1px;
-    }
+    .page-break { display: block; page-break-before: always; break-before: page; height: 1px; }
 
     /* Mermaid note 透明化 */
-    .mermaid .note rect {
-      fill: transparent !important;
-      stroke: none !important;
-    }
-    .mermaid .note text {
-      fill: #000 !important;
-    }
+    .mermaid .note rect { fill: transparent !important; stroke: none !important; }
+    .mermaid .note text { fill: #000 !important; }
   </style>
 </head>
 <body>
@@ -79,15 +58,15 @@
     fetch("README.md")
       .then(res => res.text())
       .then(text => {
-        // 1. 將 Markdown 中的 [pagebreak] 轉成 div.page-break
+        // 將 Markdown 中的 [pagebreak] 替換成 div.page-break
         text = text.replace(/\[pagebreak\]/gi, '<div class="page-break"></div>');
 
-        // 2. 轉成 HTML
+        // 轉 Markdown -> HTML
         const html = marked.parse(text);
         const container = document.getElementById("content");
         container.innerHTML = html;
 
-        // 3. 將 Mermaid 代碼區塊轉成可以渲染的 div
+        // Mermaid 代碼塊轉 div.mermaid
         document.querySelectorAll("pre code.language-mermaid").forEach(block => {
           const parent = block.parentElement;
           const div = document.createElement("div");
@@ -96,7 +75,7 @@
           parent.replaceWith(div);
         });
 
-        // 4. 初始化 Mermaid 渲染
+        // 初始化 Mermaid
         if (window.mermaid) {
           mermaid.initialize({ startOnLoad: false });
           mermaid.init(undefined, document.querySelectorAll(".mermaid"));
