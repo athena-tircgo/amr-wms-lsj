@@ -88,4 +88,53 @@
     .page-break {
       display: block;
       page-break-before: always;
+      break-before: page;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content">🚀 正在載入 README.md...</div>
+
+  <script>
+    fetch("README.md")
+      .then(res => res.text())
+      .then(text => {
+        // 將 Markdown 轉成 HTML
+        let html = marked.parse(text);
+        const container = document.getElementById("content");
+        container.innerHTML = html;
+
+        // 插入換頁：只有帶 [pagebreak] 標記的標題才換頁
+        document.querySelectorAll("#content h2, #content h3").forEach(header => {
+          if (header.textContent.includes("[pagebreak]")) {
+            const breaker = document.createElement("div");
+            breaker.className = "page-break";
+            header.before(breaker);
+            // 移除 [pagebreak] 字樣
+            header.textContent = header.textContent.replace("[pagebreak]", "").trim();
+          }
+        });
+
+        // 將 ```mermaid``` 區塊轉為 <div class="mermaid">
+        document.querySelectorAll("pre code.language-mermaid").forEach(block => {
+          const parent = block.parentElement;
+          const div = document.createElement("div");
+          div.className = "mermaid";
+          div.innerHTML = block.textContent.trim();
+          parent.replaceWith(div);
+        });
+
+        // 渲染 Mermaid
+        if (window.renderMermaid) window.renderMermaid();
+      })
+      .catch(err => {
+        document.getElementById("content").innerHTML = "❌ 載入失敗：" + err;
+      });
+  </script>
+
+</body>
+</html>
+
  
