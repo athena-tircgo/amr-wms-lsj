@@ -28,8 +28,11 @@
       overflow-x: auto;
     }
 
-    h1, h2, h3 { color: #004b8d; }
+    h1, h2, h3 {
+      color: #004b8d;
+    }
 
+    /* GitHub 風格表格 */
     table {
       border-collapse: collapse !important;
       width: 100%;
@@ -37,71 +40,69 @@
       font-size: 15px;
       border: 1px solid #d0d7de !important;
     }
-    th, td { border: 1px solid #d0d7de !important; padding: 10px 14px; text-align: left; }
-    th { background-color: #f6f8fa; font-weight: 600; }
+    th, td {
+      border: 1px solid #d0d7de !important;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    th {
+      background-color: #f6f8fa;
+      font-weight: 600;
+    }
     tr:nth-child(even) { background-color: #fafbfc; }
-    tr:hover { background-color: #f0f6ff; box-shadow: inset 0 0 4px rgba(0,123,255,0.2); transition: background-color 0.2s ease; }
+    tr:hover {
+      background-color: #f0f6ff;
+      box-shadow: inset 0 0 4px rgba(0, 123, 255, 0.2);
+      transition: background-color 0.2s ease;
+    }
 
+    /* 欄寬可調整 */
     th:nth-child(1), td:nth-child(1) { width: 10%; }
     th:nth-child(2), td:nth-child(2) { width: 40%; }
     th:nth-child(3), td:nth-child(3) { width: 30%; }
     th:nth-child(4), td:nth-child(4) { width: 20%; }
 
+    /* 列印 PDF 設定 */
     @media print {
       table, th, td { border: 1px solid #000 !important; }
       th { background-color: #e0e0e0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       tr:nth-child(even) { background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       h1:first-of-type { text-align: center; margin-top: 200px; }
-
       .page-break { page-break-before: always; break-before: page; }
       tr { page-break-inside: avoid; }
       table { page-break-inside: auto; }
     }
 
-    .mermaid .note rect { fill: transparent !important; stroke: none !important; }
-    .mermaid .note text { fill: #000 !important; }
-    .page-break { display: block; page-break-before: always; break-before: page; }
+    /* Mermaid note 透明化 */
+    .mermaid .note rect {
+      fill: transparent !important;
+      stroke: none !important;
+    }
+    .mermaid .note text {
+      fill: #000 !important;
+    }
+
+    /* 顯式 page-break 樣式 */
+    .page-break {
+      display: block;
+      page-break-before: always;
+      break-before: page;
+    }
   </style>
+
 </head>
 
 <body>
   <div id="content">🚀 正在載入 README.md...</div>
 
   <script>
-    // 設定哪些標題要換頁
-    const pageBreakTitles = ["0. 版本管理", "1. 總覽", "2. API 定義"];
-
-document.querySelectorAll("#content h2, #content h3").forEach(header => {
-  if (!header.closest(".mermaid")) {
-    const headerText = header.textContent.trim();
-    if (pageBreakTitles.some(title => headerText.includes(title))) {
-      const breaker = document.createElement("div");
-      breaker.className = "page-break";
-      header.before(breaker);
-    }
-  }
-});
-
     fetch("README.md")
       .then(res => res.text())
       .then(text => {
-        const html = marked.parse(text);
         const container = document.getElementById("content");
-        container.innerHTML = html;
+        container.innerHTML = marked.parse(text);
 
-        // 插入分頁
-        document.querySelectorAll("#content h2, #content h3").forEach(header => {
-          if (!header.closest(".mermaid")) {
-            const headerText = header.textContent.trim();
-            if (pageBreakTitles.includes(headerText)) {
-              const breaker = document.createElement("div");
-              breaker.className = "page-break";
-              header.before(breaker);
-            }
-          }
-        });
-
-        // 轉 Mermaid
+        // 先將 Mermaid 區塊轉成可渲染 div
         document.querySelectorAll("pre code.language-mermaid").forEach(block => {
           const parent = block.parentElement;
           const div = document.createElement("div");
@@ -110,7 +111,22 @@ document.querySelectorAll("#content h2, #content h3").forEach(header => {
           parent.replaceWith(div);
         });
 
+        // 渲染 Mermaid
         if (window.renderMermaid) window.renderMermaid();
+
+        // 指定哪些標題要換頁
+        const pageBreakTitles = ["0. 版本管理", "1. 總覽", "2. API 定義", "2.1 取得任務清單"];
+        document.querySelectorAll("#content h2, #content h3").forEach(header => {
+          // 確保不在 Mermaid 內
+          if (!header.closest(".mermaid")) {
+            const headerText = header.textContent.trim();
+            if (pageBreakTitles.some(title => headerText.includes(title))) {
+              const breaker = document.createElement("div");
+              breaker.className = "page-break";
+              header.before(breaker);
+            }
+          }
+        });
       })
       .catch(err => {
         document.getElementById("content").innerHTML = "❌ 載入失敗：" + err;
