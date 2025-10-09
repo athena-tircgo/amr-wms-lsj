@@ -30,7 +30,7 @@
     h1 {
       color: #004b8d;
       text-align: center;
-      margin-top: 100px; /* 離頁面頂端距離 */
+      margin-top: 100px;
     }
     h2, h3 {
       color: #004b8d;
@@ -56,15 +56,16 @@
     .mermaid .note rect { fill: transparent !important; stroke: none !important; }
     .mermaid .note text { fill: #000 !important; }
 
-    /* 列印設定 */
     @media print {
-      h2, h3 { page-break-before: always; } /* 自動換頁 */
       table, th, td { border: 1px solid #000 !important; }
       th { background-color: #e0e0e0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       tr:nth-child(even) { background-color: #f8f8f8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       h1:first-of-type { text-align: center; margin-top: 200px; }
       tr { page-break-inside: avoid; }
       table { page-break-inside: auto; }
+
+      /* 指定標題才換頁 */
+      h2.page-break, h3.page-break { page-break-before: always; }
     }
   </style>
 </head>
@@ -73,10 +74,11 @@
   <div id="content">🚀 正在載入 README.md...</div>
 
   <script>
+    const pageBreakTitles = ["0. 版本管理", "1. 總覽", "2. API 定義"]; // 只換頁的標題
+
     fetch("README.md")
       .then(res => res.text())
       .then(mdText => {
-        // 轉 Markdown
         const html = marked.parse(mdText);
         const container = document.getElementById("content");
         container.innerHTML = html;
@@ -88,6 +90,13 @@
           div.className = "mermaid";
           div.innerHTML = block.textContent.trim();
           parent.replaceWith(div);
+        });
+
+        // 判斷 h2 / h3 是否需要加換頁 class
+        container.querySelectorAll("h2, h3").forEach(header => {
+          if (pageBreakTitles.includes(header.textContent.trim())) {
+            header.classList.add("page-break");
+          }
         });
 
         // Mermaid 渲染
