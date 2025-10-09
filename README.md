@@ -46,8 +46,8 @@ flowchart TD
     PTS -->AMR3
     PTS -->AMR4
 ```
-
 <div style="page-break-after: always;"></div>
+
 ## 2. API 定義規格
 
 
