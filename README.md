@@ -1,13 +1,13 @@
-# AMR 和 WMS HTTPS 通訊規格書
+# PTS派車系統 和 WMS倉儲管理系統 HTTPS 通訊規格書
 ---
 ## 1. 總覽
-本規格書定義了自動搬運車（AMR）與倉儲管理系統(WMS)之間的 HTTP 通訊協定。倉儲管理系統(WMS)作為伺服器端，自動搬運車（AMR）作為客戶端，透過WebAPI進行通訊，使用HTTP協議傳輸JSON格式資料。
+本規格書定義了派車系統（PTS）與倉儲管理系統(WMS)之間的 HTTP 通訊協定。倉儲管理系統(WMS)作為伺服器端，派車系統（PTS）作為客戶端，透過WebAPI進行通訊，使用HTTP協議傳輸JSON格式資料。
 
 - **通訊協定**：HTTPS
 - **傳輸格式**：JSON
 - **系統架構**：
   - **WMS Server**：倉儲管理系統伺服器，提供WebAPI服務。
-  - **AMR Client**：自動搬運車端，主動呼叫WMS系統API。
+  - **PTS Client**：派車系統端，主動呼叫WMS系統API。
 
 ---
 
@@ -22,14 +22,14 @@ http://[WMS系統IP]:[端口]/api/
 
 |項目 | 說明| 類別 | 方法 |
 |:------|:------|:------|:-----|
-| 1| AMR取得任務清單 | getTranslationList | GET |
-| 2| AMR回報位置、電量、狀態及異常 | postVehicleStatus | POST |
-| 3| AMR回報派遣任務狀態 |postTranslationState | POST |
+| 1| 取得任務清單 | getTranslationList | GET |
+| 2| 回報位置、電量、狀態及異常 | postVehicleStatus | POST |
+| 3| 回報派遣任務狀態 |postTranslationState | POST |
 
 
-### 3.1 AMR取得任務清單
+### 3.1 取得任務清單
 
-每隔10秒，AMR 會主動詢問WMS取得任務清單，若任務清單資訊無異常，將會執行任務。若取得的任務清單解析後有異常，會透過postTranslationState將任務清單的異常資訊回傳給WMS，並且不會執行該項任務。
+每隔10秒，PTS會主動詢問WMS取得任務清單，若任務清單資訊無異常，將會執行任務。若取得的任務清單解析後有異常，會透過postTranslationState將任務清單的異常資訊回傳給WMS，並且不會執行該項任務。
 
 **API 端點：**
 ```
@@ -124,24 +124,24 @@ getTranslationList.php?STATE=0
 
 ```mermaid
 sequenceDiagram
-    participant AMR as AMR (無人搬運車)
+    participant PTS as PTS (派車系統)
     participant WMS as WMS (倉儲管理系統)
     loop 每 10 問秒一次
-        AMR->>WMS: getTranslationList
+        PTS->>WMS: getTranslationList
         alt No task
-            WMS-->>AMR: Response no_task
-            AMR-->>AMR: Wait 10 seconds for next polling
+            WMS-->>PTS: Response no_task
+            PTS-->>PTS: Wait 10 seconds for next polling
         else Task available
-            WMS-->>AMR: Response Task data (date,translation....)
-            AMR->>AMR: Parse task and start executing
+            WMS-->>PTS: Response Task data (date,translation....)
+            PTS->>PTS: Parse task and start executing
         end
     end
 ```
 ---
 
-### 3.2 AMR回報位置、電量、狀態及異常
+### 3.2 回報位置、電量、狀態及異常
 
-每隔10秒，AMR 會回報WMS每一台搬運車的狀態資訊以及是否有異常。
+每隔10秒，PTS會回報WMS每一台搬運車的狀態資訊以及是否有異常。
 
 **API 端點：**  
 ```
@@ -191,20 +191,20 @@ postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
 
 ```mermaid
 sequenceDiagram
-    participant AMR
+    participant PTS
     participant WMS
 
     loop 每10秒回報一次
-        AMR->>WMS: postVehicleStatus (AMR 狀態)
-        WMS-->>AMR: Response 完成登錄作業
+        PTS->>WMS: postVehicleStatus (AMR 狀態)
+        WMS-->>PTS: Response 完成登錄作業
     end
 ```
 
 ---
 
-### 3.3 AMR回報派遣任務狀態
+### 3.3 回報派遣任務狀態
 
-每隔10秒，AMR 會回報WMS執行中和已完成的任務清單，若有收到的派遣任務清單格式有異常無法處理，也會透過此方式回報讓WMS掌握。
+每隔10秒，PTS會回報WMS執行中和已完成的任務清單，若有收到的派遣任務清單格式有異常無法處理，也會透過此方式回報讓WMS掌握。
 
 **API 端點：**
 ```
@@ -256,12 +256,12 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
 
 ```mermaid
 sequenceDiagram
-    participant AMR
+    participant PTS
     participant WMS
 
     loop 每10秒回報一次
-        AMR->>WMS: postTranslationState (派遣任務狀態)
-        WMS-->>AMR: Response 完成登錄作業
+        PTS->>WMS: postTranslationState (派遣任務狀態)
+        WMS-->>PTS: Response 完成登錄作業
     end
 ```
 
