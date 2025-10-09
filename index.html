@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>PTS ⇄ WMS 通訊規格書</title>
-  
-  <!-- Marked.js -->
+
+  <!-- Marked.js 用於 Markdown 轉 HTML -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  
-  <!-- Mermaid -->
+  <!-- Mermaid.js -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  
+
   <style>
     body {
       font-family: "Noto Sans TC", sans-serif;
@@ -32,32 +31,35 @@
       overflow-x: auto;
     }
 
-    /* 表格樣式 */
+    /* 表格邊框 */
     table {
       border-collapse: collapse;
       width: 100%;
-      margin: 1em 0;
-    }
-    table, th, td {
-      border: 1px solid #333;
+      margin: 1.5em 0;
     }
     th, td {
-      padding: 8px 12px;
+      border: 1px solid #000;
+      padding: 10px 14px;
       text-align: left;
     }
     th {
-      background-color: #f6f8fa;
+      background-color: #f0f0f0;
       font-weight: 600;
     }
-    tr:nth-child(even) { background-color: #fafbfc; }
-    tr:hover { background-color: #f0f6ff; }
 
-    /* 列印設定 */
+    /* 列印換頁 */
     @media print {
       .page-break { page-break-before: always; break-before: page; }
       tr { page-break-inside: avoid; }
       table { page-break-inside: auto; }
-      h1:first-of-type { text-align: center; margin-top: 200px; }
+    }
+
+    /* page-break 樣式 */
+    .page-break {
+      display: block;
+      page-break-before: always;
+      break-before: page;
+      height: 1px;
     }
 
     /* Mermaid note 透明化 */
@@ -68,39 +70,24 @@
     .mermaid .note text {
       fill: #000 !important;
     }
-
-    /* page-break 顯示 */
-    .page-break { display: block; page-break-before: always; break-before: page; }
   </style>
 </head>
 <body>
   <div id="content">🚀 正在載入 README.md...</div>
 
   <script>
-    // 指定哪些標題要換頁
-    const pageBreakTitles = ["0. 版本管理", "1. 總覽", "2. API 定義"];
-
-    // 初始化 Mermaid
-    mermaid.initialize({ startOnLoad: false });
-
     fetch("README.md")
       .then(res => res.text())
       .then(text => {
+        // 1. 將 Markdown 中的 [pagebreak] 轉成 div.page-break
+        text = text.replace(/\[pagebreak\]/gi, '<div class="page-break"></div>');
+
+        // 2. 轉成 HTML
+        const html = marked.parse(text);
         const container = document.getElementById("content");
-        // 轉 Markdown 成 HTML
-        container.innerHTML = marked.parse(text);
+        container.innerHTML = html;
 
-        // 處理換頁
-        document.querySelectorAll("#content h2, #content h3").forEach(header => {
-          // 只對指定標題換頁
-          if (pageBreakTitles.includes(header.innerText.trim())) {
-            const breaker = document.createElement("div");
-            breaker.className = "page-break";
-            header.before(breaker);
-          }
-        });
-
-        // 將 mermaid 區塊轉 div
+        // 3. 將 Mermaid 代碼區塊轉成可以渲染的 div
         document.querySelectorAll("pre code.language-mermaid").forEach(block => {
           const parent = block.parentElement;
           const div = document.createElement("div");
@@ -109,8 +96,11 @@
           parent.replaceWith(div);
         });
 
-        // 渲染 Mermaid
-        mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+        // 4. 初始化 Mermaid 渲染
+        if (window.mermaid) {
+          mermaid.initialize({ startOnLoad: false });
+          mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+        }
       })
       .catch(err => {
         document.getElementById("content").innerHTML = "❌ 載入失敗：" + err;
