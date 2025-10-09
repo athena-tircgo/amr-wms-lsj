@@ -305,6 +305,7 @@ WMS 要下任務前，須先確認PTS系統已經啟用，並確認每台AMR 電
 ```mermaid
 sequenceDiagram
     participant PTS系統啟用
+    participant PTS
     participant WMS
 
     loop 每10秒回報一次
