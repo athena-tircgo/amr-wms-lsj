@@ -330,9 +330,18 @@ sequenceDiagram
 
 確認每台搬運車都變成 Status=0，即可開始派遣任務。
 
+```mermaid
+sequenceDiagram
+    participant PTS系統已啟用
+    participant PTS
+    participant WMS
+
+note over PTS,WMS: 派遣任務給AMR_1, Start-> Stop1-> Stop2-> End 
+        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
+        WMS-->>PTS: Response 完成登錄作業
 
 
-
+```
 
 ## 4. JSON 傳輸格式說明
 
