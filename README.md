@@ -329,8 +329,6 @@ sequenceDiagram
         WMS-->>PTS: Response 完成登錄作業
         PTS->>WMS: postVehicleStatus (VEHCILE:3、Status=4)
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus (VEHCILE:4、Status=4)
-        WMS-->>PTS: Response 完成登錄作業
 
 ```
 
