@@ -69,10 +69,15 @@
 
     /* 列印樣式 */
     @media print {
-      .page-break{
-        page-break-before: always;
-        break-before: page;
-      }
+    h2, h3 {
+    page-break-before: always;
+    break-before: page;
+    }
+  
+    /* 新增一個樣式來隱藏我們不希望列印出來的內容 */
+    .no-print {
+      display: none !important;
+    }
       /* tr 的設定非常好，保持不動，防止表格行被切斷 */
       tr { page-break-inside: avoid; }
       table { page-break-inside: auto; }
