@@ -1,6 +1,5 @@
 # PTS派車系統 和 WMS倉儲管理系統<br>HTTPS 通訊規格書
 
-
 ## 0. 版本管理
 |版本 | 更新| 編制者 |
 |:------|:------|:------|
@@ -60,8 +59,7 @@ http://[WMS系統IP]:[端口]/api/
 | 2| 回報位置、電量、狀態及異常 | postVehicleStatus | POST |
 | 3| 回報派遣任務狀態 |postTranslationState | POST |
 
-## {.no-print} 
-
+ 
 ### 2.1 取得任務清單
 
 
