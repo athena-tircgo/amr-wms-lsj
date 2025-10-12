@@ -60,8 +60,7 @@ http://[WMS系統IP]:[端口]/api/
 | 2| 回報位置、電量、狀態及異常 | postVehicleStatus | POST |
 | 3| 回報派遣任務狀態 |postTranslationState | POST |
 
-<div class="page-break"></div>
-
+## {.no-print} 
 
 ### 2.1 取得任務清單
 
