@@ -300,12 +300,8 @@ sequenceDiagram
         WMS-->>PTS: Response 完成登錄作業
     end
 ```
-<div class="page-break"></div>
 
-## 3. 操作情境
-
-
-### 3.1 Alive 
+## 3. 操作情境<br>3.1 Alive 
 WMS 要下任務前，須先確認PTS系統已經啟用，PTS啟用後每隔10秒就會回報每台搬運車的狀況，請確認每台AMR 電源皆已開啟。<BR>
 若搬運車已經就緒，Status=0 ，若未開啟電源，Status=4，請確認每台搬運車的狀態都變成 Status=0，再開始派遣任務。
 
