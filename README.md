@@ -339,14 +339,19 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant PTS系統已啟用
+    participant AMR Alive
     participant PTS
     participant WMS
 
-note over PTS,WMS: 派遣任務給AMR_1, Start-> Stop1-> Stop2-> End 
+note over PTS,WMS: AMR待命中，可接受派遣任務
+        PTS->>WMS: getTranslationList
+        WMS-->>PTS: no_task
         PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
         WMS-->>PTS: Response 完成登錄作業
-
+        
+note over PTS,WMS: 派遣任務給AMR_1, 1-->3-->4-->7-->11-->1
+     PTS->>WMS: getTranslationList
+     PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
 
 ```
 
