@@ -69,10 +69,11 @@
 
     /* 列印樣式 */
     @media print {
-      h2, h3 {
+      h2 {
         page-break-before: always;
         break-before: page;
       }
+      /* tr 的設定非常好，保持不動，防止表格行被切斷 */
       tr { page-break-inside: avoid; }
       table { page-break-inside: auto; }
       th { -webkit-print-color-adjust: exact; print-color-adjust: exact; background-color: #e0e0e0 !important; }
