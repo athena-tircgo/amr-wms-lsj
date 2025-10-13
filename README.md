@@ -409,7 +409,7 @@ note over PTS,WMS: AMR1 移動到點位1011、任務號碼1 執行中
 
 ```mermaid
 sequenceDiagram
-    participant AMR 工作中
+    participant AMR 待命中
     participant PTS
     participant WMS
 
@@ -426,6 +426,10 @@ note over PTS,WMS: AMR2 已完成任務
      WMS-->>PTS:
 
 ```
+
+### 3.5 充電
+
+
 
 ## 4. JSON 傳輸格式說明
 
