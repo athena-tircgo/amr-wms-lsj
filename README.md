@@ -83,7 +83,6 @@ getTranslationList.php?STATE=0
   - STATE=4（任務清單有異常）
   - STATE=空白（全部）
 <br>
-<br>
 
 **回應範例：** 依據getTranslationList所請求的參數回應,如無帶參數(空白),請回覆全部的任務。
 
@@ -204,6 +203,9 @@ postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
   }
 ]
 ```
+
+<br>
+
 - **搬運車狀態定義：**
   - STATUS=0（待命中）
   - STATUS=1（工作中）
@@ -216,6 +218,9 @@ postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
   - ERROR=1（電池電量過低）
   - ERROR=2（圖資須更新）
   - ERROR=3（有障礙物）
+
+<br>
+<br>
 
 **回應範例：**
 ```json
@@ -237,7 +242,6 @@ sequenceDiagram
     end
 ```
 
----
 
 ### 2.3 回報派遣任務狀態
 
@@ -268,6 +272,9 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
 ]
 
 ```
+
+<br>
+
 - **任務狀態定義：**  
   - STATE=1（執行中)
   - STATE=2（已完成）
@@ -281,6 +288,8 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
   - ERROR=4（任務流水號重複）
   - ERROR=5（指定的車號 not available）
 
+<br>
+<br>
 
 **回應範例：**
 ```json
