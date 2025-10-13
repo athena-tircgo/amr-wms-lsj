@@ -74,7 +74,7 @@ getTranslationList.php?STATE=0
 ```
 <br>
 
-**2.2.2 請求參數：**
+**2.1.2 請求參數：**
 ```json
 {
   "STATE":"任務狀態",
@@ -87,8 +87,6 @@ getTranslationList.php?STATE=0
   - STATE=3（取消任務）
   - STATE=4（任務清單有異常）
   - STATE=空白（全部）
-<br>
-<br>
 <br>
 <br>
 <br>
@@ -150,14 +148,7 @@ getTranslationList.php?STATE=0
 
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 
 
 **2.1.4 取消任務：** 只能取消任務狀態**未執行**的任務，**執行中**的任務無法取消。<br>取消任務的方式不需要重新新增任務，直接把State 狀態為0 的任務，改成 State = 3 即可取消任務。
@@ -260,6 +251,7 @@ postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
 ```
 <br>
 <br>
+<br>
 
 **2.2.4 postVehicleStatus時序圖：**
 
@@ -330,6 +322,7 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
   "message": "完成登錄作業", 
 }
 ```
+<br>
 <br>
 <br>
 
