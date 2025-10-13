@@ -51,7 +51,7 @@ flowchart TD
 
 基礎URL
 ```
-http://[WMS系統IP]:[端口]/api/
+https://[WMS系統IP]:[端口]/api/
 ```
 
 |項目 | 說明| 類別 | 方法 |
@@ -66,11 +66,11 @@ http://[WMS系統IP]:[端口]/api/
 
 每隔10秒，PTS會主動詢問WMS取得任務清單，若任務清單資訊無異常，將會執行任務。若取得的任務清單解析後有異常，會透過postTranslationState將任務清單的異常資訊回傳給WMS，並且不會執行該項任務。
 
-**API 端點：**
+**2.1.1 API 端點：**
 ```
 getTranslationList.php?STATE=0
 ```
-**請求參數：**
+**2.2.2 請求參數：**
 ```json
 {
   "STATE":"任務狀態",
@@ -85,7 +85,7 @@ getTranslationList.php?STATE=0
   - STATE=空白（全部）
 <br>
 
-**回應範例：** 依據getTranslationList所請求的參數回應,如無帶參數(空白),請回覆全部的任務。
+**2.1.3 回應範例：** 依據getTranslationList所請求的參數回應,如無帶參數(空白),請回覆全部的任務。
 
 無任務回應範例:
 
@@ -135,7 +135,7 @@ getTranslationList.php?STATE=0
 
 <br>
 
-**取消任務：** 只能取消任務狀態**未執行**的任務，**執行中**的任務無法取消。<br>取消任務的方式不需要重新新增任務，直接把State 狀態為0 的任務，改成 State = 3 即可取消任務。
+**2.1.4 取消任務：** 只能取消任務狀態**未執行**的任務，**執行中**的任務無法取消。<br>取消任務的方式不需要重新新增任務，直接把State 狀態為0 的任務，改成 State = 3 即可取消任務。
 
 ```json
 {
@@ -160,7 +160,7 @@ getTranslationList.php?STATE=0
 <br>
 <br>
 
-**getTranslationList時序圖：**
+**2.1.5 getTranslationList時序圖：**
 
 ```mermaid
 sequenceDiagram
