@@ -88,8 +88,8 @@ getTranslationList.php?STATE=0
   - STATE= 1（執行中）
   - STATE= 2（已完成）
   - STATE= 3（取消任務）
-  - STATE= 4（任務清單有異常）
   - STATE= 空白（全部）
+<br>
 <br>
 <br>
 <br>
@@ -318,7 +318,7 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
       "VEHCILE": "2",
       "TRANSLATION": "1",
       "STATE": "4",
-      "ERROR":"2(站點不存在)"
+      "ERROR":"-2(站點不存在)"
   }
 ]
 
