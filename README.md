@@ -29,7 +29,7 @@ flowchart TD
     style AMR4 fill:#a3d4f5,stroke:#333,stroke-width:2px,rx:7,ry:7
 
     %% 節點文字
-    WMS[" WMS 系統 "]
+    WMS["WMS 系統"]
     PTS["PTS 系統"]
     AMR1["AMR_1"]
     AMR2["AMR_2"]
@@ -82,6 +82,8 @@ getTranslationList.php?STATE=0
   - STATE=3（取消任務）
   - STATE=4（任務清單有異常）
   - STATE=空白（全部）
+<br>
+<br>
 
 **回應範例：** 依據getTranslationList所請求的參數回應,如無帶參數(空白),請回覆全部的任務。
 
@@ -277,7 +279,7 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
   - ERROR=2（不存在的站點）
   - ERROR=3（指定的車號不存在）
   - ERROR=4（任務流水號重複）
-  - ERROR=5（指定的車號未開機）
+  - ERROR=5（指定的車號 not available）
 
 
 **回應範例：**
@@ -434,9 +436,15 @@ sequenceDiagram
 note over PTS,WMS: AMR1 充電中
      PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:5001、Status=2...)
      WMS-->>PTS:Response 完成登錄作業
-  
-```
 
+note over PTS,WMS:派遣任務給AMR_1，會回報任務清單有異常，ERROR:5 指定的車號 not available
+     PTS->>WMS: getTranslationList
+     WMS-->>PTS: Task Data
+     PTS->>WMS: postTranslationState (VEHCILE:1、translation：11、State=4、ERROR:5)
+     WMS-->>PTS:Response 完成登錄作業
+
+
+```
 
 ## 4. JSON 傳輸格式說明
 
