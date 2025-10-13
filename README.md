@@ -347,29 +347,29 @@ note over PTS,WMS: AMR1 已待命中，可接受派遣任務
         PTS->>WMS: getTranslationList
         WMS-->>PTS: no_task
         PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
-        WMS-->>PTS:
+        WMS-->>PTS: ...
         
 note over PTS,WMS: 派遣任務給AMR_1,translation：1<br><br>路徑 1001-->1003-->1004-->1007-->1011-->1001<br><br>AMR1 開始執行任務，搬運車狀態會改成工作中
      PTS->>WMS: getTranslationList
-     WMS-->>PTS:
+     WMS-->>PTS: Task Data
      PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1001、Status=1...)
-     WMS-->>PTS:
+     WMS-->>PTS: ...
      PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=1)
-     WMS-->>PTS:
+     WMS-->>PTS: ...
 
 note over PTS,WMS: AMR2 已待命中，可接受派遣任務
         PTS->>WMS: getTranslationList
         WMS-->>PTS: no_task
         PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=0)
-        WMS-->>PTS:
+        WMS-->>PTS:OK
 
 note over PTS,WMS: 派遣任務給AMR_2,translation：2<br><br>路徑 2003-->2008-->2009-->2007-->2003<br><br>AMR2 開始執行任務，搬運車狀態會改成工作中
      PTS->>WMS: getTranslationList
-     WMS-->>PTS:
+     WMS-->>PTS: Task Data
      PTS->>WMS: postVehicleStatus (VEHCILE:2、Position:2003、Status=1...)
-     WMS-->>PTS:
+     WMS-->>PTS: ...
      PTS->>WMS: postTranslationState (VEHCILE:2、translation：2、State=1)
-     WMS-->>PTS:
+     WMS-->>PTS: ...
 
 ```
 
