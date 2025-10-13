@@ -1,4 +1,4 @@
-# 規劃與運輸系統 Planning and Transport System（PTS） <br>和 WMS倉儲管理系統 HTTPS 通訊規格書
+# 規劃與運輸系統 <br>Planning and Transport System（PTS） <br>和WMS倉儲管理系統<br>HTTPS 通訊規格書
 
 ## 0. 版本管理
 |版本 | 更新| 編制者 |
@@ -199,6 +199,8 @@ getTranslationList.php?STATE=0
 <br>
 <br>
 <br>
+<br>
+<br>
 
 
 **2.1.5 getTranslationList時序圖：**
@@ -368,6 +370,7 @@ sequenceDiagram
 WMS 要下任務前，須先確認PTS系統已經啟用，PTS啟用後每隔10秒就會回報每台搬運車的狀況，請確認每台AMR 電源皆已開啟。<BR>
 若搬運車已經就緒，Status=0 ，若未開啟電源，Status=4。
 
+<br>
 
 ```mermaid
 sequenceDiagram
@@ -399,6 +402,8 @@ sequenceDiagram
 ### 3.2 派遣任務
 
 確認每台搬運車都變成 Status=0，即可開始派遣任務，派遣時請依照車子所在位置指定車號執行任務。
+
+<br>
 
 ```mermaid
 sequenceDiagram
@@ -434,6 +439,8 @@ note over PTS,WMS: 派遣任務給AMR_2,translation：2<br><br>路徑 2003-->200
 
 每台搬運車開始執行任務後，會不斷回報位置、電量、狀態，也會回報派遣任務狀態。
 
+<br>
+
 ```mermaid
 sequenceDiagram
     participant AMR工作中
@@ -466,6 +473,8 @@ note over PTS,WMS: AMR1 移動到點位1011、任務號碼1 執行中
 
 每台搬運車開始執行完成任務後，會回報派遣任務狀態 State=2，並且將搬運車狀態變更為待命中。
 
+<br>
+
 ```mermaid
 sequenceDiagram
     participant AMR待命中
@@ -489,6 +498,8 @@ note over PTS,WMS: AMR2 已完成任務
 ### 3.5 充電
 
 當搬運車電量低於30％時，搬運車會去充電，此時搬運車無法接收任務。
+
+<br>
 
 ```mermaid
 sequenceDiagram
