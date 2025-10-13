@@ -29,7 +29,7 @@ flowchart TD
     style AMR4 fill:#a3d4f5,stroke:#333,stroke-width:2px,rx:7,ry:7
 
     %% 節點文字
-    WMS["WMS 系統"]
+    WMS[" WMS 系統 "]
     PTS["PTS 系統"]
     AMR1["AMR_1"]
     AMR2["AMR_2"]
