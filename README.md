@@ -244,9 +244,9 @@ postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
 
 - **異常代碼定義：**  
   - ERROR=0（無異常）
-  - ERROR=1（電池電量過低）
-  - ERROR=2（圖資須更新）
-  - ERROR=3（有障礙物）
+  - ERROR=-1（電池電量過低）
+  - ERROR=-2（圖資須更新）
+  - ERROR=-3（有障礙物）
 
 <br>
 <br>
@@ -314,11 +314,11 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
 
 - **任務異常定義：**
   - ERROR=0（任務資訊無異常)
-  - ERROR=1（站點重複)
-  - ERROR=2（不存在的站點）
-  - ERROR=3（指定的車號不存在）
-  - ERROR=4（任務流水號重複）
-  - ERROR=5（指定的車號 not available）
+  - ERROR=-1（站點重複)
+  - ERROR=-2（不存在的站點）
+  - ERROR=-3（指定的車號不存在）
+  - ERROR=-4（任務流水號重複）
+  - ERROR=-5（指定的車號 not available）
 
 <br>
 <br>
@@ -482,10 +482,10 @@ note over PTS,WMS: AMR1 充電中
      PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:5001、Status=2...)
      WMS-->>PTS:Response 完成登錄作業
 
-note over PTS,WMS:派遣任務給AMR_1<br><br>會回報任務清單有異常，ERROR:5 指定的車號 not available
+note over PTS,WMS:派遣任務給AMR_1<br><br>會回報任務清單有異常，ERROR:-5 指定的車號 not available
      PTS->>WMS: getTranslationList
      WMS-->>PTS: Task Data
-     PTS->>WMS: postTranslationState (VEHCILE:1、translation：11、State=4、ERROR:5)
+     PTS->>WMS: postTranslationState (VEHCILE:1、translation：11、State=4、ERROR:-5)
      WMS-->>PTS:Response 完成登錄作業
 
 
