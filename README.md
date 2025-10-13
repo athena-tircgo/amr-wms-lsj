@@ -333,9 +333,9 @@ sequenceDiagram
 ```
 
 
-### 3.1 派遣任務
+### 3.2 派遣任務
 
-確認每台搬運車都變成 Status=0，即可開始派遣任務。
+確認每台搬運車都變成 Status=0，即可開始派遣任務，派遣時請依照車子所在位置指定車號執行任務。
 
 ```mermaid
 sequenceDiagram
@@ -373,7 +373,9 @@ note over PTS,WMS: 派遣任務給AMR_2,translation：2<br><br>路徑 2003-->200
 
 ```
 
-### 3.2 執行完成任務
+### 3.3 回報任務狀態及搬運車的狀態
+
+每台搬運車開始執行任務後，會不斷回報位置、電量、狀態，也會回報派遣任務狀態。
 
 ```mermaid
 sequenceDiagram
@@ -382,13 +384,34 @@ sequenceDiagram
     participant WMS
 
 
-note over PTS,WMS: AMR1 更新所在位置，已經移動到點位1007
+note over PTS,WMS: AMR1 移動到點位1007、任務號碼1 執行中
      PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1007、Status=1...)
      WMS-->>PTS:
-
-note over PTS,WMS: AMR2 更新所在位置，已經移動到點位2008
-     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:2008、Status=1...)
+     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=1)
      WMS-->>PTS:
+
+note over PTS,WMS: AMR2 移動到點位2008、任務號碼2 執行中
+     PTS->>WMS: postVehicleStatus (VEHCILE:2、Position:2008、Status=1...)
+     WMS-->>PTS:
+     PTS->>WMS: postTranslationState (VEHCILE:2、translation：2、State=1)
+     WMS-->>PTS:
+
+note over PTS,WMS: AMR1 移動到點位1011、任務號碼1 執行中
+     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1011、Status=1...)
+     WMS-->>PTS:
+     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=1)
+     WMS-->>PTS:
+
+```
+
+
+### 3.4 完成任務
+
+```mermaid
+sequenceDiagram
+    participant AMR 工作中
+    participant PTS
+    participant WMS
 
 note over PTS,WMS: AMR1 已完成任務
      PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1001、Status=0...)
