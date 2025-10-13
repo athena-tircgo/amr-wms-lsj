@@ -349,7 +349,7 @@ note over PTS,WMS: AMR1 已待命中，可接受派遣任務
         PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
         WMS-->>PTS:
         
-note over PTS,WMS: 派遣任務給AMR_1,translation：1<br><br>路徑 1001-->1003-->1004-->1007-->1011-->1<br><br>AMR1 開始執行任務，搬運車狀態會改成工作中
+note over PTS,WMS: 派遣任務給AMR_1,translation：1<br><br>路徑 1001-->1003-->1004-->1007-->1011-->1001<br><br>AMR1 開始執行任務，搬運車狀態會改成工作中
      PTS->>WMS: getTranslationList
      WMS-->>PTS:
      PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1001、Status=1...)
@@ -358,7 +358,7 @@ note over PTS,WMS: 派遣任務給AMR_1,translation：1<br><br>路徑 1001-->100
      WMS-->>PTS:
 
 
-note over PTS,WMS: 派遣任務給AMR_2,translation：2、路徑 2003-->2008-->2009-->2007-->2003<br><br>AMR2 開始執行任務，搬運車狀態會改成工作中
+note over PTS,WMS: 派遣任務給AMR_2,translation：2<br><br>路徑 2003-->2008-->2009-->2007-->2003<br><br>AMR2 開始執行任務，搬運車狀態會改成工作中
      PTS->>WMS: getTranslationList
      WMS-->>PTS:
      PTS->>WMS: postVehicleStatus (VEHCILE:2、Position:2003、Status=1...)
@@ -377,15 +377,27 @@ sequenceDiagram
     participant WMS
 
 
-note over PTS,WMS: AMR1 會更新所在位置，已經移動到點位4
-     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:4、Status=1...)
+note over PTS,WMS: AMR1 更新所在位置，已經移動到點位1007
+     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1007、Status=1...)
+     WMS-->>PTS:
+
+note over PTS,WMS: AMR2 更新所在位置，已經移動到點位2008
+     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:2008、Status=1...)
      WMS-->>PTS:
 
 note over PTS,WMS: AMR1 已完成任務
-     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1、Status=0...)
+     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1001、Status=0...)
      WMS-->>PTS:
      PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=2)
      WMS-->>PTS:
+
+note over PTS,WMS: AMR2 已完成任務
+     PTS->>WMS: postVehicleStatus (VEHCILE:2、Position:2003、Status=0...)
+     WMS-->>PTS:
+     PTS->>WMS: postTranslationState (VEHCILE:2、translation：1、State=2)
+     WMS-->>PTS:
+
+```
 
 ## 4. JSON 傳輸格式說明
 
