@@ -349,7 +349,7 @@ note over PTS,WMS: AMR1 已待命中，可接受派遣任務
         PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
         WMS-->>PTS: Response 完成登錄作業
         
-note over PTS,WMS: 派遣任務給AMR_1,translation：1、路徑 1-->3-->4-->7-->11-->1<br><br><br>AMR1 開始執行任務，搬運車狀態會改成工作中
+note over PTS,WMS: 派遣任務給AMR_1,translation：1、路徑 1-->3-->4-->7-->11-->1<br><br>AMR1 開始執行任務，搬運車狀態會改成工作中
      PTS->>WMS: getTranslationList ......
      WMS-->>PTS:
      PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1、Status=1...)
