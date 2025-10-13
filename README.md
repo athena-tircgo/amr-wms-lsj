@@ -49,7 +49,6 @@ flowchart TD
 ## 2. API 定義規格
 
 
-
 基礎URL
 ```
 http://[WMS系統IP]:[端口]/api/
@@ -135,7 +134,6 @@ getTranslationList.php?STATE=0
   - 普通：1（依照任務的時間順序處理)  
 
 <br>
-<br>
 
 **取消任務：** 只能取消任務狀態**未執行**的任務，**執行中**的任務無法取消。<br>取消任務的方式不需要重新新增任務，直接把State 狀態為0 的任務，改成 State = 3 即可取消任務。
 
@@ -159,6 +157,8 @@ getTranslationList.php?STATE=0
 }
 
 ```
+<br>
+<br>
 
 **getTranslationList時序圖：**
 
@@ -233,6 +233,9 @@ postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
   "message": "完成登錄作業", 
 }
 ```
+<br>
+<br>
+
 **postVehicleStatus時序圖：**
 
 ```mermaid
@@ -302,6 +305,8 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
   "message": "完成登錄作業", 
 }
 ```
+<br>
+<br>
 
 **postVehicleStatus時序圖：**
 
@@ -416,6 +421,8 @@ note over PTS,WMS: AMR1 移動到點位1011、任務號碼1 執行中
 
 ### 3.4 完成任務
 
+每台搬運車開始執行完成任務後，會回報派遣任務狀態 State=2，並且將搬運車狀態變更為待命中。
+
 ```mermaid
 sequenceDiagram
     participant AMR待命中
@@ -464,6 +471,7 @@ note over PTS,WMS:派遣任務給AMR_1<br><br>會回報任務清單有異常，E
 
 JSON (JavaScript Object Notation) 是一種輕量級的資料交換格式，常用於伺服器與客戶端之間的資料傳輸。
 其格式以純文字構成，易於人類閱讀與撰寫，也方便機器解析與生成。
+<br>
 
 **一、基本結構**
 
@@ -501,6 +509,7 @@ JSON 的資料由兩種基本結構組成：
 
 ```
 
+<br>
 
 **二、資料型態**
 
@@ -515,6 +524,7 @@ JSON 支援以下基本型態：
 | 物件 (Object) | `{"TRANSLATION":2, "STATE":2}` | 鍵值對集合 |
 | Null | `null` | 表示空值或未知資料 |
 
+<br>
 
 **三、語法規則**
 
@@ -528,7 +538,7 @@ JSON 支援以下基本型態：
 
 5.最外層可以是物件 {} 或陣列 []。
 
-
+<br>
 
 **四、傳輸特性**
 
@@ -541,7 +551,7 @@ JSON 支援以下基本型態：
 - 優點：結構清晰、解析效率高、跨平台相容性佳
 
 
-
+<br>
 
 ## 5. HTTPS 傳輸規範說明
 
@@ -557,6 +567,8 @@ JSON 支援以下基本型態：
 | 加密層	| TLS 1.2 或以上版本| 
 | 資料格式	| JSON| 
 | 傳輸方向	| 雙向（AMR ↔ WMS）| 
+
+<br>
 
 **二、安全機制**
 
@@ -574,6 +586,7 @@ JSON 支援以下基本型態：
 4.資料完整性（Integrity）
   - 所有請求及回應應透過 HTTPS 保證資料未被竄改。
 
+<br>
 
 **三、HTTP通用狀態碼**
 
