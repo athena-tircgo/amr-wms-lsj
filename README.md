@@ -84,12 +84,12 @@ getTranslationList.php?STATE=0
 }
 ```
 - **任務狀態定義：**  
-  - STATE=0（尚未執行）
-  - STATE=1（執行中）
-  - STATE=2（已完成）
-  - STATE=3（取消任務）
-  - STATE=4（任務清單有異常）
-  - STATE=空白（全部）
+  - STATE= 0（尚未執行）
+  - STATE= 1（執行中）
+  - STATE= 2（已完成）
+  - STATE= 3（取消任務）
+  - STATE= 4（任務清單有異常）
+  - STATE= 空白（全部）
 <br>
 <br>
 <br>
@@ -252,17 +252,17 @@ postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
 <br>
 
 - **搬運車狀態定義：**
-  - STATUS=0（待命中）
-  - STATUS=1（工作中）
-  - STATUS=2（充電中）
-  - STATUS=3（有異常狀況）
-  - STATUS=4（無開機或連線異常）
+  - STATUS= 0（待命中）
+  - STATUS= 1（工作中）
+  - STATUS= 2（充電中）
+  - STATUS= 3（有異常狀況）
+  - STATUS= 4（無開機或連線異常）
 
 - **異常代碼定義：**  
-  - ERROR=0（無異常）
-  - ERROR=-1（電池電量過低）
-  - ERROR=-2（圖資須更新）
-  - ERROR=-3（有障礙物）
+  - ERROR=  0（無異常）
+  - ERROR= -1（電池電量過低）
+  - ERROR= -2（圖資須更新）
+  - ERROR= -3（有障礙物）
 
 <br>
 <br>
@@ -325,17 +325,17 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
 <br>
 
 - **任務狀態定義：**  
-  - STATE=1（執行中)
-  - STATE=2（已完成）
-  - STATE=4（任務清單有異常）
+  - STATE= 1（執行中)
+  - STATE= 2（已完成）
+  - STATE= 4（任務清單有異常）
 
 - **任務異常定義：**
-  - ERROR=0（任務資訊無異常)
-  - ERROR=-1（站點重複)
-  - ERROR=-2（不存在的站點）
-  - ERROR=-3（指定的車號不存在）
-  - ERROR=-4（任務流水號重複）
-  - ERROR=-5（指定的車號 not available）
+  - ERROR=  0（任務資訊無異常)
+  - ERROR= -1（站點重複)
+  - ERROR= -2（不存在的站點）
+  - ERROR= -3（指定的車號不存在）
+  - ERROR= -4（任務流水號重複）
+  - ERROR= -5（指定的車號 not available）
 
 <br>
 <br>
