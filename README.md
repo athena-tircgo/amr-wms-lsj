@@ -100,6 +100,10 @@ getTranslationList.php?STATE=0
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
 
 **2.1.3 回應範例：** 依據getTranslationList所請求的參數回應,如無帶參數(空白),請回覆全部的任務。
 
