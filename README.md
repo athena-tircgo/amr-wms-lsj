@@ -1,4 +1,4 @@
-# 規劃與運輸系統 Planning and Transport System（PTS） 和 WMS倉儲管理系統<br>HTTPS 通訊規格書
+# 規劃與運輸系統 Planning and Transport System（PTS） <br>和 WMS倉儲管理系統 HTTPS 通訊規格書
 
 ## 0. 版本管理
 |版本 | 更新| 編制者 |
