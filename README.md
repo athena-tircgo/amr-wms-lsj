@@ -208,12 +208,12 @@ sequenceDiagram
 
 每隔10秒，PTS會回報WMS每一台搬運車的狀態資訊以及是否有異常。
 
-**API 端點：**  
+**2.2.1 API 端點：**  
 ```
 postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
 ```
 
-**請求參數：**
+**2.2.2 請求參數：**
 ```json
 [
   {
@@ -251,7 +251,7 @@ postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
 <br>
 <br>
 
-**回應範例：**
+**2.2.3 回應範例：**
 ```json
 {
   "ret": "true",
@@ -261,7 +261,7 @@ postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
 <br>
 <br>
 
-**postVehicleStatus時序圖：**
+**2.2.4 postVehicleStatus時序圖：**
 
 ```mermaid
 sequenceDiagram
@@ -280,12 +280,12 @@ sequenceDiagram
 
 每隔10秒，PTS會回報WMS執行中和已完成的任務清單，若有收到的派遣任務清單格式有異常無法處理，也會透過此方式回報讓WMS掌握。
 
-**API 端點：**
+**2.3.1 API 端點：**
 ```
 postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
 ```
 
-**請求參數：**
+**2.3.2 請求參數：**
 
 ```json
 [
@@ -323,7 +323,7 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
 <br>
 <br>
 
-**回應範例：**
+**2.3.3 回應範例：**
 ```json
 {
   "ret": "true",
@@ -333,7 +333,7 @@ postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
 <br>
 <br>
 
-**postVehicleStatus時序圖：**
+**2.3.4 postVehicleStatus時序圖：**
 
 ```mermaid
 sequenceDiagram
