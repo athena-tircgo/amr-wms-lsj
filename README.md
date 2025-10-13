@@ -313,21 +313,21 @@ sequenceDiagram
     participant WMS
 
     note over PTS,WMS: AMR_1 剛開啟電源
-        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=4)
+        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=4...)
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=4)
+        PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=4...)
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus (VEHCILE:3、Status=4)
+        PTS->>WMS: postVehicleStatus (VEHCILE:3、Status=4...)
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus (VEHCILE:4、Status=4)
+        PTS->>WMS: postVehicleStatus (VEHCILE:4、Status=4...)
         WMS-->>PTS: Response 完成登錄作業
 
     note over PTS,WMS: AMR_1 已經完成開機、AMR_2 剛開啟電源
-        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
+        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0...)
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=4)
+        PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=4...)
         WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus (VEHCILE:3、Status=4)
+        PTS->>WMS: postVehicleStatus (VEHCILE:3、Status=4...)
         WMS-->>PTS: Response 完成登錄作業
 
 ```
@@ -339,14 +339,14 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant AMR 待命中
+    participant AMR待命中
     participant PTS
     participant WMS
 
 note over PTS,WMS: AMR1 已待命中，可接受派遣任務
         PTS->>WMS: getTranslationList
         WMS-->>PTS: no_task
-        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0)
+        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0...)
         WMS-->>PTS: Response 完成登錄作業
         
 note over PTS,WMS: 派遣任務給AMR_1,translation：1<br><br>路徑 1001-->1003-->1004-->1007-->1011-->1001<br><br>AMR1 開始執行任務，搬運車狀態會改成工作中
@@ -354,13 +354,13 @@ note over PTS,WMS: 派遣任務給AMR_1,translation：1<br><br>路徑 1001-->100
      WMS-->>PTS: Task Data
      PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1001、Status=1...)
      WMS-->>PTS: Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=1)
+     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=1...)
      WMS-->>PTS: Response 完成登錄作業
 
 note over PTS,WMS: AMR2 已待命中，可接受派遣任務
         PTS->>WMS: getTranslationList
         WMS-->>PTS: no_task
-        PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=0)
+        PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=0...)
         WMS-->>PTS:Response 完成登錄作業
 
 note over PTS,WMS: 派遣任務給AMR_2,translation：2<br><br>路徑 2003-->2008-->2009-->2007-->2003<br><br>AMR2 開始執行任務，搬運車狀態會改成工作中
@@ -368,7 +368,7 @@ note over PTS,WMS: 派遣任務給AMR_2,translation：2<br><br>路徑 2003-->200
      WMS-->>PTS: Task Data
      PTS->>WMS: postVehicleStatus (VEHCILE:2、Position:2003、Status=1...)
      WMS-->>PTS: Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:2、translation：2、State=1)
+     PTS->>WMS: postTranslationState (VEHCILE:2、translation：2、State=1...)
      WMS-->>PTS: Response 完成登錄作業
 
 ```
@@ -379,7 +379,7 @@ note over PTS,WMS: 派遣任務給AMR_2,translation：2<br><br>路徑 2003-->200
 
 ```mermaid
 sequenceDiagram
-    participant AMR 工作中
+    participant AMR工作中
     participant PTS
     participant WMS
 
@@ -387,19 +387,19 @@ sequenceDiagram
 note over PTS,WMS: AMR1 移動到點位1007、任務號碼1 執行中
      PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1007、Status=1...)
      WMS-->>PTS:Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=1)
+     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=1...)
      WMS-->>PTS:Response 完成登錄作業
 
 note over PTS,WMS: AMR2 移動到點位2008、任務號碼2 執行中
      PTS->>WMS: postVehicleStatus (VEHCILE:2、Position:2008、Status=1...)
      WMS-->>PTS:Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:2、translation：2、State=1)
+     PTS->>WMS: postTranslationState (VEHCILE:2、translation：2、State=1...)
      WMS-->>PTS:Response 完成登錄作業
 
 note over PTS,WMS: AMR1 移動到點位1011、任務號碼1 執行中
      PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1011、Status=1...)
      WMS-->>PTS:Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=1)
+     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=1...)
      WMS-->>PTS:Response 完成登錄作業
 
 ```
@@ -409,26 +409,39 @@ note over PTS,WMS: AMR1 移動到點位1011、任務號碼1 執行中
 
 ```mermaid
 sequenceDiagram
-    participant AMR 待命中
+    participant AMR待命中
     participant PTS
     participant WMS
 
 note over PTS,WMS: AMR1 已完成任務
      PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1001、Status=0...)
      WMS-->>PTS:Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=2)
+     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=2...)
      WMS-->>PTS:Response 完成登錄作業
 
 note over PTS,WMS: AMR2 已完成任務
      PTS->>WMS: postVehicleStatus (VEHCILE:2、Position:2003、Status=0...)
      WMS-->>PTS:Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:2、translation：1、State=2)
+     PTS->>WMS: postTranslationState (VEHCILE:2、translation：1、State=2...)
      WMS-->>PTS:Response 完成登錄作業
 
 ```
 
 ### 3.5 充電
 
+當搬運車電量低於30％時，搬運車會去充電，此時搬運車無法接收任務。
+
+```mermaid
+sequenceDiagram
+    participant AMR1充電中
+    participant PTS
+    participant WMS
+
+note over PTS,WMS: AMR1 充電中
+     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:5001、Status=2...)
+     WMS-->>PTS:Response 完成登錄作業
+  
+```
 
 
 ## 4. JSON 傳輸格式說明
