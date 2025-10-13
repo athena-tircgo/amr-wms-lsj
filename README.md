@@ -1,4 +1,4 @@
-# 規劃與運輸系統 <br>Planning and Transport System（PTS） <br>和WMS倉儲管理系統<br>HTTPS 通訊規格書
+# 規劃與運輸系統 <br>Planning and Transport System（PTS） <br>和倉儲管理系統<br>Warehouse Management System (WMS)<br>HTTPS 通訊規格書
 
 ## 0. 版本管理
 |版本 | 更新| 編制者 |
@@ -8,7 +8,7 @@
 
 ## 1. 總覽
 
-本規格書定義了派車系統（PTS）與倉儲管理系統(WMS)之間的 HTTP 通訊協定。倉儲管理系統(WMS)作為伺服器端，派車系統（PTS）作為客戶端，透過WebAPI進行通訊，使用HTTP協議傳輸JSON格式資料。
+本規格書定義了規劃與運輸系統（PTS）與倉儲管理系統(WMS)之間的 HTTP 通訊協定。倉儲管理系統(WMS)作為伺服器端，派車系統（PTS）作為客戶端，透過WebAPI進行通訊，使用HTTP協議傳輸JSON格式資料。
 <br>
 <br>
 
