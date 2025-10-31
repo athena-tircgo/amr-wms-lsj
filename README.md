@@ -64,7 +64,7 @@ https://[PTS系統IP]:[端口]/api/
  
 ### 2.1 新增派遣任務
 
-WMS 要新增任務時，由此API 處理，依據任務需求的停靠點數量填寫參數。
+WMS 要新增任務時，由此API 處理，依據任務需求的停靠點數量填寫參數。新增派遣任務時請確認搬運車狀態，若搬運車的狀態不是待命中，將無法派遣任務。
 
 <br>
 
@@ -88,6 +88,8 @@ postNewTask.php? Data[....]
 "state":"0(任務狀態)", ---> 看要不要拿掉
 }
 ```
+- **請注意:任務流水號不可重複**
+
 回應欄位定義 : 
 <br>
 - ret 正常 = true
@@ -117,70 +119,12 @@ postNewTask.php? Data[....]
   - ERROR= -2（不存在的站點）
   - ERROR= -3（指定的車號不存在）
   - ERROR= -4（任務流水號重複）
-  - ERROR= -5（指定的車號 not available）
+  - ERROR= -5（指定的車號無法接受任務）
 
-```
-
-
-- **任務狀態定義：**  
-  - STATE= 0（尚未執行）
-  - STATE= 1（執行中）
-  - STATE= 2（已完成）
-  - STATE= 3（取消任務）
-  - STATE= 空白（全部）
-
-
-
-
-
-**2.1.3 回應範例：** 依據getTranslationList所請求的參數回應,如無帶參數(空白),請回覆全部的任務。
-
-無任務回應範例:
-
-```json
-{
-  "ret": "true",
-  "message":"no_task"
-}
-```
-有任務回應範例(若有多個任務，請依序回應):
-
-
-- **優先順序定義：**  
-  - 緊急：0 (若會優先會插入任務)
-  - 普通：1（依照任務的時間順序處理)  
-- **請注意:任務流水號不可重複**
 
 <br>
 
-
-**2.1.4 取消任務：** <br>只能取消任務狀態**未執行**的任務，**執行中**的任務無法取消。<br>取消任務的方式不需要重新新增任務，直接把State 狀態為0 的任務，改成 State = 3 即可取消任務。
-
-```json
-{
-  "ret": "true",
-  "data":
-    [
-        {
-            "date":"12:31:05",
-            "translation":"1",
-            "Start":"1001",
-            "Stop1":"1005",
-            "Stop2":"1007",
-            "End":"1001",
-            "vehicle":"1",
-            "priority":"1"
-            "state":"3",
-        }
-    ]
-}
-
-```
-<br>
-
-
-
-**2.1.5 getTranslationList時序圖：**
+**2.1.3 postNewTask 時序圖：**
 
 ```mermaid
 sequenceDiagram
@@ -198,14 +142,13 @@ sequenceDiagram
     end
 ```
 
-### 2.2 回報位置、電量、狀態及異常
+### 2.2 取消派遣任務
 
-
-每隔10秒，PTS會回報WMS每一台搬運車的狀態資訊以及是否有異常。
+當AMR 發生重大異常無法排除時，可由WMS發送取消派遣任務的指令。
 
 **2.2.1 API 端點：**  
 ```
-postVehicleStatus.php?VEHICLE=1&POSITION=2001&POWER=70&STATUS=2& ERROR=1
+ postCancelTask.php?translation=1
 ```
 
 **2.2.2 請求參數：**
