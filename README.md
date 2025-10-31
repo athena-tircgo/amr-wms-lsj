@@ -50,16 +50,16 @@ flowchart TD
 
 基礎URL
 ```
-https://[WMS系統IP]:[端口]/api/
+https://[PTS系統IP]:[端口]/api/
 ```
 
 |項目 | 說明| 類別 | 方法 |
 |:------|:------|:------|:-----|
-| 1| 取得任務清單 | getTranslationList | GET |
-| 2| 回報位置、電量、狀態及異常 | postVehicleStatus | POST |
-| 3| 回報派遣任務狀態 |postTranslationState | POST |
-| 4| 回報派遣任務狀態 |postTranslationState | POST |
-| 5| 回報派遣任務狀態 |postTranslationState | POST |
+| 1| 新增派遣任務 | postNewTask | POST |
+| 2| 取消派遣任務 | postCancelTask | POST |
+| 3| 設定加班模式 |postOvertimeMode | POST |
+| 4| 設定下班模式 |postOffDutyMode | POST |
+| 5| 取得搬運車狀態 |getVehicleStatus | GET |
 
  
 ### 2.1 取得任務清單
