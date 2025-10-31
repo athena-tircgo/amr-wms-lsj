@@ -83,9 +83,7 @@ postNewTask.php? Data[....]
 "Stop1":"1005(停靠點1)",
 "Stop2":"1007（停靠點2)",
 "End":"1001(到達點)",
-"vehicle":"1(指定搬運車編號)",
-"priority":"1(優先順序)" ---> 看要不要拿掉
-"state":"0(任務狀態)", ---> 看要不要拿掉
+"vehicle":"1(指定搬運車編號)"
 }
 ```
 - **請注意:任務流水號不可重複**
@@ -153,13 +151,8 @@ sequenceDiagram
 
 **2.2.2 請求參數：**
 ```json
-[
   {
-    "VEHCILE":"1(搬運車編號)",
-    "POSITION":"2001(現在位置)",
-    "POWER":"70(電量 1 - 100)",
-    "STATUS":"2(搬運車狀態)",
-    "ERROR":"1(異常代碼)",
+  "translation":"1(任務流水號)",
   },
   {
     "VEHCILE":"2",
@@ -168,7 +161,16 @@ sequenceDiagram
     "STATUS":"1",
     "ERROR":"0",
   }
-]
+
+```
+
+<br>
+
+```json
+{
+  "ret": "true",
+  "message":"0"
+}
 ```
 
 <br>
