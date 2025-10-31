@@ -90,17 +90,11 @@ postNewTask.php? Data[....]
 ```
 回應欄位定義 : 
 <br>
-ret 正常 = true、 ret 異常 = false、 message = 異常訊息。
-<br>
-如果任務資訊皆正確回覆如下
+- ret 正常 = true
+- ret 異常 = false
+- message = 異常訊息
 
-```json
-{
-  "ret": "true",
-  "message":"0"
-}
-```
-如任務資訊有異常，將回覆異常訊息
+<br>
 
 ```json
 {
@@ -118,6 +112,8 @@ ret 正常 = true、 ret 異常 = false、 message = 異常訊息。
   - ERROR= -5（指定的車號 not available）
 
 ```
+
+
 - **任務狀態定義：**  
   - STATE= 0（尚未執行）
   - STATE= 1（執行中）
