@@ -62,20 +62,36 @@ https://[PTS系統IP]:[端口]/api/
 | 5| 取得搬運車狀態 |getVehicleStatus | GET |
 
  
-### 2.1 取得任務清單
+### 2.1 新增派遣任務
 
-
-每隔10秒，PTS會主動詢問WMS取得任務清單，若任務清單資訊無異常，將會執行任務。若取得的任務清單解析後有異常，會透過postTranslationState將任務清單的異常資訊回傳給WMS，並且不會執行該項任務。
+WMS 要新增任務時，由此API 處理，依據任務需求的停靠點。
 
 <br>
 
 **2.1.1 API 端點：**
 ```
-getTranslationList.php?STATE=0
+postNewTask.php? Data[]
 ```
 <br>
 
 **2.1.2 請求參數：**
+
+
+```json
+{
+"translation":"1(任務流水號)",
+"Start":"1001(起始點)",
+"Stop1":"1005(停靠點1)",
+"Stop2":"1007（停靠點2)",
+"End":"1001(到達點)",
+"vehicle":"1(指定搬運車編號)",
+"priority":"1(優先順序)"
+"state":"0(任務狀態)",
+}
+```
+
+
+
 ```json
 {
   "STATE":"任務狀態",
@@ -87,21 +103,7 @@ getTranslationList.php?STATE=0
   - STATE= 2（已完成）
   - STATE= 3（取消任務）
   - STATE= 空白（全部）
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 
 **2.1.3 回應範例：** 依據getTranslationList所請求的參數回應,如無帶參數(空白),請回覆全部的任務。
 
@@ -115,37 +117,6 @@ getTranslationList.php?STATE=0
 ```
 有任務回應範例(若有多個任務，請依序回應):
 
-```json
-{
-  "ret": "true",
-  "data":
-    [
-        {
-            "date":"12:31:05(登記時間)",
-            "translation":"1(任務流水號)",
-            "Start":"1001(起始點)",
-            "Stop1":"1005(停靠點1)",
-            "Stop2":"1007（停靠點2)",
-            "End":"1001(到達點)",
-            "vehicle":"1(指定搬運車編號)",
-            "priority":"1(優先順序)"
-            "state":"0(任務狀態)",
-        },
-        {
-            "date":"12:31:10",
-            "translation":"2",
-            "Start":"2001",
-            "Stop1":"2005",
-            "Stop2":"2006",
-            "Stop2":"2009",
-            "End":"2001",
-            "vehicle":"2",
-            "priority":"1"
-            "state":"0",
-        }
-    ]
-}
-```
 
 - **優先順序定義：**  
   - 緊急：0 (若會優先會插入任務)
@@ -178,27 +149,7 @@ getTranslationList.php?STATE=0
 
 ```
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 
 
 **2.1.5 getTranslationList時序圖：**
