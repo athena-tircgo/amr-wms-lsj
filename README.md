@@ -98,12 +98,20 @@ postNewTask.php? Data[....]
 
 ```json
 {
+  "ret": "true",
+  "message":"0"
+}
+```
+
+```json
+{
   "ret": "false",
   "message":"-1"
 }
 ```
 <br>
-- ** message 任務異常訊息定義：**
+
+- **message 任務異常訊息定義：**
   - ERROR=  0（任務資訊無異常)
   - ERROR= -1（站點重複)
   - ERROR= -2（不存在的站點）
