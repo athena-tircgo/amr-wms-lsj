@@ -64,18 +64,17 @@ https://[PTS系統IP]:[端口]/api/
  
 ### 2.1 新增派遣任務
 
-WMS 要新增任務時，由此API 處理，依據任務需求的停靠點。
+WMS 要新增任務時，由此API 處理，依據任務需求的停靠點數量填寫參數。
 
 <br>
 
 **2.1.1 API 端點：**
 ```
-postNewTask.php? Data[]
+postNewTask.php? Data[....]
 ```
 <br>
 
 **2.1.2 請求參數：**
-
 
 ```json
 {
@@ -85,17 +84,39 @@ postNewTask.php? Data[]
 "Stop2":"1007（停靠點2)",
 "End":"1001(到達點)",
 "vehicle":"1(指定搬運車編號)",
-"priority":"1(優先順序)"
-"state":"0(任務狀態)",
+"priority":"1(優先順序)" ---> 看要不要拿掉
+"state":"0(任務狀態)", ---> 看要不要拿掉
 }
 ```
-
-
+回應欄位定義 : 
+<br>
+ret 正常 = true、 ret 異常 = false、 message = 異常訊息。
+<br>
+如果任務資訊皆正確回覆如下
 
 ```json
 {
-  "STATE":"任務狀態",
+  "ret": "true",
+  "message":"0"
 }
+```
+如任務資訊有異常，將回覆異常訊息
+
+```json
+{
+  "ret": "false",
+  "message":"-1"
+}
+```
+
+- **任務異常訊息定義：**
+  - ERROR=  0（任務資訊無異常)
+  - ERROR= -1（站點重複)
+  - ERROR= -2（不存在的站點）
+  - ERROR= -3（指定的車號不存在）
+  - ERROR= -4（任務流水號重複）
+  - ERROR= -5（指定的車號 not available）
+
 ```
 - **任務狀態定義：**  
   - STATE= 0（尚未執行）
@@ -103,6 +124,9 @@ postNewTask.php? Data[]
   - STATE= 2（已完成）
   - STATE= 3（取消任務）
   - STATE= 空白（全部）
+
+
+
 
 
 **2.1.3 回應範例：** 依據getTranslationList所請求的參數回應,如無帶參數(空白),請回覆全部的任務。
