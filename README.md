@@ -102,8 +102,8 @@ postNewTask.php? Data[....]
   "message":"-1"
 }
 ```
-
-- **任務異常訊息定義：**
+<br>
+- ** message 任務異常訊息定義：**
   - ERROR=  0（任務資訊無異常)
   - ERROR= -1（站點重複)
   - ERROR= -2（不存在的站點）
