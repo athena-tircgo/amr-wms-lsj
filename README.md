@@ -128,16 +128,10 @@ postNewTask.php?translation=1&Start=1001&Stop1=1005&Stop2=1007&End=1001&vehicle=
 sequenceDiagram
     participant PTS as PTS (派車系統)
     participant WMS as WMS (倉儲管理系統)
-    loop 每 10 問秒一次
-        PTS->>WMS: getTranslationList
-        alt No task
-            WMS-->>PTS: Response no_task
-            PTS-->>PTS: Wait 10 seconds for next polling
-        else Task available
-            WMS-->>PTS: Response Task data (date,translation....)
-            PTS->>PTS: Parse task and start executing
-        end
-    end
+
+        WMS->>PTS: postNewTask
+        PTS-->>WMS: Response 
+
 ```
 
 ### 2.2 取消派遣任務
@@ -258,12 +252,14 @@ sequenceDiagram
 
 ### 2.4 設定下班模式
 
-
+<br>
+<br>
 
 
 ### 2.5 取得搬運車狀態
 
-
+<br>
+<br>
 
 
 
