@@ -118,6 +118,7 @@ postNewTask.php?translation=1&Start=1001&Stop1=1005&Stop2=1007&End=1001&vehicle=
   - ERROR= -3（指定的車號不存在）
   - ERROR= -4（任務流水號重複）
   - ERROR= -5（指定的車號無法接受任務）
+  - ERROR= -6（AMR不在待命區）
 
 
 <br>
@@ -306,7 +307,7 @@ sequenceDiagram
 　　　　　"VEHCILE":"1(搬運車編號)",
         "POSITION":"2001(現在位置)",
         "POWER":"70(電量 1 - 100)",
-        "STATUS":"2(搬運車狀態)"
+        "STATUS":"2(搬運車狀態)",
         }
     ]
 }
