@@ -308,7 +308,7 @@ sequenceDiagram
         "POSITION":"2001(現在位置)",
         "POWER":"70(電量 1 - 100)",
         "STATUS":"2(搬運車狀態)",
-        "MODE"="0(一般工作模式)"
+        "MODE":"0(一般工作模式)"
         }
     ]
 }
