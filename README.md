@@ -70,7 +70,7 @@ WMS 要新增任務時，由此API 處理，依據任務需求的停靠點數量
 
 **2.1.1 API 端點：**
 ```
-postNewTask.php? Data[....]
+postNewTask.php?translation=1&Start=1001&Stop1=1005&Stop2=1007&End=1001&vehicle=1
 ```
 <br>
 
@@ -153,15 +153,7 @@ sequenceDiagram
 ```json
   {
   "translation":"1(任務流水號)",
-  },
-  {
-    "VEHCILE":"2",
-    "POSITION":"1005",
-    "POWER":"95",
-    "STATUS":"1",
-    "ERROR":"0",
   }
-
 ```
 
 <br>
@@ -169,7 +161,7 @@ sequenceDiagram
 ```json
 {
   "ret": "true",
-  "message":"0"
+  "message":"接受任務取消"
 }
 ```
 
@@ -189,34 +181,10 @@ sequenceDiagram
   - ERROR= -3（有障礙物）
 
 <br>
-<br>
-
-**2.2.3 回應範例：**
-```json
-{
-  "ret": "true",
-  "message": "完成登錄作業", 
-}
-```
-<br>
-<br>
-<br>
-
-**2.2.4 postVehicleStatus時序圖：**
-
-```mermaid
-sequenceDiagram
-    participant PTS
-    participant WMS
-
-    loop 每10秒回報一次
-        PTS->>WMS: postVehicleStatus (AMR 狀態)
-        WMS-->>PTS: Response 完成登錄作業
-    end
-```
 
 
-### 2.3 回報派遣任務狀態
+
+### 2.3 設定加班模式
 
 
 每隔10秒，PTS會回報WMS執行中和已完成的任務清單，若有收到的派遣任務清單格式有異常無法處理，也會透過此方式回報讓WMS掌握。
@@ -287,6 +255,20 @@ sequenceDiagram
         WMS-->>PTS: Response 完成登錄作業
     end
 ```
+
+### 2.4 設定下班模式
+
+
+
+
+### 2.5 取得搬運車狀態
+
+
+
+
+
+
+
 
 ## 3. 操作情境<br>3.1 Alive 
 WMS 要下任務前，須先確認PTS系統已經啟用，PTS啟用後每隔10秒就會回報每台搬運車的狀況，請確認每台AMR 電源皆已開啟。<BR>
