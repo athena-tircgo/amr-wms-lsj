@@ -188,19 +188,35 @@ sequenceDiagram
     participant PTS as PTS (派車系統)
     participant WMS as WMS (倉儲管理系統)
 
-        WMS->>PTS: postNewTask
+        WMS->>PTS: postCancelTask
         PTS-->>WMS: Response 
 
 ```
-
-
-
+<br>
 
 
 ### 2.3 設定加班模式
 
+PTS收到來自於WMS 的指令通知為加班模式，且4台AMR 電量均非低電量情況下，允許4台車子同時工作，將會把在充電站的車子，狀態調整為待命中，並在原地等待派遣任務。<br>若收到加班模式的指令但有車子是低電量的情況下，會拒絕進入加班模式。
 
-每隔10秒，PTS會回報WMS執行中和已完成的任務清單，若有收到的派遣任務清單格式有異常無法處理，也會透過此方式回報讓WMS掌握。
+**2.2.1 API 端點：**  
+```
+ postCancelTask.php?translation=1
+```
+
+**2.2.2 請求參數：**
+```json
+  {
+  "translation":"1(任務流水號)",
+  }
+```
+
+回應欄位定義 : 
+<br>
+- ret 正常 = true
+- ret 異常 = false
+- message = 異常訊息
+
 
 **2.3.1 API 端點：**
 ```
