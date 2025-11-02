@@ -102,6 +102,7 @@ postNewTask.php?translation=1&Start=1001&Stop1=1005&Stop2=1007&End=1001&vehicle=
   "message":"0"
 }
 ```
+<br>
 
 ```json
 {
@@ -159,22 +160,7 @@ sequenceDiagram
 }
 ```
 
-<br>
 
-- **搬運車狀態定義：**
-  - STATUS= 0（待命中）
-  - STATUS= 1（工作中）
-  - STATUS= 2（充電中）
-  - STATUS= 3（有異常狀況）
-  - STATUS= 4（無開機或連線異常）
-
-- **異常代碼定義：**  
-  - ERROR=  0（無異常）
-  - ERROR= -1（電池電量過低）
-  - ERROR= -2（圖資須更新）
-  - ERROR= -3（有障礙物）
-
-<br>
 
 
 
@@ -261,7 +247,22 @@ sequenceDiagram
 <br>
 <br>
 
+<br>
 
+- **搬運車狀態定義：**
+  - STATUS= 0（待命中）
+  - STATUS= 1（工作中）
+  - STATUS= 2（充電中）
+  - STATUS= 3（有異常狀況）
+  - STATUS= 4（無開機或連線異常）
+
+- **異常代碼定義：**  
+  - ERROR=  0（無異常）
+  - ERROR= -1（電池電量過低）
+  - ERROR= -2（圖資須更新）
+  - ERROR= -3（有障礙物）
+
+<br>
 
 
 
