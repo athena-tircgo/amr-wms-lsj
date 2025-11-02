@@ -151,7 +151,11 @@ sequenceDiagram
   }
 ```
 
+回應欄位定義 : 
 <br>
+- ret 正常 = true
+- ret 異常 = false
+- message = 異常訊息
 
 ```json
 {
@@ -159,7 +163,6 @@ sequenceDiagram
   "message":"接受任務取消"
 }
 ```
-
 
 
 
