@@ -57,9 +57,8 @@ https://[PTS系統IP]:[端口]/api/
 |:------|:------|:------|:-----|
 | 1| 新增派遣任務 | postNewTask | POST |
 | 2| 取消派遣任務 | postCancelTask | POST |
-| 3| 設定加班模式 |postOvertimeMode | POST |
-| 4| 設定下班模式 |postOffDutyMode | POST |
-| 5| 取得搬運車狀態 |getVehicleStatus | GET |
+| 3| 設定工作模式 | postWorkMode | POST |
+| 4| 取得搬運車狀態 |getVehicleStatus | GET |
 
  
 ### 2.1 新增派遣任務
@@ -164,7 +163,9 @@ sequenceDiagram
   "message":"0"
 }
 ```
+
 <br>
+    
 ```json
 {
   "ret": "false",
@@ -195,16 +196,21 @@ sequenceDiagram
 <br>
 
 
-### 2.3 設定加班模式
+### 2.3 設定工作模式
 
-PTS收到來自於WMS 的指令通知為加班模式，且4台AMR 電量均非低電量情況下，允許4台車子同時工作，將會把在充電站的車子，狀態調整為待命中，並在原地等待派遣任務。<br>若收到加班模式的指令但有車子是低電量的情況下，會拒絕進入加班模式。
+有兩種模式須設定：<br> (1)加班模式 <br>
+PTS收到來自於WMS 的指令通知為加班模式，且4台AMR 電量均非低電量情況下，允許4台車子同時工作，將會把在充電站的車子，狀態調整為待命中，並在原地等待派遣任務。<br>若收到加班模式的指令但有車子是低電量的情況下，會拒絕進入加班模式。<br>
+加班模式進行中，若此時有一台車處於低電量狀態，加班模式會強制變回一般工作模式，並且把低電量的車子派回去充電。加班模式完成後或者強制切回正常模式時，WMS仍須把指令通知為下班模式，才會啟動輪流充電計畫。<br>
+(2)下班模式  <br>
+PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電計畫。
 
-**2.2.1 API 端點：**  
+
+**2.3.1 API 端點：**  
 ```
- postCancelTask.php?translation=1
+ postWorkMode.php?translation=1
 ```
 
-**2.2.2 請求參數：**
+**2.3.2 請求參數：**
 ```json
   {
   "translation":"1(任務流水號)",
@@ -216,47 +222,6 @@ PTS收到來自於WMS 的指令通知為加班模式，且4台AMR 電量均非�
 - ret 正常 = true
 - ret 異常 = false
 - message = 異常訊息
-
-
-**2.3.1 API 端點：**
-```
-postTranslationState.php?VEHCILE=1&TRANSLATION=2&STATE=2&ERROR=0
-```
-
-**2.3.2 請求參數：**
-
-```json
-[
-  {
-      "VEHCILE": "1(搬運車編號)",
-      "TRANSLATION": "2(任務流水號)",
-      "STATE": "2(任務狀態)",
-      "ERROR":"0(無異常)"
-  },
-  {
-      "VEHCILE": "2",
-      "TRANSLATION": "1",
-      "STATE": "4",
-      "ERROR":"-2(站點不存在)"
-  }
-]
-
-```
-
-<br>
-
-- **任務狀態定義：**  
-  - STATE= 1（執行中)
-  - STATE= 2（已完成）
-  - STATE= 4（任務清單有異常）
-
-- **任務異常定義：**
-  - ERROR=  0（任務資訊無異常)
-  - ERROR= -1（站點重複)
-  - ERROR= -2（不存在的站點）
-  - ERROR= -3（指定的車號不存在）
-  - ERROR= -4（任務流水號重複）
-  - ERROR= -5（指定的車號 not available）
 
 <br>
 <br>
@@ -285,13 +250,9 @@ sequenceDiagram
     end
 ```
 
-### 2.4 設定下班模式
-
-<br>
-<br>
 
 
-### 2.5 取得搬運車狀態
+### 2.4 取得搬運車狀態
 
 <br>
 <br>
