@@ -207,15 +207,24 @@ PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電�
 
 **2.3.1 API 端點：**  
 ```
- postWorkMode.php?translation=1
+ postWorkMode.php?mode=1
 ```
 
 **2.3.2 請求參數：**
 ```json
   {
-  "translation":"1(任務流水號)",
+  "mode":"1",
   }
 ```
+
+<br>
+
+- **工作模式定義：**
+  - mode= 0（一般工作模式）
+  - mode= 1（下班模式）
+  - mode= 2（加班模式）
+    
+<br>
 
 回應欄位定義 : 
 <br>
@@ -223,19 +232,32 @@ PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電�
 - ret 異常 = false
 - message = 異常訊息
 
-<br>
-<br>
-
-**2.3.3 回應範例：**
 ```json
 {
   "ret": "true",
-  "message": "完成登錄作業", 
+  "message":"0"
+}
+```
+
+<br>
+    
+```json
+{
+  "ret": "false",
+  "message":"-1"
 }
 ```
 <br>
+
+- **message 設定工作模式異常訊息定義：**
+  - ERROR=  0（接受切換工作模式)
+  - ERROR= -1（有AMR低電量，拒絕進入加班模式)
+
 <br>
 <br>
+
+ 
+    
 
 **2.3.4 postVehicleStatus時序圖：**
 
