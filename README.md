@@ -157,12 +157,42 @@ sequenceDiagram
 - ret 異常 = false
 - message = 異常訊息
 
+
 ```json
 {
   "ret": "true",
-  "message":"接受任務取消"
+  "message":"0"
 }
 ```
+<br>
+```json
+{
+  "ret": "false",
+  "message":"-1"
+}
+```
+
+<br>
+
+- **message 取消派遣任務異常訊息定義：**
+  - ERROR=  0（接受任務取消)
+  - ERROR= -1（任務進行中，AMR無異常，無法取消任務)
+
+
+<br>
+
+**2.2.3 postCancelTask 時序圖：**
+
+```mermaid
+sequenceDiagram
+    participant PTS as PTS (派車系統)
+    participant WMS as WMS (倉儲管理系統)
+
+        WMS->>PTS: postNewTask
+        PTS-->>WMS: Response 
+
+```
+
 
 
 
