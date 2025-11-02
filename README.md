@@ -259,34 +259,68 @@ PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電�
  
     
 
-**2.3.4 postVehicleStatus時序圖：**
+**2.3.3 postWorkMode 時序圖：**
 
 ```mermaid
 sequenceDiagram
-    participant PTS
-    participant WMS
+    participant PTS as PTS (派車系統)
+    participant WMS as WMS (倉儲管理系統)
 
-    loop 每10秒回報一次
-        PTS->>WMS: postTranslationState (派遣任務狀態)
-        WMS-->>PTS: Response 完成登錄作業
-    end
+        WMS->>PTS: postWorkMode
+        PTS-->>WMS: Response 
+
 ```
-
+<br>
 
 
 ### 2.4 取得搬運車狀態
 
-<br>
-<br>
+要派遣任務時，須確認AMR1、AMR2、AMR3 是否分別在待命區，且確認AMR狀態為待命中方可派遣任務。<br> 在充電站的AMR 狀態顯示為充電中，無法接受派遣任務。
+
+**2.4.1 API 端點：**  
+```
+ getVehicleStatus.php?Vehicle=1
+```
+
+**2.4.2 請求參數：**
+```json
+  {
+  "Vehicle":"1",
+  }
+```
+
+- **搬運車：**  
+  - Vehicle= 空白（取得全部的搬運車狀態）
+  - Vehicle= 1（AMR1）
+  - Vehicle= 2（AMR2）
+  - Vehicle= 3（AMR3）
+  - Vehicle= 4（AMR4）
+
+
+```json
+{
+  "ret": "true",
+  "data":
+    [
+       {
+　　　　　"VEHCILE":"1(搬運車編號)",
+        "POSITION":"2001(現在位置)",
+        "POWER":"70(電量 1 - 100)",
+        "STATUS":"2(搬運車狀態)"
+        }
+    ]
+}
+```
 
 <br>
 
 - **搬運車狀態定義：**
-  - STATUS= 0（待命中）
-  - STATUS= 1（工作中）
-  - STATUS= 2（充電中）
-  - STATUS= 3（有異常狀況）
-  - STATUS= 4（無開機或連線異常）
+  - STATUS= 0（alive）
+  - STATUS= 1（待命中）
+  - STATUS= 2（工作中）
+  - STATUS= 3（充電中）
+  - STATUS= 4（有異常狀況）
+  - STATUS= 5（無開機或連線異常）
 
 - **異常代碼定義：**  
   - ERROR=  0（無異常）
