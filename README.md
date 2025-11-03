@@ -335,12 +335,11 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-participant WMS as WMS (倉儲管理系統)
-participant PTS as PTS (派車系統)
+    participant WMS as WMS (倉儲管理系統)
+    participant PTS as PTS (派車系統)
     
-
         WMS->>PTS: getVehicleStatus
-        PTS-->>WMS: Response Data [ ] 
+        PTS-->>WMS: Response Data [..... ] 
 
 ```
 <br>
