@@ -332,6 +332,20 @@ participant PTS as PTS (派車系統)
   - ERROR= -1（電池電量過低）
   - ERROR= -2（有障礙物）
 
+
+**2.4.3 getVehicleStatus 時序圖：**
+
+```mermaid
+sequenceDiagram
+participant WMS as WMS (倉儲管理系統)
+participant PTS as PTS (派車系統)
+    
+
+        WMS->>PTS: getVehicleStatus
+        PTS-->>WMS: Response Data [ ] 
+
+```
+<br>
   
 
 ## 3. 操作情境<br>3.1 Alive 
