@@ -379,15 +379,17 @@ sequenceDiagram
     participant WMS
 
 note over PTS,WMS: AMR1 已待命中，可接受派遣任務
-        WMS->>PTS: postNewTask（translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007...&Vehicle=1 )
+        WMS->>PTS: postNewTask <br>（translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007...&Vehicle=1 )
         PTS-->>WMS: Response　true
 
 note over PTS,WMS:  AMR1 已工作中，無法接受派遣任務
-        WMS->>PTS: postNewTask（translation=2&Stations[]=1001&Stations[]=1005&Stations[]=1007....&Vehicle=1 )
+        WMS->>PTS:getVehicleStatus (Vehicle:1)
+        PTS-->>WMS:Response : Data[...Status= 2.....]
+        WMS->>PTS: postNewTask<br>（translation=2&Stations[]=1001&Stations[]=1005&Stations[]=1007....&Vehicle=1 )
         PTS-->>WMS: ret:false <br> message: -5
 
 note over PTS,WMS: AMR2 已待命中，可接受派遣任務
-        WMS->>PTS: postNewTask（translation=1&Stations[]=2001&Stations[]=2005&Stations[]=2007...&Vehicle=2 )
+        WMS->>PTS: postNewTask<br>（translation=1&Stations[]=1005&Stations[]=1007&Stations[]=1011...&Vehicle=2 )
         PTS-->>WMS: Response　true
 
 
