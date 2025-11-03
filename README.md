@@ -138,14 +138,15 @@ sequenceDiagram
 
 **2.2.1 API 端點：**  
 ```
- postCancelTask.php?translation=1
+postCancelTask.php?translation=1
+
 ```
 
 **2.2.2 請求參數：**
 ```json
-  {
-    "translation":"1(任務流水號)",
-  }
+{
+　　"translation":"1(任務流水號)",
+}
 ```
 
 回應欄位定義 : 
@@ -379,25 +380,25 @@ sequenceDiagram
     participant WMS
 
 note over PTS,WMS: AMR1 已待命中，可接受派遣任務
-        WMS->>PTS: postNewTask <br>（translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007...&Vehicle=1 )
-        PTS-->>WMS: Response　true
+        WMS->>PTS: postNewTask <br>（translation=1&Stations[]=1001&Stations[]=1005....&Vehicle=1)
+        PTS-->>WMS: ret:true <br> message: 0
 
 note over PTS,WMS:  AMR1 已工作中，無法接受派遣任務
         WMS->>PTS:getVehicleStatus (Vehicle:1)
         PTS-->>WMS:Response : Data[...Status= 2.....]
-        WMS->>PTS: postNewTask<br>（translation=2&Stations[]=1001&Stations[]=1005&Stations[]=1007....&Vehicle=1 )
+        WMS->>PTS: postNewTask<br>（translation=2&Stations[]=1001&Stations[]=1005....&Vehicle=1)
         PTS-->>WMS: ret:false <br> message: -5
 
 note over PTS,WMS: AMR2 已待命中，可接受派遣任務
-        WMS->>PTS: postNewTask<br>（translation=1&Stations[]=1005&Stations[]=1007&Stations[]=1011...&Vehicle=2 )
-        PTS-->>WMS: Response　true
+        WMS->>PTS: postNewTask<br>（translation=2&Stations[]=1005&Stations[]=1009....&Vehicle=2)
+        PTS-->>WMS: ret:true  <br> message: 0
 
 
 ```
 
-### 3.3 回報任務狀態及搬運車的狀態
+### 3.3 取消派遣任務
 
-每台搬運車開始執行任務後，會不斷回報位置、電量、狀態，也會回報派遣任務狀態。
+當AMR 發生重大異常無法排除時，可由WMS發送取消派遣任務的指令。
 
 <br>
 
@@ -408,28 +409,23 @@ sequenceDiagram
     participant WMS
 
 
-note over PTS,WMS: AMR1 移動到點位1007、任務號碼1 執行中
-     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1007、Status=1...)
-     WMS-->>PTS:Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=1...)
-     WMS-->>PTS:Response 完成登錄作業
+note over PTS,WMS: AMR1 移動到點位1007、任務號碼1，AMR發生異常無法排除
+　　　WMS->>PTS:getVehicleStatus (Vehicle:1)
+     WMS-->>PTS : Data[...Status= 4.....]
 
-note over PTS,WMS: AMR2 移動到點位2008、任務號碼2 執行中
-     PTS->>WMS: postVehicleStatus (VEHCILE:2、Position:2008、Status=1...)
-     WMS-->>PTS:Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:2、translation：2、State=1...)
-     WMS-->>PTS:Response 完成登錄作業
+     PTS->>WMS: postCancelTask　（translation=1　）
+     WMS-->>PTS: ret:true  <br> message: 0
 
-note over PTS,WMS: AMR1 移動到點位1011、任務號碼1 執行中
-     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1011、Status=1...)
-     WMS-->>PTS:Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=1...)
-     WMS-->>PTS:Response 完成登錄作業
+note over PTS,WMS: AMR1 移動到點位1007、任務號碼1，AMR沒有異常
+     WMS->>PTS:getVehicleStatus (Vehicle:1)
+　　　PTS-->>WMS:Response : Data[...Status= 2.....]
 
+　　　PTS->>WMS: postCancelTask　（translation=1　）
+     WMS-->>PTS: ret:false  <br> message: -1
 ```
 
 
-### 3.4 完成任務
+### 3.4 切換工作模式
 
 每台搬運車開始執行完成任務後，會回報派遣任務狀態 State=2，並且將搬運車狀態變更為待命中。
 
