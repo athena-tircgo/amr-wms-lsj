@@ -476,16 +476,13 @@ sequenceDiagram
     participant PTS
     participant WMS
 
-note over PTS,WMS: AMR1 充電中
-     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:5001、Status=2...)
-     WMS-->>PTS:Response 完成登錄作業
+note over PTS,WMS: AMR1 充電中, 無法接受派遣任務
 
-note over PTS,WMS:派遣任務給AMR_1<br><br>會回報任務清單有異常，ERROR:-5 指定的車號 not available
-     PTS->>WMS: getTranslationList
-     WMS-->>PTS: Task Data
-     PTS->>WMS: postTranslationState (VEHCILE:1、translation：11、State=4、ERROR:-5)
-     WMS-->>PTS:Response 完成登錄作業
+     WMS->>PTS:getVehicleStatus (Vehicle:1)
+     PTS-->>WMS : Response :  Data[ Vehicle=1 , Status= 3  ...]
 
+     WMS->>PTS: postNewTask (Vehicle:1)
+     PTS-->>WMS : ret: false <br> message: -5
 
 ```
 
