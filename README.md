@@ -346,7 +346,7 @@ sequenceDiagram
         WMS->>PTS:getVehicleStatus (VEHCILE:3)
         PTS-->>WMS:Response  Data[...Status= 5.....]
 
-    note over PTS,WMS: AMR_1 已經完成開機、AMR_2 剛開啟電源
+    note over PTS,WMS: AMR_1 已經完成開機<br>AMR_2 剛開啟電源
         WMS->>PTS:getVehicleStatus (VEHCILE:1)
         PTS-->>WMS:Response Data[...Status= 0.....]
         WMS->>PTS:getVehicleStatus (VEHCILE:2)
@@ -354,14 +354,13 @@ sequenceDiagram
         WMS->>PTS:getVehicleStatus (VEHCILE:3)
         PTS-->>WMS:Response  Data[...Status= 5.....]
 
- 　　note over PTS,WMS: AMR_1 已在待命中、AMR_2 已在待命中、AMR_3 alive
+ 　　note over PTS,WMS: AMR_1 已在待命中<br>AMR_2 已在待命中<br>AMR_3 alive
         WMS->>PTS:getVehicleStatus (VEHCILE:1)
         PTS-->>WMS:Response Data[...Status= 1.....]
         WMS->>PTS:getVehicleStatus (VEHCILE:2)
         PTS-->>WMS:Response  Data[...Status= 1.....]
         WMS->>PTS:getVehicleStatus (VEHCILE:3)
         PTS-->>WMS:Response  Data[...Status= 0.....]
-
 
 
 ```
