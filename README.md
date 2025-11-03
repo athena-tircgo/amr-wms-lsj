@@ -51,6 +51,7 @@ flowchart TD
 基礎URL
 ```
 https://[PTS系統IP]:[端口]/api/
+
 ```
 
 |項目 | 說明| 類別 | 方法 |
@@ -69,8 +70,8 @@ WMS 要新增任務時，由此API 處理，依據任務需求的站點數量填
 
 **2.1.1 API 端點：**
 ```
-postNewTask.php?translation=1&Stations[]=1001&tations[]=1005<br>
-   &Stations[]=1007&Stations[]=1001&Vehicle=1
+postNewTask.php?translation=1&Stations[]=1001&tations[]=1005
+               &Stations[]=1007&Stations[]=1001&Vehicle=1
 ```
 <br>
 
@@ -216,14 +217,15 @@ PTS收到來自於WMS 的指令通知為加班模式，且4台AMR 電量均非�
 
 **2.3.1 API 端點：**  
 ```
- postWorkMode.php?mode=1
+postWorkMode.php?mode=1
+
 ```
 
 **2.3.2 請求參數：**
 ```json
-  {
+{
     "mode":"1",
-  }
+}
 ```
 
 <br>
@@ -291,13 +293,14 @@ sequenceDiagram
 **2.4.1 API 端點：**  
 ```
  getVehicleStatus.php?Vehicle=1
+
 ```
 
 **2.4.2 請求參數：**
 ```json
-  {
+{
     "Vehicle":"1",
-  }
+}
 ```
 
 - **搬運車：**  
