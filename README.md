@@ -180,6 +180,12 @@ postCancelTask.php?translation=1
 
 
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 **2.2.3 postCancelTask 時序圖：**
 
@@ -362,15 +368,11 @@ sequenceDiagram
         PTS-->>WMS:Response : Data[...Status= 5.....]
         WMS->>PTS:getVehicleStatus (Vehicle:2)
         PTS-->>WMS:Response : Data[...Status= 5.....]
-        WMS->>PTS:getVehicleStatus (Vehicle:3)
-        PTS-->>WMS:Response : Data[...Status= 5.....]
 
     note over PTS,WMS: AMR_1 已經完成開機<br>AMR_2 剛開啟電源
         WMS->>PTS:getVehicleStatus (Vehicle:1)
         PTS-->>WMS:Response : Data[...Status= 0.....]
         WMS->>PTS:getVehicleStatus (Vehicle:2)
-        PTS-->>WMS:Response : Data[...Status= 5.....]
-        WMS->>PTS:getVehicleStatus (Vehicle:3)
         PTS-->>WMS:Response : Data[...Status= 5.....]
 
  　　note over PTS,WMS: AMR_1 已在待命中<br>AMR_2 已在待命中<br>AMR_3 alive
