@@ -145,7 +145,7 @@ postCancelTask.php?translation=1
 **2.2.2 請求參數：**
 ```json
 {
-　　"translation":"1(任務流水號)",
+  "translation":"1(任務流水號)"
 }
 ```
 
@@ -433,7 +433,7 @@ note over PTS,WMS: AMR1 任務號碼1，AMR沒有異常
 ### 3.4 切換工作模式
 
 (1)下班模式  <br>
-PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電計畫。
+PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電計畫。  <br>
 (2)加班模式 <br>
 PTS收到來自於WMS 的指令通知為加班模式，且4台AMR 電量均非低電量情況下，允許4台車子同時工作，將會把在充電站的車子，狀態調整為待命中，並在原地等待派遣任務。<br>若收到加班模式的指令但有車子是低電量的情況下，會拒絕進入加班模式。<br>
 加班模式進行中，若此時有一台車處於低電量狀態，加班模式會強制變回一般工作模式，並且把低電量的車子派回去充電。加班模式完成後或者強制切回正常模式時，WMS仍須把指令通知為下班模式，才會啟動輪流充電計畫。<br>
@@ -450,18 +450,18 @@ sequenceDiagram
 note over PTS,WMS: AMR1-3　待命中, 進入下班模式
 
      WMS->>PTS:getVehicleStatus (Vehicle:0)
-     WMS-->>PTS : Response :  Data[...Status= 2.....]
+     PTS-->>WMS : Response :  Data[...Status= 2.....]
 
      WMS->>PTS: postWorkMode (mode:1)
-     WMS-->>PTS : ret:true <br> message: 0
+     PTS-->>WMS : ret:true <br> message: 0
 
 
 note over PTS,WMS:  AMR1-3　待命中, 進入加班模式
 　　　WMS->>PTS:getVehicleStatus (Vehicle:0)
-     WMS-->>PTS : Response :  Data[...Status= 3.....]
+     PTS-->>WMS : Response :  Data[ Vehicle=1 , Status= 4 , Errror : -1 ...]
 
      WMS->>PTS: postWorkMode (mode:2)
-     WMS-->>PTS : ret:true <br> message: 0
+     PTS-->>WMS : ret: false <br> message: -1
 ```
 
 ### 3.5 充電
