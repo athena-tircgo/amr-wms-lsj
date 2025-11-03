@@ -124,8 +124,8 @@ postNewTask.php?translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007&St
 
 ```mermaid
 sequenceDiagram
-　　　participant WMS as WMS (倉儲管理系統)
-    participant PTS as PTS (派車系統)
+participant WMS as WMS (倉儲管理系統)
+participant PTS as PTS (派車系統)
     
         WMS->>PTS: postNewTask
         PTS-->>WMS: Response 
@@ -185,8 +185,9 @@ postCancelTask.php?translation=1
 
 ```mermaid
 sequenceDiagram
-    participant PTS as PTS (派車系統)
-    participant WMS as WMS (倉儲管理系統)
+participant WMS as WMS (倉儲管理系統)
+participant PTS as PTS (派車系統)
+    
 
         WMS->>PTS: postCancelTask
         PTS-->>WMS: Response 
@@ -262,8 +263,9 @@ PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電�
 
 ```mermaid
 sequenceDiagram
-    participant PTS as PTS (派車系統)
-    participant WMS as WMS (倉儲管理系統)
+participant WMS as WMS (倉儲管理系統)
+participant PTS as PTS (派車系統)
+    
 
         WMS->>PTS: postWorkMode
         PTS-->>WMS: Response 
