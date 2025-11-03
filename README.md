@@ -69,7 +69,8 @@ WMS 要新增任務時，由此API 處理，依據任務需求的站點數量填
 
 **2.1.1 API 端點：**
 ```
-postNewTask.php?translation=1&Stations[]=1001&Stations[]=1005&&Stations[]=1001&Vehicle=1
+postNewTask.php?translation=1&Stations[]=1001&tations[]=1005<br>
+   &Stations[]=1007&Stations[]=1001&Vehicle=1
 ```
 <br>
 
@@ -78,7 +79,7 @@ postNewTask.php?translation=1&Stations[]=1001&Stations[]=1005&&Stations[]=1001&V
 ```json
 {
   "Translation":"1(任務流水號)",
-  "Stations":"[1001,1005,1001](需求的工作站點)",
+  "Stations":"[1001,1005,1007,1001](需求的工作站點)",
   "Vehicle":"1(指定搬運車編號)"
 }
 ```
