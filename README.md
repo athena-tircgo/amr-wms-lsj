@@ -3,7 +3,7 @@
 ## 0. 版本管理
 |版本 | 更新| 編制者 |
 |:------|:------|:------|
-| v1.0.0　新建| 2025-10-07 |Athena |
+| v1.0.0　新建| 2025-10-27 |Athena |
 
 
 ## 1. 總覽
@@ -78,7 +78,7 @@ postNewTask.php?translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007&St
 ```json
 {
   "Translation":"1(任務流水號)",
-  "Stations":"[1001,1005,1007,1001]",
+  "Stations":"[1001,1005,1007,1001](需求的工作站點)",
   "Vehicle":"1(指定搬運車編號)"
 }
 ```
@@ -109,13 +109,13 @@ postNewTask.php?translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007&St
 <br>
 
 - **message 任務異常訊息定義：**
-  - ERROR=  0（任務資訊無異常)
-  - ERROR= -1（站點重複)
-  - ERROR= -2（不存在的站點）
-  - ERROR= -3（指定的車號不存在）
-  - ERROR= -4（任務流水號重複）
-  - ERROR= -5（指定的車號無法接受任務）
-  - ERROR= -6（AMR不在待命區）
+  - Error=  0（任務資訊無異常)
+  - Error= -1（站點重複)
+  - Error= -2（不存在的站點）
+  - Error= -3（指定的車號不存在）
+  - Error= -4（任務流水號重複）
+  - Error= -5（指定的車號無法接受任務）
+  - Error= -6（AMR不在待命區）
 
 
 <br>
@@ -124,8 +124,8 @@ postNewTask.php?translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007&St
 
 ```mermaid
 sequenceDiagram
-participant WMS as WMS (倉儲管理系統)
-participant PTS as PTS (派車系統)
+    participant WMS as WMS (倉儲管理系統)
+    participant PTS as PTS (派車系統)
     
         WMS->>PTS: postNewTask
         PTS-->>WMS: Response 
@@ -175,8 +175,8 @@ postCancelTask.php?translation=1
 <br>
 
 - **message 取消派遣任務異常訊息定義：**
-  - ERROR=  0（接受任務取消)
-  - ERROR= -1（任務進行中，AMR無異常，無法取消任務)
+  - Error=  0（接受任務取消)
+  - Error= -1（任務進行中，AMR無異常，無法取消任務)
 
 
 <br>
@@ -185,10 +185,9 @@ postCancelTask.php?translation=1
 
 ```mermaid
 sequenceDiagram
-participant WMS as WMS (倉儲管理系統)
-participant PTS as PTS (派車系統)
+    participant WMS as WMS (倉儲管理系統)
+    participant PTS as PTS (派車系統)
     
-
         WMS->>PTS: postCancelTask
         PTS-->>WMS: Response 
 
@@ -250,8 +249,8 @@ PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電�
 <br>
 
 - **message 設定工作模式異常訊息定義：**
-  - ERROR=  0（接受切換工作模式)
-  - ERROR= -1（有AMR低電量，拒絕進入加班模式)
+  - Error=  0（接受切換工作模式)
+  - Error= -1（有AMR低電量，拒絕進入加班模式)
 
 <br>
 <br>
@@ -263,10 +262,9 @@ PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電�
 
 ```mermaid
 sequenceDiagram
-participant WMS as WMS (倉儲管理系統)
-participant PTS as PTS (派車系統)
+    participant WMS as WMS (倉儲管理系統)
+    participant PTS as PTS (派車系統)
     
-
         WMS->>PTS: postWorkMode
         PTS-->>WMS: Response 
 
@@ -328,9 +326,9 @@ participant PTS as PTS (派車系統)
 <br>
 
 - **異常代碼定義：**  
-  - ERROR=  0（無異常）
-  - ERROR= -1（電池電量過低）
-  - ERROR= -2（有障礙物）
+  - Error=  0（無異常）
+  - Error= -1（電池電量過低）
+  - Error= -2（有障礙物）
 
 
 **2.4.3 getVehicleStatus 時序圖：**
