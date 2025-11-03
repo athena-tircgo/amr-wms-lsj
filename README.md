@@ -124,9 +124,9 @@ postNewTask.php?translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007&St
 
 ```mermaid
 sequenceDiagram
+　　　participant WMS as WMS (倉儲管理系統)
     participant PTS as PTS (派車系統)
-    participant WMS as WMS (倉儲管理系統)
-
+    
         WMS->>PTS: postNewTask
         PTS-->>WMS: Response 
 
