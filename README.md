@@ -69,7 +69,7 @@ WMS 要新增任務時，由此API 處理，依據任務需求的站點數量填
 
 **2.1.1 API 端點：**
 ```
-postNewTask.php?translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007&Stations[]=1001&vehicle=1
+postNewTask.php?translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007&Stations[]=1001&Vehicle=1
 ```
 <br>
 
@@ -77,9 +77,9 @@ postNewTask.php?translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007&St
 
 ```json
 {
-  "translation":"1(任務流水號)",
+  "Translation":"1(任務流水號)",
   "Stations":"[1001,1005,1007,1001]",
-  "vehicle":"1(指定搬運車編號)"
+  "Vehicle":"1(指定搬運車編號)"
 }
 ```
 - **請注意:任務流水號不可重複**
@@ -339,28 +339,28 @@ sequenceDiagram
     participant WMS
 
     note over PTS,WMS: AMR_1 剛開啟電源
-        WMS->>PTS:getVehicleStatus (VEHCILE:1)
-        PTS-->>WMS:Response Data[...Status= 5.....]
-        WMS->>PTS:getVehicleStatus (VEHCILE:2)
-        PTS-->>WMS:Response  Data[...Status= 5.....]
-        WMS->>PTS:getVehicleStatus (VEHCILE:3)
-        PTS-->>WMS:Response  Data[...Status= 5.....]
+        WMS->>PTS:getVehicleStatus (Vehicle:1)
+        PTS-->>WMS:Response : Data[...Status= 5.....]
+        WMS->>PTS:getVehicleStatus (Vehicle:2)
+        PTS-->>WMS:Response : Data[...Status= 5.....]
+        WMS->>PTS:getVehicleStatus (Vehicle:3)
+        PTS-->>WMS:Response : Data[...Status= 5.....]
 
     note over PTS,WMS: AMR_1 已經完成開機<br>AMR_2 剛開啟電源
-        WMS->>PTS:getVehicleStatus (VEHCILE:1)
-        PTS-->>WMS:Response Data[...Status= 0.....]
-        WMS->>PTS:getVehicleStatus (VEHCILE:2)
-        PTS-->>WMS:Response  Data[...Status= 5.....]
-        WMS->>PTS:getVehicleStatus (VEHCILE:3)
-        PTS-->>WMS:Response  Data[...Status= 5.....]
+        WMS->>PTS:getVehicleStatus (Vehicle:1)
+        PTS-->>WMS:Response : Data[...Status= 0.....]
+        WMS->>PTS:getVehicleStatus (Vehicle:2)
+        PTS-->>WMS:Response : Data[...Status= 5.....]
+        WMS->>PTS:getVehicleStatus (Vehicle:3)
+        PTS-->>WMS:Response : Data[...Status= 5.....]
 
  　　note over PTS,WMS: AMR_1 已在待命中<br>AMR_2 已在待命中<br>AMR_3 alive
-        WMS->>PTS:getVehicleStatus (VEHCILE:1)
-        PTS-->>WMS:Response Data[...Status= 1.....]
-        WMS->>PTS:getVehicleStatus (VEHCILE:2)
-        PTS-->>WMS:Response  Data[...Status= 1.....]
-        WMS->>PTS:getVehicleStatus (VEHCILE:3)
-        PTS-->>WMS:Response  Data[...Status= 0.....]
+        WMS->>PTS:getVehicleStatus (Vehicle:1)
+        PTS-->>WMS:Response : Data[...Status= 1.....]
+        WMS->>PTS:getVehicleStatus (Vehicle:2)
+        PTS-->>WMS:Response : Data[...Status= 1.....]
+        WMS->>PTS:getVehicleStatus (Vehicle:3)
+        PTS-->>WMS:Response : Data[...Status= 0.....]
 
 
 ```
@@ -379,25 +379,17 @@ sequenceDiagram
     participant WMS
 
 note over PTS,WMS: AMR1 已待命中，可接受派遣任務
-        WMS->>PTS: postNewTask（translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007&Stations[]=1001&vehicle=1
-        PTS-->>WMS: Response
+        WMS->>PTS: postNewTask（translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007...&Vehicle=1 )
+        PTS-->>WMS: Response　true
 
-        
-note over PTS,WMS: 派遣任務給AMR_1,translation：1<br><br>路徑 1001-->1003-->1004-->1007-->1011-->1001<br><br>AMR1 開始執行任務，搬運車狀態會改成工作中
-     PTS->>WMS: getTranslationList
-     WMS-->>PTS: Task Data
-     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1001、Status=1...)
-     WMS-->>PTS: Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=1...)
-     WMS-->>PTS: Response 完成登錄作業
+note over PTS,WMS:  AMR1 已工作中，無法接受派遣任務
+        WMS->>PTS: postNewTask（translation=2&Stations[]=1001&Stations[]=1005&Stations[]=1007....&Vehicle=1 )
+        PTS-->>WMS: ret:false <br> message: -5
 
-note over PTS,WMS: 派遣任務給AMR_2,translation：2<br><br>路徑 2003-->2008-->2009-->2007-->2003<br><br>AMR2 開始執行任務，搬運車狀態會改成工作中
-     PTS->>WMS: getTranslationList
-     WMS-->>PTS: Task Data
-     PTS->>WMS: postVehicleStatus (VEHCILE:2、Position:2003、Status=1...)
-     WMS-->>PTS: Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:2、translation：2、State=1...)
-     WMS-->>PTS: Response 完成登錄作業
+note over PTS,WMS: AMR2 已待命中，可接受派遣任務
+        WMS->>PTS: postNewTask（translation=1&Stations[]=2001&Stations[]=2005&Stations[]=2007...&Vehicle=2 )
+        PTS-->>WMS: Response　true
+
 
 ```
 
