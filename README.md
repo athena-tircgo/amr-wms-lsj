@@ -69,7 +69,7 @@ WMS 要新增任務時，由此API 處理，依據任務需求的停靠點數量
 
 **2.1.1 API 端點：**
 ```
-postNewTask.php?translation=1&Start=1001&Stop1=1005&Stop2=1007&End=1001&vehicle=1
+postNewTask.php?translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007&Stations[]=1001&vehicle=1
 ```
 <br>
 
@@ -78,10 +78,7 @@ postNewTask.php?translation=1&Start=1001&Stop1=1005&Stop2=1007&End=1001&vehicle=
 ```json
 {
 "translation":"1(任務流水號)",
-"Start":"1001(起始點)",
-"Stop1":"1005(停靠點1)",
-"Stop2":"1007（停靠點2)",
-"End":"1001(到達點)",
+"Stations":"[1001,1005,1007,1001]",
 "vehicle":"1(指定搬運車編號)"
 }
 ```
