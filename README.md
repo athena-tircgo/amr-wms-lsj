@@ -442,8 +442,8 @@ note over PTS,WMS: AMR1 任務號碼1，AMR發生異常無法排除
      PTS-->>WMS : ret:true  <br> message: 0
 
 note over PTS,WMS: AMR1 任務號碼1，無法取消任務
-　　　PTS->>WMS: postCancelTask　（translation=1　）
-     WMS-->>PTS: ret:false  <br> message: -1
+     WMS->>PTS: postCancelTask　（translation=1　）
+     PTS-->>WMS : ret:false  <br> message: -1
 ```
 
 
