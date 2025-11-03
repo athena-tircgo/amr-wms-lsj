@@ -344,7 +344,7 @@ sequenceDiagram
         WMS->>PTS:getVehicleStatus (VEHCILE:2)
         PTS-->>WMS:Response  Data[...Status= 5.....]
         WMS->>PTS:getVehicleStatus (VEHCILE:3)
-        PTS-->>WMSS:Response  Data[...Status= 5.....]
+        PTS-->>WMS:Response  Data[...Status= 5.....]
 
     note over PTS,WMS: AMR_1 已經完成開機、AMR_2 剛開啟電源
         WMS->>PTS:getVehicleStatus (VEHCILE:1)
@@ -352,7 +352,17 @@ sequenceDiagram
         WMS->>PTS:getVehicleStatus (VEHCILE:2)
         PTS-->>WMS:Response  Data[...Status= 5.....]
         WMS->>PTS:getVehicleStatus (VEHCILE:3)
-        PTS-->>WMSS:Response  Data[...Status= 5.....]
+        PTS-->>WMS:Response  Data[...Status= 5.....]
+
+ 　　note over PTS,WMS: AMR_1 已在待命中、AMR_2 已在待命中、AMR_3 alive
+        WMS->>PTS:getVehicleStatus (VEHCILE:1)
+        PTS-->>WMS:Response Data[...Status= 1.....]
+        WMS->>PTS:getVehicleStatus (VEHCILE:2)
+        PTS-->>WMS:Response  Data[...Status= 1.....]
+        WMS->>PTS:getVehicleStatus (VEHCILE:3)
+        PTS-->>WMS:Response  Data[...Status= 0.....]
+
+
 
 ```
 
@@ -370,10 +380,9 @@ sequenceDiagram
     participant WMS
 
 note over PTS,WMS: AMR1 已待命中，可接受派遣任務
-        PTS->>WMS: getTranslationList
-        WMS-->>PTS: no_task
-        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0...)
-        WMS-->>PTS: Response 完成登錄作業
+        WMS->>PTS: postNewTask（translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007&Stations[]=1001&vehicle=1
+        PTS-->>WMS: Response
+
         
 note over PTS,WMS: 派遣任務給AMR_1,translation：1<br><br>路徑 1001-->1003-->1004-->1007-->1011-->1001<br><br>AMR1 開始執行任務，搬運車狀態會改成工作中
      PTS->>WMS: getTranslationList
