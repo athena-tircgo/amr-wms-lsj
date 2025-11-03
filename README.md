@@ -518,7 +518,7 @@ JSON 的資料由兩種基本結構組成：
   {
       "VEHCILE": "1",
       "TRANSLATION": "2",
-      "STATE": "2)"
+      "STATE": "2"
   },
   {
       "VEHCILE": "2",
