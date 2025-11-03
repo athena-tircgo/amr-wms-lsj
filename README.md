@@ -176,7 +176,7 @@ postCancelTask.php?translation=1
 
 - **message 取消派遣任務異常訊息定義：**
   - Error=  0（接受任務取消)
-  - Error= -1（任務進行中，AMR無異常，無法取消任務)
+  - Error= -1（無法取消任務)
 
 
 <br>
@@ -439,10 +439,7 @@ note over PTS,WMS: AMR1 任務號碼1，AMR發生異常無法排除
      WMS->>PTS: postCancelTask　（translation=1　）
      PTS-->>WMS : ret:true  <br> message: 0
 
-note over PTS,WMS: AMR1 任務號碼1，AMR沒有異常
-     WMS->>PTS:getVehicleStatus (Vehicle:1)
-　　　PTS-->>WMS: Response :  Data[...Status= 2.....]
-
+note over PTS,WMS: AMR1 任務號碼1，無法取消任務
 　　　PTS->>WMS: postCancelTask　（translation=1　）
      WMS-->>PTS: ret:false  <br> message: -1
 ```
@@ -454,7 +451,7 @@ note over PTS,WMS: AMR1 任務號碼1，AMR沒有異常
 PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電計畫。  <br>
 (2)加班模式 <br>
 PTS收到來自於WMS 的指令通知為加班模式，且4台AMR 電量均非低電量情況下，允許4台車子同時工作，將會把在充電站的車子，狀態調整為待命中，並在原地等待派遣任務。<br>若收到加班模式的指令但有車子是低電量的情況下，會拒絕進入加班模式。<br>
-加班模式進行中，若此時有一台車處於低電量狀態，加班模式會強制變回一般工作模式，並且把低電量的車子派回去充電。加班模式完成後或者強制切回正常模式時，WMS仍須把指令通知為下班模式，才會啟動輪流充電計畫。<br>
+加班模式進行中，若此時有一台車處於低電量狀態，加班模式會強制變回一般工作模式，並且把低電量的車子派回去充電。加班模式完成後或者強制切回正常模式後，WMS仍須把指令通知為下班模式，才會啟動輪流充電計畫。<br>
 
 
 <br>
