@@ -308,6 +308,7 @@ sequenceDiagram
         "Mode":"0(工作模式)",
         "Station":"2001(現在位置)",
         "Power":"70(電量 1 - 100)"
+        "Error":"0（無異常）"
         }
     ]
 }
@@ -324,8 +325,12 @@ sequenceDiagram
   - Status= 5（無開機或連線異常）
 <br>
 
+- **異常代碼定義：**  
+  - ERROR=  0（無異常）
+  - ERROR= -1（電池電量過低）
+  - ERROR= -2（有障礙物）
 
-
+  
 
 ## 3. 操作情境<br>3.1 Alive 
 WMS 要下任務前，須先確認PTS系統已經啟用，並確認每台AMR 電源皆已開啟。<BR>
@@ -409,16 +414,16 @@ sequenceDiagram
     participant WMS
 
 
-note over PTS,WMS: AMR1 移動到點位1007、任務號碼1，AMR發生異常無法排除
+note over PTS,WMS: AMR1 任務號碼1，AMR發生異常無法排除
 　　　WMS->>PTS:getVehicleStatus (Vehicle:1)
-     WMS-->>PTS : Data[...Status= 4.....]
+     PTS-->>WMS : Response : Data[...Status= 4.....]
 
-     PTS->>WMS: postCancelTask　（translation=1　）
-     WMS-->>PTS: ret:true  <br> message: 0
+     WMS->>PTS: postCancelTask　（translation=1　）
+     PTS-->>WMS : ret:true  <br> message: 0
 
-note over PTS,WMS: AMR1 移動到點位1007、任務號碼1，AMR沒有異常
+note over PTS,WMS: AMR1 任務號碼1，AMR沒有異常
      WMS->>PTS:getVehicleStatus (Vehicle:1)
-　　　PTS-->>WMS:Response : Data[...Status= 2.....]
+　　　PTS-->>WMS: Response :  Data[...Status= 2.....]
 
 　　　PTS->>WMS: postCancelTask　（translation=1　）
      WMS-->>PTS: ret:false  <br> message: -1
@@ -427,7 +432,12 @@ note over PTS,WMS: AMR1 移動到點位1007、任務號碼1，AMR沒有異常
 
 ### 3.4 切換工作模式
 
-每台搬運車開始執行完成任務後，會回報派遣任務狀態 State=2，並且將搬運車狀態變更為待命中。
+(1)下班模式  <br>
+PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電計畫。
+(2)加班模式 <br>
+PTS收到來自於WMS 的指令通知為加班模式，且4台AMR 電量均非低電量情況下，允許4台車子同時工作，將會把在充電站的車子，狀態調整為待命中，並在原地等待派遣任務。<br>若收到加班模式的指令但有車子是低電量的情況下，會拒絕進入加班模式。<br>
+加班模式進行中，若此時有一台車處於低電量狀態，加班模式會強制變回一般工作模式，並且把低電量的車子派回去充電。加班模式完成後或者強制切回正常模式時，WMS仍須把指令通知為下班模式，才會啟動輪流充電計畫。<br>
+
 
 <br>
 
@@ -437,18 +447,21 @@ sequenceDiagram
     participant PTS
     participant WMS
 
-note over PTS,WMS: AMR1 已完成任務
-     PTS->>WMS: postVehicleStatus (VEHCILE:1、Position:1001、Status=0...)
-     WMS-->>PTS:Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:1、translation：1、State=2...)
-     WMS-->>PTS:Response 完成登錄作業
+note over PTS,WMS: AMR1-3　待命中, 進入下班模式
 
-note over PTS,WMS: AMR2 已完成任務
-     PTS->>WMS: postVehicleStatus (VEHCILE:2、Position:2003、Status=0...)
-     WMS-->>PTS:Response 完成登錄作業
-     PTS->>WMS: postTranslationState (VEHCILE:2、translation：1、State=2...)
-     WMS-->>PTS:Response 完成登錄作業
+     WMS->>PTS:getVehicleStatus (Vehicle:0)
+     WMS-->>PTS : Response :  Data[...Status= 2.....]
 
+     WMS->>PTS: postWorkMode (mode:1)
+     WMS-->>PTS : ret:true <br> message: 0
+
+
+note over PTS,WMS:  AMR1-3　待命中, 進入加班模式
+　　　WMS->>PTS:getVehicleStatus (Vehicle:0)
+     WMS-->>PTS : Response :  Data[...Status= 3.....]
+
+     WMS->>PTS: postWorkMode (mode:2)
+     WMS-->>PTS : ret:true <br> message: 0
 ```
 
 ### 3.5 充電
