@@ -185,6 +185,7 @@ postCancelTask.php?translation=1
 <br>
 <br>
 <br>
+<br>
 
 
 **2.2.3 postCancelTask 時序圖：**
@@ -258,6 +259,7 @@ PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電�
   - Error=  0（接受切換工作模式)
   - Error= -1（有AMR低電量，拒絕進入加班模式)
 
+<br>
 <br>
 <br>
 
@@ -336,6 +338,9 @@ sequenceDiagram
   - Error= -1（電池電量過低）
   - Error= -2（有障礙物）
 
+<br>
+<br>
+<br>
 
 **2.4.3 getVehicleStatus 時序圖：**
 
@@ -376,14 +381,10 @@ sequenceDiagram
         PTS-->>WMS:Response : Data[...Status= 5.....]
 
  　　note over PTS,WMS: AMR_1 已在待命中<br>AMR_2 已在待命中<br>AMR_3 alive
-        WMS->>PTS:getVehicleStatus (Vehicle:1)
-        PTS-->>WMS:Response : Data[...Status= 1.....]
-        WMS->>PTS:getVehicleStatus (Vehicle:2)
+        WMS->>PTS:getVehicleStatus (Vehicle:1)、(Vehicle:2)
         PTS-->>WMS:Response : Data[...Status= 1.....]
         WMS->>PTS:getVehicleStatus (Vehicle:3)
         PTS-->>WMS:Response : Data[...Status= 0.....]
-
-
 ```
 
 
