@@ -77,9 +77,9 @@ postNewTask.php?translation=1&Stations[]=1001&Stations[]=1005&Stations[]=1007&St
 
 ```json
 {
-"translation":"1(任務流水號)",
-"Stations":"[1001,1005,1007,1001]",
-"vehicle":"1(指定搬運車編號)"
+  "translation":"1(任務流水號)",
+  "Stations":"[1001,1005,1007,1001]",
+  "vehicle":"1(指定搬運車編號)"
 }
 ```
 - **請注意:任務流水號不可重複**
@@ -144,7 +144,7 @@ sequenceDiagram
 **2.2.2 請求參數：**
 ```json
   {
-  "translation":"1(任務流水號)",
+    "translation":"1(任務流水號)",
   }
 ```
 
@@ -211,7 +211,7 @@ PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電�
 **2.3.2 請求參數：**
 ```json
   {
-  "mode":"1",
+    "mode":"1",
   }
 ```
 
@@ -284,7 +284,7 @@ sequenceDiagram
 **2.4.2 請求參數：**
 ```json
   {
-  "Vehicle":"1",
+    "Vehicle":"1",
   }
 ```
 
@@ -315,19 +315,12 @@ sequenceDiagram
 <br>
 
 - **搬運車狀態定義：**
-  - STATUS= 0（alive）
-  - STATUS= 1（待命中）
-  - STATUS= 2（工作中）
-  - STATUS= 3（充電中）
-  - STATUS= 4（有異常狀況）
-  - STATUS= 5（無開機或連線異常）
-
-- **異常代碼定義：**  
-  - ERROR=  0（無異常）
-  - ERROR= -1（電池電量過低）
-  - ERROR= -2（圖資須更新）
-  - ERROR= -3（有障礙物）
-
+  - Status= 0（alive）
+  - Status= 1（待命中）
+  - Status= 2（工作中）
+  - Status= 3（充電中）
+  - Status= 4（有異常狀況）
+  - Status= 5（無開機或連線異常）
 <br>
 
 
@@ -346,22 +339,20 @@ sequenceDiagram
     participant WMS
 
     note over PTS,WMS: AMR_1 剛開啟電源
-        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=4...)
-        WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=4...)
-        WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus (VEHCILE:3、Status=4...)
-        WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus (VEHCILE:4、Status=4...)
-        WMS-->>PTS: Response 完成登錄作業
+        WMS->>PTS:getVehicleStatus (VEHCILE:1)
+        PTS-->>WMS:Response Data[...Status= 5.....]
+        WMS->>PTS:getVehicleStatus (VEHCILE:2)
+        PTS-->>WMS:Response  Data[...Status= 5.....]
+        WMS->>PTS:getVehicleStatus (VEHCILE:3)
+        PTS-->>WMSS:Response  Data[...Status= 5.....]
 
     note over PTS,WMS: AMR_1 已經完成開機、AMR_2 剛開啟電源
-        PTS->>WMS: postVehicleStatus (VEHCILE:1、Status=0...)
-        WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus (VEHCILE:2、Status=4...)
-        WMS-->>PTS: Response 完成登錄作業
-        PTS->>WMS: postVehicleStatus (VEHCILE:3、Status=4...)
-        WMS-->>PTS: Response 完成登錄作業
+        WMS->>PTS:getVehicleStatus (VEHCILE:1)
+        PTS-->>WMS:Response Data[...Status= 0.....]
+        WMS->>PTS:getVehicleStatus (VEHCILE:2)
+        PTS-->>WMS:Response  Data[...Status= 5.....]
+        WMS->>PTS:getVehicleStatus (VEHCILE:3)
+        PTS-->>WMSS:Response  Data[...Status= 5.....]
 
 ```
 
