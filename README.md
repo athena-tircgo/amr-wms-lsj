@@ -354,9 +354,9 @@ WMS 要下任務前，須先確認PTS系統已經啟用，並確認每台AMR 電
 ```mermaid
 sequenceDiagram
     participant PTS系統已啟用
-    participant PTS
     participant WMS
-
+    participant PTS
+    
     note over PTS,WMS: AMR_1 剛開啟電源
         WMS->>PTS:getVehicleStatus (Vehicle:1)
         PTS-->>WMS:Response : Data[...Status= 5.....]
@@ -394,8 +394,9 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant AMR待命中
-    participant PTS
     participant WMS
+    participant PTS
+    
 
 note over PTS,WMS: AMR1 已待命中，可接受派遣任務
         WMS->>PTS: postNewTask <br>（translation=1&Stations[ ]=1001&Stations[ ]=1005....&Vehicle=1)
@@ -423,8 +424,9 @@ note over PTS,WMS: AMR2 已待命中，可接受派遣任務
 ```mermaid
 sequenceDiagram
     participant AMR工作中
-    participant PTS
     participant WMS
+    participant PTS
+    
 
 
 note over PTS,WMS: AMR1 任務號碼1，AMR發生異常無法排除
@@ -457,8 +459,9 @@ PTS收到來自於WMS 的指令通知為加班模式，且4台AMR 電量均非�
 ```mermaid
 sequenceDiagram
     participant AMR待命中
-    participant PTS
     participant WMS
+    participant PTS
+    
 
 note over PTS,WMS: AMR1-3　待命中, 進入下班模式
 
@@ -486,8 +489,9 @@ note over PTS,WMS:  AMR1-3　待命中, 進入加班模式
 ```mermaid
 sequenceDiagram
     participant AMR1充電中
-    participant PTS
     participant WMS
+    participant PTS
+    
 
 note over PTS,WMS: AMR1 充電中, 無法接受派遣任務
 
