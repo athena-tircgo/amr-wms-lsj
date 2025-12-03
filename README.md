@@ -109,6 +109,9 @@ postNewTask.php?translation=1&Stations[]=1001&tations[]=1005
 }
 ```
 <br>
+<br>
+<br>
+<br>
 
 - **message 任務異常訊息定義：**
   - Error=  0（任務資訊無異常)
@@ -247,6 +250,10 @@ sequenceDiagram
 }
 ```
 
+<br>
+<br>
+<br>
+<br>
 <br>
 
 - **搬運車狀態定義：**
