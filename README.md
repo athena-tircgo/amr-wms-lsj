@@ -1,9 +1,10 @@
 # 規劃與運輸系統 <br> PTS(Planning and Transport System) <br>和倉儲管理系統<br> WMS(Warehouse Management System)<br>HTTPS 通訊規格書
 
 ## 0. 版本管理
-|版本 | 更新| 編制者 |
-|:------|:------|:------|
-| v1.0.0　新建| 2025-10-27 |Athena |
+|版本 |內容| 修訂日期 |編制者 |
+|:------|:------|:------|:-----|
+| v1.0.1 |取消設定工作模式API| 2025-12-08 |Athena |
+| v1.0.0 |新建| 2025-10-27 |Athena |
 
 
 ## 1. 總覽
@@ -58,8 +59,7 @@ https://[PTS系統IP]:[端口]/api/
 |:------|:------|:------|:-----|
 | 1| 新增派遣任務 | postNewTask | POST |
 | 2| 取消派遣任務 | postCancelTask | POST |
-| 3| 設定工作模式 | postWorkMode | POST |
-| 4| 取得搬運車狀態 |getVehicleStatus | GET |
+| 3| 取得搬運車狀態 |getVehicleStatus | GET |
 
  
 ### 2.1 新增派遣任務
@@ -204,99 +204,18 @@ sequenceDiagram
 <br>
 
 
-### 2.3 設定工作模式
-
-有兩種模式須設定：<br> 
-(1)下班模式  <br>
-PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電計畫。  <br>
-(2)加班模式 <br>
-PTS收到來自於WMS 的指令通知為加班模式，且4台AMR 電量均非低電量情況下，允許4台車子同時工作，將會把在充電站的車子，狀態調整為待命中，並在原地等待派遣任務。<br>若收到加班模式的指令但有車子是低電量的情況下，會拒絕進入加班模式。<br>
-加班模式進行中，若此時有一台車處於低電量狀態，加班模式會強制變回一般工作模式，並且把低電量的車子派回去充電。加班模式完成後或者強制切回正常模式後，WMS仍須把指令通知為下班模式，才會啟動輪流充電計畫。<br>
-
-
-
-**2.3.1 API 端點：**  
-```
-postWorkMode.php?mode=1
-
-```
-
-**2.3.2 請求參數：**
-```json
-{
-    "mode":"1",
-}
-```
-
-<br>
-
-- **工作模式定義：**
-  - mode= 0（一般工作模式）
-  - mode= 1（下班模式）
-  - mode= 2（加班模式）
-    
-<br>
-
-回應欄位定義 : 
-<br>
-- ret 正常 = true
-- ret 異常 = false
-- message = 異常訊息
-
-```json
-{
-  "ret": "true",
-  "message":"0"
-}
-```
-
-<br>
-    
-```json
-{
-  "ret": "false",
-  "message":"-1"
-}
-```
-<br>
-
-- **message 設定工作模式異常訊息定義：**
-  - Error=  0（接受切換工作模式)
-  - Error= -1（有AMR低電量，拒絕進入加班模式)
-
-<br>
-<br>
-<br>
-
- 
-    
-
-**2.3.3 postWorkMode 時序圖：**
-
-```mermaid
-sequenceDiagram
-    participant WMS as WMS (倉儲管理系統)
-    participant PTS as PTS (派車系統)
-    
-        WMS->>PTS: postWorkMode
-        PTS-->>WMS: Response 
-
-```
-<br>
-
-
-### 2.4 取得搬運車狀態
+### 2.3 取得搬運車狀態
 
 要派遣任務時，須確認AMR1、AMR2、AMR3 是否分別在待命區，且確認AMR狀態為待命中方可派遣任務。<br> 在充電站的AMR 狀態顯示為充電中，無法接受派遣任務。
 如有正常進入加班模式，搬運車的狀態將會顯示待命中，充電站位會顯示為待命區，在原地等待命令派遣。
 
-**2.4.1 API 端點：**  
+**2.3.1 API 端點：**  
 ```
  getVehicleStatus.php?Vehicle=1
 
 ```
 
-**2.4.2 請求參數：**
+**2.3.2 請求參數：**
 ```json
 {
     "Vehicle":"1",
@@ -348,7 +267,7 @@ sequenceDiagram
 <br>
 <br>
 
-**2.4.3 getVehicleStatus 時序圖：**
+**2.3.3 getVehicleStatus 時序圖：**
 
 ```mermaid
 sequenceDiagram
@@ -451,43 +370,7 @@ note over PTS,WMS: AMR1 任務號碼1，無法取消任務
 ```
 
 
-### 3.4 切換工作模式
-
-(1)下班模式  <br>
-PTS收到來自於WMS 的指令通知為下班模式，AMR將啟動輪流充電計畫。  <br>
-(2)加班模式 <br>
-PTS收到來自於WMS 的指令通知為加班模式，且4台AMR 電量均非低電量情況下，允許4台車子同時工作，將會把在充電站的車子，狀態調整為待命中，並在原地等待派遣任務。<br>若收到加班模式的指令但有車子是低電量的情況下，會拒絕進入加班模式。<br>
-加班模式進行中，若此時有一台車處於低電量狀態，加班模式會強制變回一般工作模式，並且把低電量的車子派回去充電。加班模式完成後或者強制切回正常模式後，WMS仍須把指令通知為下班模式，才會啟動輪流充電計畫。<br>
-
-
-<br>
-
-```mermaid
-sequenceDiagram
-    participant WMS
-    participant PTS
-    participant AMR待命中
-
-    
-
-note over PTS,WMS: AMR1-3　待命中, 進入下班模式
-
-     WMS->>PTS:getVehicleStatus (Vehicle:0)
-     PTS-->>WMS : Response :  Data[...Status= 2.....]
-
-     WMS->>PTS: postWorkMode (mode:1)
-     PTS-->>WMS : ret:true <br> message: 0
-
-
-note over PTS,WMS:  AMR1-3　待命中, 進入加班模式
-　　　WMS->>PTS:getVehicleStatus (Vehicle:0)
-     PTS-->>WMS : Response :  Data[ Vehicle=1 , Status= 4 , Errror : -1 ...]
-
-     WMS->>PTS: postWorkMode (mode:2)
-     PTS-->>WMS : ret: false <br> message: -1
-```
-
-### 3.5 充電
+### 3.4 充電
 
 當搬運車電量低於30％時，搬運車會去充電，此時搬運車無法接收任務。
 
