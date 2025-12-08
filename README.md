@@ -3,7 +3,7 @@
 ## 0. 版本管理
 |版本 |內容| 修訂日期 |編制者 |
 |:------|:------|:------|:-----|
-| v1.0.1 |取消設定工作模式API| 2025-12-08 |Athena |
+| v1.0.1 |取消設定工作模式API、修正錯誤文字| 2025-12-08 |Athena |
 | v1.0.0 |新建| 2025-10-27 |Athena |
 
 
@@ -70,7 +70,7 @@ WMS 要新增任務時，由此API 處理，依據任務需求的站點數量填
 
 **2.1.1 API 端點：**
 ```
-postNewTask.php?translation=1&Stations[]=1001&tations[]=1005
+postNewTask.php?Translation=1&Stations[]=1001&Stations[]=1005
                &Stations[]=1007&Stations[]=1001&Vehicle=1
 ```
 <br>
@@ -143,14 +143,14 @@ sequenceDiagram
 
 **2.2.1 API 端點：**  
 ```
-postCancelTask.php?translation=1
+postCancelTask.php?Translation=1
 
 ```
 
 **2.2.2 請求參數：**
 ```json
 {
-  "translation":"1(任務流水號)"
+  "Translation":"1(任務流水號)"
 }
 ```
 
